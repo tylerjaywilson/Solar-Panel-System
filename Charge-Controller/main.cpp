@@ -45,7 +45,7 @@ int main (int argc, char* argv[])
 	//	PARODD - Odd parity (else even)
 	struct termios options;
 	tcgetattr(uart0_filestream, &options);
-	options.c_cflag = B9600 | CS8 | CLOCAL | CREAD;		//<Set baud rate
+	options.c_cflag = B9600 | CS8 | CLOCAL | CREAD;		//<Set baud rate 9600 default
 	options.c_iflag = IGNPAR;
 	options.c_oflag = 0;
 	options.c_lflag = 0;
