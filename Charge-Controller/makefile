@@ -2,7 +2,7 @@
 all: main
 
 main: main.o 
-	g++ main.cpp -o chargecontrollercomm
+	g++ main.cpp commsend.cpp commreceive.cpp -o solarPanel
 
 clean:
-	rm *o chargecontrollercomm
+	rm *o solarPanel
