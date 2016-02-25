@@ -4,34 +4,34 @@
 class CommSend{
 
   //Inquiry parameters
-  char i_deviceProtocolID;
-  char i_deviceSerialNum;
-  char i_CPUFirmware;
-  char i_deviceRatedInfo;
-  char i_deviceGeneralStatusInfo;
-  char i_defaultSettingInfo;
-  char i_deviceWarningStatus;
-  char i_batteryEqualizer;
+  uint8_t i_deviceProtocolID;
+  uint8_t i_deviceSerialNum;
+  uint8_t i_CPUFirmware;
+  uint8_t i_deviceRatedInfo;
+  uint8_t i_deviceGeneralStatusInfo;
+  uint8_t i_defaultSettingInfo;
+  uint8_t i_deviceWarningStatus;
+  uint8_t i_batteryEqualizer;
 
   //Setting parameters
-  char s_deviceSerialNum;
-  char s_batteryType;
-  char s_batteryAbsorptionChargeVoltage;
-  char s_batteryFloatingChargeVoltage;
-  char s_ratingBatteryVoltage;
-  char s_maxChargeCurrent;
-  char s_BTSTempCompRatio;
-  char s_remoteBatteryVoltageDetect;
-  char s_batteryLowWarningVoltage;
-  char s_batteryLowShutdownDetect;
-  char s_batteryEqualization;
-  char s_batteryEqualizedTime;
-  char s_periodBatteryEqualization;
-  char s_maxCurrentBatteryEqualization;
-  char s_batteryEqualizedVoltage;
-  char s_batteryCVChargeTime;
-  char s_timeBatteryEqualizedTimeout;
-  char s_controlParameter;
+  uint8_t s_deviceSerialNum;
+  uint8_t s_batteryType;
+  uint8_t s_batteryAbsorptionChargeVoltage;
+  uint8_t s_batteryFloatingChargeVoltage;
+  uint8_t s_ratingBatteryVoltage;
+  uint8_t s_maxChargeCurrent;
+  uint8_t s_BTSTempCompRatio;
+  uint8_t s_remoteBatteryVoltageDetect;
+  uint8_t s_batteryLowWarningVoltage;
+  uint8_t s_batteryLowShutdownDetect;
+  uint8_t s_batteryEqualization;
+  uint8_t s_batteryEqualizedTime;
+  uint8_t s_periodBatteryEqualization;
+  uint8_t s_maxCurrentBatteryEqualization;
+  uint8_t s_batteryEqualizedVoltage;
+  uint8_t s_batteryCVChargeTime;
+  uint8_t s_timeBatteryEqualizedTimeout;
+  uint8_t s_controlParameter;
 
 public:
   CommSend();   //Default constructor
