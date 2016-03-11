@@ -2,7 +2,7 @@
 * Authors: Tyler Wilson
 * Date: 02/24/2016
 * Notes: This class handles the transmission commands to the MPPT-3000 RS232 Charge Controller
-* 
+* The necessary commands are hard-coded to allow for easy requesting of specific charge controller information
 */
 #include <stdint.h>
 #include "commsend.hpp"
@@ -10,9 +10,6 @@
 //Default Constructor
 CommSend::CommSend()
 {
-	num_bytes = -1;
-	tx_buffer[0] = -1;
-	
 	//Inquiry parameters
 	s_deviceSerialNum[0] = 'Q';
 	s_deviceSerialNum[1] = 'I';

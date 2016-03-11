@@ -3,9 +3,6 @@
 
 class CommReceive{
 
-  /* UART Input/Receive Buffer */
-  unsigned char rx_buffer[256];   
-
   /* QID - Device serial number */
   std::string serialNum;
 
@@ -63,10 +60,113 @@ class CommReceive{
 
 
 public:
+  /* UART Input/Receive Buffer */
+  unsigned char rx_buffer[256];   
+
   CommReceive();   //Default constructor
+  void parseQID(char rx_buffer_t[256]);
+  void parseQPIRI(char rx_buffer_t[256]);
+  void parseQPIGS(char rx_buffer_t[256]);
+  void parseQPIWS(char rx_buffer_t[256]);
+  void parseQBEQI(char rx_buffer_t[256]);
 
   //Get functions
   std::string getSerialNum();
+  std::string getmaxOutputPower();
+  std::string getnominalBattVoltage();
+  std::string getnominalChargingCurrent();
+  std::string getabsorptionVoltage();
+  std::string getfloatVoltage();
+  std::string getbattType();
+  std::string getremoteBattVoltageDetect();
+  std::string getbattTempCompensation();
+  std::string getremoteTempDetect();
+  std::string getbattRatedVoltageSet();
+  std::string getbattInSerial();
+  std::string getbattLowWarningVoltage();
+  std::string getbattLowShutdownDetect();
+
+  std::string getpvInputVoltage();
+  std::string getbattVoltage();
+  std::string getchargingCurrent();
+  std::string getchargingCurrent1();
+  std::string getchargingCurrent2();
+  std::string getchargingPower();
+  std::string getunitTemp();
+  std::string getremoteBattVoltage();
+  std::string getremoteBattTemp();
+  std::string getstatus();
+
+  std::string getoverChargeCurrent();
+  std::string getoverTemp();
+  std::string getbattVoltageUnder();
+  std::string getbattVoltageHigh();
+  std::string getpvHighLoss();
+  std::string getbattTempLow();
+  std::string getbattTempHigh();
+  std::string getpvLowLoss();
+  std::string getpvHighDerating();
+  std::string gettempHighDerating();
+  std::string getbattTempLowAlarm();
+  std::string getbattLowWarning();
+
+  std::string getbattEqualizedEn();
+  std::string getbattEqualizedTime();
+  std::string getintervalTime();
+  std::string getmaxCurrent();
+  std::string getremainingTime();
+  std::string getbattEqualizeddVoltage();
+  std::string getbattCVChargeTime();
+  std::string getbattEqualizedTimeout();
+
+  /* Set functions */
+  void setSerialNum();
+  void setmaxOutputPower();
+  void setnominalBattVoltage();
+  void setnominalChargingCurrent();
+  void setabsorptionVoltage();
+  void setfloatVoltage();
+  void setbattType();
+  void setremoteBattVoltageDetect();
+  void setbattTempCompensation();
+  void setremoteTempDetect();
+  void setbattRatedVoltageSet();
+  void setbattInSerial();
+  void setbattLowWarningVoltage();
+  void setbattLowShutdownDetect();
+
+  void setpvInputVoltage();
+  void setbattVoltage();
+  void setchargingCurrent();
+  void setchargingCurrent1();
+  void setchargingCurrent2();
+  void setchargingPower();
+  void setunitTemp();
+  void setremoteBattVoltage();
+  void setremoteBattTemp();
+  void setstatus();
+
+  void setoverChargeCurrent();
+  void setoverTemp();
+  void setbattVoltageUnder();
+  void setbattVoltageHigh();
+  void setpvHighLoss();
+  void setbattTempLow();
+  void setbattTempHigh();
+  void setpvLowLoss();
+  void setpvHighDerating();
+  void settempHighDerating();
+  void setbattTempLowAlarm();
+  void setbattLowWarning();
+
+  void setbattEqualizedEn();
+  void setbattEqualizedTime();
+  void setintervalTime();
+  void setmaxCurrent();
+  void setremainingTime();
+  void setbattEqualizeddVoltage();
+  void setbattCVChargeTime();
+  void setbattEqualizedTimeout();
 };
 
 #endif

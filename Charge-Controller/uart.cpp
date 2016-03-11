@@ -1,3 +1,9 @@
+/* Author: Tyler Wilson
+* Date: 02/24/2016
+* Notes: This class handles the uart initialization for the raspberry pi 2
+*
+*/
+
 #include <unistd.h>			//Used for UART
 #include <fcntl.h>			//Used for UART
 #include <termios.h>		//Used for UART
@@ -36,7 +42,7 @@ int UART::init(int uart_filestream_t, int baud_t)
 	if (uart_filestream == -1)
 	{
 		//ERROR - CAN'T OPEN SERIAL PORT
-		printf("Error - Unable to open UART.  Ensure it is not in use by another application\n");
+		printf("Error - Unable to open UART.  Ensure it is not in use by another application!\n");
 	}
 	
 	//CONFIGURE THE UART

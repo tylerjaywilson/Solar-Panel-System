@@ -2,6 +2,7 @@
 * Authors: Tyler Wilson
 * Date: 02/24/2016
 * Notes: This class handles the reception commands from the MPPT-3000 RS232 Charge Controller
+* All of the charge controller information can be accessed through the 'get' functions for each charge controller parameter
 * 
 */
 #include <string>
@@ -68,6 +69,32 @@ CommReceive::CommReceive()
 	battEqualizeddVoltage = "-1";
 	battCVChargeTime = "-1";
 	battEqualizedTimeout = "-1";
+}
+
+//Parse the Device serial number
+void CommReceive::parseQID(char rx_buffer_t[256])
+{
+
+}
+//Parse the device rating information
+void CommReceive::parseQPIRI(char rx_buffer_t[256])
+{
+
+}
+//Parse the device general status information
+void CommReceive::parseQPIGS(char rx_buffer_t[256])
+{
+
+}
+//Parse the device warning status information
+void CommReceive::parseQPIWS(char rx_buffer_t[256])
+{
+
+}
+//Parse the battery equalized information
+void CommReceive::parseQBEQI(char rx_buffer_t[256])
+{
+
 }
 
 //Return the serial number
