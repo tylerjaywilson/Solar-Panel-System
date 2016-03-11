@@ -1,25 +1,24 @@
+#include <unistd.h>			//Used for UART
+#include <fcntl.h>			//Used for UART
+#include <termios.h>		//Used for UART
+#include <stdio.h>
 #include "uart.hpp"
 
 //Default Constructor
 UART::UART()
 {
 	uart_filestream = -1;
-	baud = 2400;		//For the MPPT-3000 Charge controller protocol
-	p_tx_buffer = &tx_buffer[0];
-	*p_tx_buffer++ = 'D';
-	*p_tx_buffer++ = 'e';
-	*p_tx_buffer++ = 'f';
-	*p_tx_buffer++ = 'a';
-	*p_tx_buffer++ = 'u';
-	*p_tx_buffer++ = 'l';
-	*p_tx_buffer++ = 't';
+	baud = 2400;		//For the MPPT-3000 Charge controller protocol	
 }
 
+/* Initialize the UART depending on the baud rate */
+int UART::init(int uart_filestream_t, int baud_t)
+{
 	//-------------------------
 	//----- SETUP USART 0 -----
 	//-------------------------
 	//At bootup, pins 8 and 10 are already set to UART0_TXD, UART0_RXD (ie the alt0 function) respectively
-	int uart0_filestream = -1;
+	int uart_filestream = -1;
 	
 	//OPEN THE UART
 	//The flags (defined in fcntl.h):
@@ -33,8 +32,8 @@ UART::UART()
 	//											immediately with a failure status if the output can't be written immediately.
 	//
 	//	O_NOCTTY - When set and path identifies a terminal device, open() shall not cause the terminal device to become the controlling terminal for the process.
-	uart0_filestream = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY);		//Open in non blocking read/write mode
-	if (uart0_filestream == -1)
+	uart_filestream = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY);		//Open in non blocking read/write mode
+	if (uart_filestream == -1)
 	{
 		//ERROR - CAN'T OPEN SERIAL PORT
 		printf("Error - Unable to open UART.  Ensure it is not in use by another application\n");
@@ -51,55 +50,42 @@ UART::UART()
 	//	PARENB - Parity enable
 	//	PARODD - Odd parity (else even)
 	struct termios options;
-	tcgetattr(uart0_filestream, &options);
-	options.c_cflag = B9600 | CS8 | CLOCAL | CREAD;		//<Set baud rate 9600 default
+	tcgetattr(uart_filestream, &options);
+
+	if (baud_t == 2400)
+		options.c_cflag = B2400 | CS8 | CLOCAL | CREAD;		//<Set baud rate 2400
+	else
+		printf("Error - Unable to handle this baud rate currently - Add this option to the code\n");
+
 	options.c_iflag = IGNPAR;
 	options.c_oflag = 0;
 	options.c_lflag = 0;
-	tcflush(uart0_filestream, TCIFLUSH);
-	tcsetattr(uart0_filestream, TCSANOW, &options);
+	tcflush(uart_filestream, TCIFLUSH);
+	tcsetattr(uart_filestream, TCSANOW, &options);
 
-		//----- TX BYTES -----
-	uint8_t tx_buffer[20];
-	uint8_t *p_tx_buffer;
-	
-	p_tx_buffer = &tx_buffer[0];
-	*p_tx_buffer++ = 'H';
-	*p_tx_buffer++ = 'e';
-	*p_tx_buffer++ = 'l';
-	*p_tx_buffer++ = 'l';
-	*p_tx_buffer++ = 'o';
-	
-	if (uart0_filestream != -1)
-	{
-		int count = write(uart0_filestream, &tx_buffer[0], (p_tx_buffer - &tx_buffer[0]));		//Filestream, bytes to write, number of bytes to write
-		if (count < 0)
-		{
-			printf("UART TX error\n");
-		}
-	}
+	return uart_filestream;
+}
 
-		//----- CHECK FOR ANY RX BYTES -----
-	if (uart0_filestream != -1)
-	{
-		// Read up to 255 characters from the port if they are there
-		uint8_t rx_buffer[256];
-		int rx_length = read(uart0_filestream, (void*)rx_buffer, 255);		//Filestream, buffer to store in, number of bytes to read (max)
-		if (rx_length < 0)
-		{
-			//An error occured (will occur if there are no bytes)
-		}
-		else if (rx_length == 0)
-		{
-			//No data waiting
-		}
-		else
-		{
-			//Bytes received
-			rx_buffer[rx_length] = '\0';
-			printf("%i bytes read : %s\n", rx_length, rx_buffer);
-		}
-	}
+/* Close the current UART filestream */
+void UART::uart_close(int uart_filestream_t)
+{
+	close(uart_filestream_t);
+}
 
-		//----- CLOSE THE UART -----
-	close(uart0_filestream);
+/* Get and set functions for the baud rate and uart_filestream */
+void UART::setBaud(int baud_t)
+{
+	baud = baud_t;
+}
+int UART::getBaud()
+{
+	return baud;
+}
+void UART::setFilestream(int filestream)
+{
+	uart_filestream = filestream;
+}
+int UART::getFilestream()
+{
+	return uart_filestream;
+}

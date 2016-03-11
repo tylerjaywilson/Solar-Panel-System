@@ -4,39 +4,74 @@
 * Notes: This class handles the reception commands from the MPPT-3000 RS232 Charge Controller
 * 
 */
-#include <stdint.h>
+#include <string>
 #include "commreceive.hpp"
+
 
 //Default Constructor
 CommReceive::CommReceive()
 {
-	//Inquiry parameters
-	i_deviceProtocolID = 1;
-	i_deviceSerialNum = 1;
-	i_CPUFirmware = 1;
-	i_deviceRatedInfo = 1;
-	i_deviceGeneralStatusInfo = 1;
-	i_defaultSettingInfo = 1;
-	i_deviceWarningStatus = 1;
-	i_batteryEqualizer = 1;
 
-	//Setting parameters
-	r_deviceSerialNum = 1;
-	r_batteryType = 1;
-	r_batteryFloatingChargeVoltage = 1;
-	r_batteryAbsorptionChargeVoltage = 1;
-	r_ratingBatteryVoltage = 1;
-	r_maxChargeCurrent = 1;
-	r_BTSTempCompRatio = 1;
-	r_remoteBatteryVoltageDetect = 1;
-	r_batteryLowWarningVoltage = 1;
-	r_batteryLowShutdownDetect = 1;
-	r_batteryEqualization = 1;
-	r_batteryEqualizedTime = 1;
-	r_periodBatteryEqualization = 1;
-	r_maxCurrentBatteryEqualization = 1;
-	r_batteryEqualizedVoltage = 1;
-	r_batteryCVChargeTime = 1;
-	r_timeBatteryEqualizedTimeout = 1;
-	r_controlParameter = 1;
+	rx_buffer[0] = {0};
+	
+	/* Serial number */
+	serialNum = "-1";
+
+  	/* QPIRI - Device rated information paramters */
+	maxOutputPower = "-1";
+	nominalBattVoltage = "-1";
+	nominalChargingCurrent = "-1";
+	absorptionVoltage = "-1";
+	floatVoltage = "-1";
+	battType = "-1";
+	remoteBattVoltageDetect = "-1";
+	battTempCompensation = "-1";
+	remoteTempDetect = "-1";
+	battRatedVoltageSet = "-1";
+	battInSerial = "-1";
+	battLowWarningVoltage = "-1";
+	battLowShutdownDetect = "-1";
+
+	/* QPIGS - Device general status parameters */
+	pvInputVoltage = "-1";
+	battVoltage = "-1";
+	chargingCurrent = "-1";
+	chargingCurrent1 = "-1";
+	chargingCurrent2 = "-1";
+	chargingPower = "-1";
+	unitTemp = "-1";
+	remoteBattVoltage = "-1";
+	remoteBattTemp = "-1";
+	//reserved = "-1";
+	status = "-1";
+
+	/* QPIWS - Device warning status paramters */
+	overChargeCurrent = "-1";
+	overTemp = "-1";
+	battVoltageUnder = "-1";
+	battVoltageHigh = "-1";
+	pvHighLoss = "-1";
+	battTempLow = "-1";
+	battTempHigh = "-1";
+	pvLowLoss = "-1";
+	pvHighDerating = "-1";
+	tempHighDerating = "-1";
+	battTempLowAlarm = "-1";
+	battLowWarning = "-1";
+
+	/* QBEQI - Battery equalized information */
+	battEqualizedEn = "-1";
+	battEqualizedTime = "-1";
+	intervalTime = "-1";
+	maxCurrent = "-1";
+	remainingTime = "-1";
+	battEqualizeddVoltage = "-1";
+	battCVChargeTime = "-1";
+	battEqualizedTimeout = "-1";
+}
+
+//Return the serial number
+std::string CommReceive::getSerialNum()
+{
+	return serialNum;
 }

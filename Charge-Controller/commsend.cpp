@@ -10,42 +10,51 @@
 //Default Constructor
 CommSend::CommSend()
 {
+	num_bytes = -1;
+	tx_buffer[0] = -1;
+	
 	//Inquiry parameters
-	i_deviceProtocolID = 1;
-	i_deviceSerialNum = 1;
-	i_CPUFirmware = 1;
-	i_deviceRatedInfo = 1;
-	i_deviceGeneralStatusInfo = 1;
-	i_defaultSettingInfo = 1;
-	i_deviceWarningStatus = 1;
-	i_batteryEqualizer = 1;
+	s_deviceSerialNum[0] = 'Q';
+	s_deviceSerialNum[1] = 'I';
+	s_deviceSerialNum[2] = 'D';
+	s_deviceSerialNum[3] = 0xD6;
+	s_deviceSerialNum[4] = 0xEA;
+	s_deviceSerialNum[5] = 0xD;
 
-	//Setting parameters
-	s_deviceSerialNum = 1;
-	s_batteryType = 1;
-	s_batteryAbsorptionChargeVoltage = 1;
-	s_batteryFloatingChargeVoltage = 1;
-	s_ratingBatteryVoltage = 1;
-	s_maxChargeCurrent = 1;
-	s_BTSTempCompRatio = 1;
-	s_remoteBatteryVoltageDetect = 1;
-	s_batteryLowWarningVoltage = 1;
-	s_batteryLowShutdownDetect = 1;
-	s_batteryEqualization = 1;
-	s_batteryEqualizedTime = 1;
-	s_periodBatteryEqualization = 1;
-	s_maxCurrentBatteryEqualization = 1;
-	s_batteryEqualizedVoltage = 1;
-	s_batteryCVChargeTime = 1;
-	s_timeBatteryEqualizedTimeout = 1;
-	s_controlParameter = 1;
+	s_deviceRatedInfo[0] = 'Q';
+	s_deviceRatedInfo[1] = 'P';
+	s_deviceRatedInfo[2] = 'I';
+	s_deviceRatedInfo[3] = 'R';
+	s_deviceRatedInfo[4] = 'I';
+	s_deviceRatedInfo[5] = 0xF8;
+	s_deviceRatedInfo[6] = 0x54;
+	s_deviceRatedInfo[7] = 0xD;
+
+	s_deviceGeneralStatusInfo[0] = 'Q';
+	s_deviceGeneralStatusInfo[1] = 'P';
+	s_deviceGeneralStatusInfo[2] = 'I';
+	s_deviceGeneralStatusInfo[3] = 'G';
+	s_deviceGeneralStatusInfo[4] = 'S';
+	s_deviceGeneralStatusInfo[5] = 0xB7;
+	s_deviceGeneralStatusInfo[6] = 0xA9;
+	s_deviceGeneralStatusInfo[7] = 0xD;
+
+	s_deviceWarningStatus[0] = 'Q';
+	s_deviceWarningStatus[1] = 'P';
+	s_deviceWarningStatus[2] = 'I';
+	s_deviceWarningStatus[3] = 'W';
+	s_deviceWarningStatus[4] = 'S';
+	s_deviceWarningStatus[5] = 0xB4;
+	s_deviceWarningStatus[6] = 0xDA;
+	s_deviceWarningStatus[7] = 0xD;
+
+
+	s_batteryEqualizedInfo[0] = 'Q';
+	s_batteryEqualizedInfo[1] = 'B';
+	s_batteryEqualizedInfo[2] = 'E';
+	s_batteryEqualizedInfo[3] = 'Q';
+	s_batteryEqualizedInfo[4] = 'I';
+	s_batteryEqualizedInfo[5] = 0x2E;
+	s_batteryEqualizedInfo[6] = 0xA9;
+	s_batteryEqualizedInfo[7] = 0xD;	
 }
-
-//Constructor
-/*CommSend::CommSend(int curr_time_t, int task_id_t, int preempted_task_t, int deadline_missed_task_t)
-{
-  	curr_time = curr_time_t;
-	task_id = task_id_t;
-	preempted_task = preempted_task_t;
-	deadline_missed_task = deadline_missed_task_t;
-}*/ 

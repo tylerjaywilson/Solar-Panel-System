@@ -1,16 +1,20 @@
 #ifndef _UART_HPP
 #define _UART_HPP
 
-class UART{
+class UART
+{
 
   int uart_filestream;
   int baud;
-  uint8_t tx_buffer[20];
-  uint8_t *p_tx_buffer;
 
 public:
-  UART();   //Default constructor
-  
+  UART();   				//Default constructor
+  int init(int, int); 	//Initialize uart for communication
+  void uart_close(int);		//Close the uart communication
+  void setFilestream(int);
+  int getFilestream(void);
+  void setBaud(int);
+  int getBaud(void);
 };
 
 #endif

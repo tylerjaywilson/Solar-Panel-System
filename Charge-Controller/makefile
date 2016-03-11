@@ -2,7 +2,7 @@
 all: main
 
 main: main.o 
-	g++ -std=c++11 main.cpp commsend.cpp commreceive.cpp uart.cpp -o solarPanel
-
+	g++ -std=c++11 main.cpp commreceive.cpp commsend.cpp uart.cpp -o solarPanel
+	
 clean:
 	rm *o solarPanel
