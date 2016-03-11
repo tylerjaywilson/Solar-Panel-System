@@ -71,34 +71,213 @@ CommReceive::CommReceive()
 	battEqualizedTimeout = "-1";
 }
 
-//Parse the Device serial number
-void CommReceive::parseQID(char rx_buffer_t[256])
-{
-
-}
-//Parse the device rating information
-void CommReceive::parseQPIRI(char rx_buffer_t[256])
-{
-
-}
-//Parse the device general status information
-void CommReceive::parseQPIGS(char rx_buffer_t[256])
-{
-
-}
-//Parse the device warning status information
-void CommReceive::parseQPIWS(char rx_buffer_t[256])
-{
-
-}
-//Parse the battery equalized information
-void CommReceive::parseQBEQI(char rx_buffer_t[256])
-{
-
-}
-
 //Return the serial number
 std::string CommReceive::getSerialNum()
 {
 	return serialNum;
+}
+std::string CommReceive::getmaxOutputPower()
+{
+	return maxOutputPower;
+}
+std::string CommReceive::getnominalBattVoltage()
+{
+	return nominalBattVoltage;
+}
+std::string CommReceive::getnominalChargingCurrent()
+{
+	return nominalChargingCurrent;
+}
+std::string CommReceive::getabsorptionVoltage()
+{
+	return absorptionVoltage;
+}
+std::string CommReceive::getfloatVoltage()
+{
+	return floatVoltage;
+}
+std::string CommReceive::getbattType()
+{
+	return battType;
+}
+std::string CommReceive::getremoteBattVoltageDetect()
+{
+	return remoteBattVoltageDetect;
+}
+std::string CommReceive::getbattTempCompensation()
+{
+	return battTempCompensation;
+}
+std::string CommReceive::getremoteTempDetect()
+{
+	return remoteTempDetect;
+}
+std::string CommReceive::getbattRatedVoltageSet()
+{
+	return battRatedVoltageSet;
+}
+std::string CommReceive::getbattInSerial()
+{
+	return battInSerial;
+}
+std::string CommReceive::getbattLowWarningVoltage()
+{
+	return battLowWarningVoltage;
+}
+std::string CommReceive::getbattLowShutdownDetect()
+{
+	return battLowShutdownDetect;
+}
+std::string CommReceive::getpvInputVoltage()
+{
+	return pvInputVoltage;
+}
+std::string CommReceive::getbattVoltage()
+{
+	return battVoltage;
+}
+std::string CommReceive::getchargingCurrent()
+{
+	return chargingCurrent;
+}
+std::string CommReceive::getchargingCurrent1()
+{
+	return chargingCurrent1;
+}
+std::string CommReceive::getchargingCurrent2()
+{
+	return chargingCurrent2;
+}
+std::string CommReceive::getchargingPower()
+{
+	return chargingPower;
+}
+std::string CommReceive::getunitTemp()
+{
+	return unitTemp;
+}
+std::string CommReceive::getremoteBattVoltage()
+{
+	return remoteBattVoltage;
+}
+std::string CommReceive::getremoteBattTemp()
+{
+	return remoteBattTemp;
+}
+std::string CommReceive::getstatus()
+{
+	return status;
+}
+std::string CommReceive::getoverChargeCurrent()
+{
+	return overChargeCurrent;
+}
+std::string CommReceive::getoverTemp()
+{
+	return overTemp;
+}
+std::string CommReceive::getbattVoltageUnder()
+{
+	return battVoltageUnder;
+}
+std::string CommReceive::getbattVoltageHigh()
+{
+	return battVoltageHigh;
+}
+std::string CommReceive::getpvHighLoss()
+{
+	return pvHighLoss;
+}
+std::string CommReceive::getbattTempLow()
+{
+	return battTempLow;
+}
+std::string CommReceive::getbattTempHigh()
+{
+	return battTempHigh;
+}
+std::string CommReceive::getpvLowLoss()
+{
+	return pvLowLoss;
+}
+std::string CommReceive::getpvHighDerating()
+{
+	return pvHighDerating;
+}
+std::string CommReceive::gettempHighDerating()
+{
+	return tempHighDerating;
+}
+std::string CommReceive::getbattTempLowAlarm()
+{
+	return battTempLowAlarm;
+}
+std::string CommReceive::getbattLowWarning()
+{
+	return battLowWarning;
+}
+std::string CommReceive::getbattEqualizedEn()
+{
+	return battEqualizedEn;
+}
+std::string CommReceive::getbattEqualizedTime()
+{
+	return battEqualizedTime;
+}
+std::string CommReceive::getintervalTime()
+{
+	return intervalTime;
+}
+std::string CommReceive::getmaxCurrent()
+{
+	return maxCurrent;
+}
+std::string CommReceive::getremainingTime()
+{
+	return remainingTime;
+}
+std::string CommReceive::getbattEqualizeddVoltage()
+{
+	return battEqualizeddVoltage;
+}
+std::string CommReceive::getbattCVChargeTime()
+{
+	return battCVChargeTime;
+}
+std::string CommReceive::getbattEqualizedTimeout()
+{
+	return battEqualizedTimeout;
+}
+
+//Parse the Device serial number
+void CommReceive::parseQID(unsigned char rx_buffer_t[256])
+{
+	char serialnumber[14];
+	
+	for (int i=0; i<14; i++)
+	{
+		serialnumber[i] = rx_buffer_t[i+1];
+	}
+	std::string snum(serialnumber, 14);
+	serialNum = snum; //Set the new serial number.
+}
+//Parse the device rating information
+void CommReceive::parseQPIRI(unsigned char rx_buffer_t[256])
+{
+
+}
+//Parse the device general status information
+void CommReceive::parseQPIGS(unsigned char rx_buffer_t[256])
+{
+
+}
+//Parse the device warning status information
+void CommReceive::parseQPIWS(unsigned char rx_buffer_t[256])
+{
+
+}
+//Parse the battery equalized information
+void CommReceive::parseQBEQI(unsigned char rx_buffer_t[256])
+{
+
 }

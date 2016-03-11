@@ -64,11 +64,11 @@ public:
   unsigned char rx_buffer[256];   
 
   CommReceive();   //Default constructor
-  void parseQID(char rx_buffer_t[256]);
-  void parseQPIRI(char rx_buffer_t[256]);
-  void parseQPIGS(char rx_buffer_t[256]);
-  void parseQPIWS(char rx_buffer_t[256]);
-  void parseQBEQI(char rx_buffer_t[256]);
+  void parseQID(unsigned char rx_buffer_t[256]);
+  void parseQPIRI(unsigned char rx_buffer_t[256]);
+  void parseQPIGS(unsigned char rx_buffer_t[256]);
+  void parseQPIWS(unsigned char rx_buffer_t[256]);
+  void parseQBEQI(unsigned char rx_buffer_t[256]);
 
   //Get functions
   std::string getSerialNum();
@@ -117,56 +117,7 @@ public:
   std::string getremainingTime();
   std::string getbattEqualizeddVoltage();
   std::string getbattCVChargeTime();
-  std::string getbattEqualizedTimeout();
-
-  /* Set functions */
-  void setSerialNum();
-  void setmaxOutputPower();
-  void setnominalBattVoltage();
-  void setnominalChargingCurrent();
-  void setabsorptionVoltage();
-  void setfloatVoltage();
-  void setbattType();
-  void setremoteBattVoltageDetect();
-  void setbattTempCompensation();
-  void setremoteTempDetect();
-  void setbattRatedVoltageSet();
-  void setbattInSerial();
-  void setbattLowWarningVoltage();
-  void setbattLowShutdownDetect();
-
-  void setpvInputVoltage();
-  void setbattVoltage();
-  void setchargingCurrent();
-  void setchargingCurrent1();
-  void setchargingCurrent2();
-  void setchargingPower();
-  void setunitTemp();
-  void setremoteBattVoltage();
-  void setremoteBattTemp();
-  void setstatus();
-
-  void setoverChargeCurrent();
-  void setoverTemp();
-  void setbattVoltageUnder();
-  void setbattVoltageHigh();
-  void setpvHighLoss();
-  void setbattTempLow();
-  void setbattTempHigh();
-  void setpvLowLoss();
-  void setpvHighDerating();
-  void settempHighDerating();
-  void setbattTempLowAlarm();
-  void setbattLowWarning();
-
-  void setbattEqualizedEn();
-  void setbattEqualizedTime();
-  void setintervalTime();
-  void setmaxCurrent();
-  void setremainingTime();
-  void setbattEqualizeddVoltage();
-  void setbattCVChargeTime();
-  void setbattEqualizedTimeout();
+  std::string getbattEqualizedTimeout();  
 };
 
 #endif

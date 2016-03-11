@@ -70,6 +70,7 @@ int main (int argc, char* argv[])
 					{
 						finished_reading = true;
 						//Parse the data
+						commreceive.parseQID(commreceive.rx_buffer);
 					}
 					break;
 				case '2':
@@ -78,6 +79,7 @@ int main (int argc, char* argv[])
 					{
 						finished_reading = true;
 						//Parse the data
+						commreceive.parseQPIRI(commreceive.rx_buffer);
 					}
 					break;
 				case '3':
@@ -86,6 +88,7 @@ int main (int argc, char* argv[])
 					{
 						finished_reading = true;
 						//Parse the data
+						commreceive.parseQPIGS(commreceive.rx_buffer);
 					}
 					break;
 				case '4':
@@ -94,6 +97,7 @@ int main (int argc, char* argv[])
 					{
 						finished_reading = true;
 						//Parse the data
+						commreceive.parseQPIWS(commreceive.rx_buffer);
 					}
 					break;
 				case '5':
@@ -102,6 +106,7 @@ int main (int argc, char* argv[])
 					{
 						finished_reading = true;
 						//Parse the data
+						commreceive.parseQBEQI(commreceive.rx_buffer);
 					}
 					break;
 				default:
