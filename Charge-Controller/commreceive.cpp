@@ -264,6 +264,77 @@ void CommReceive::parseQID(unsigned char rx_buffer_t[256])
 //Parse the device rating information
 void CommReceive::parseQPIRI(unsigned char rx_buffer_t[256])
 {
+	std::string data_i;
+	char one[1];
+	char two[2];
+	char three[3];
+	char four[4];
+	char five[5];
+
+	//Parse all the 1 character parameters
+	one[0] = rx_buffer_t[46];
+	battInSerial = data_i(one);
+	one[0] = rx_buffer_t[54];
+	battLowShutdownDetect = data_i(one);
+
+	//Parse all the 2 char parameters	
+	for(int i=0; i<2; i++)
+	{
+		two[i] = rx_buffer_t[i+7];
+	}
+	nominalBattVoltage = data_i(two,2);
+	for(int i=0; i<2; i++)
+	{
+		two[i] = rx_buffer_t[i+27];
+	}
+	battType = data_i(two,2);
+	for(int i=0; i<2; i++)
+	{
+		two[i] = rx_buffer_t[i+38];
+	}
+	remoteTempDetect = data_i(two,2);
+
+	//Parse all the 3 char parameters
+	//None to parse
+
+	//Parse all the 4 char parameters	
+	for(int i=0; i<4; i++)
+	{
+		four[i] = rx_buffer_t[i+1];
+	}
+	maxOutputPower = data_i(four,4);
+	for(int i=0; i<4; i++)
+	{
+		four[i] = rx_buffer_t[i+9];
+	}
+	nominalChargingCurrent = data_i(four,4);
+	for(int i=0; i<4; i++)
+	{
+		four[i] = rx_buffer_t[i+32];
+	}
+	battTempCompensation = data_i(four,4);
+
+	//Parse all the 5 char parameters	
+	for(int i=0; i<5; i++)
+	{
+		five[i] = rx_buffer_t[i+15];
+	}
+	absorptionVoltage = data_i(five,5);
+	for(int i=0; i<5; i++)
+	{
+		five[i] = rx_buffer_t[i+21];
+	}
+	floatVoltage = data_i(five,5);
+	for(int i=0; i<5; i++)
+	{
+		five[i] = rx_buffer_t[i+33];
+	}
+	battTempCompensation = data_i(five,5);
+	for(int i=0; i<5; i++)
+	{
+		five[i] = rx_buffer_t[i+48];
+	}
+	battLowWarningVoltage = data_i(five,5);
 
 }
 //Parse the device general status information
