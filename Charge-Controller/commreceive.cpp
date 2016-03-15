@@ -6,6 +6,7 @@
 * 
 */
 #include <string>
+#include <stdint.h>
 #include "commreceive.hpp"
 
 #define RX_LENGTH_MAX 256

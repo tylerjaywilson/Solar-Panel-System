@@ -24,41 +24,41 @@ class CommReceive{
   int battLowShutdownDetect;
 
   /* QPIGS - Device general status parameters */
-  std::string pvInputVoltage;
-  std::string battVoltage;
-  std::string chargingCurrent;
-  std::string chargingCurrent1;
-  std::string chargingCurrent2;
-  std::string chargingPower;
+  int pvInputVoltage;
+  int battVoltage;
+  int chargingCurrent;
+  int chargingCurrent1;
+  int chargingCurrent2;
+  int chargingPower;
   std::string unitTemp;
-  std::string remoteBattVoltage;
+  int remoteBattVoltage;
   std::string remoteBattTemp;
   //std::string reserved;
   std::string status;
 
   /* QPIWS - Device warning status paramters */
-  std::string overChargeCurrent;
-  std::string overTemp;
-  std::string battVoltageUnder;
-  std::string battVoltageHigh;
-  std::string pvHighLoss;
-  std::string battTempLow;
-  std::string battTempHigh;
-  std::string pvLowLoss;
-  std::string pvHighDerating;
-  std::string tempHighDerating;
-  std::string battTempLowAlarm;
-  std::string battLowWarning;
+  int overChargeCurrent;
+  int overTemp;
+  int battVoltageUnder;
+  int battVoltageHigh;
+  int pvHighLoss;
+  int battTempLow;
+  int battTempHigh;
+  int pvLowLoss;
+  int pvHighDerating;
+  int tempHighDerating;
+  int battTempLowAlarm;
+  int battLowWarning;
 
   /* QBEQI - Battery equalized information */
-  std::string battEqualizedEn;
-  std::string battEqualizedTime;
-  std::string intervalTime;
-  std::string maxCurrent;
-  std::string remainingTime;
-  std::string battEqualizeddVoltage;
-  std::string battCVChargeTime;
-  std::string battEqualizedTimeout;
+  int battEqualizedEn;
+  int battEqualizedTime;
+  int intervalTime;
+  int maxCurrent;
+  int remainingTime;
+  int battEqualizeddVoltage;
+  int battCVChargeTime;
+  int battEqualizedTimeout;
 
 
 public:
