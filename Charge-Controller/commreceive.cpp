@@ -8,30 +8,32 @@
 #include <string>
 #include "commreceive.hpp"
 
+#define RX_LENGTH_MAX 256
 
 //Default Constructor
 CommReceive::CommReceive()
 {
 
+	//Initialze buffer to zero
 	rx_buffer[0] = {0};
 	
 	/* Serial number */
 	serialNum = "-1";
 
   	/* QPIRI - Device rated information paramters */
-	maxOutputPower = "-1";
-	nominalBattVoltage = "-1";
-	nominalChargingCurrent = "-1";
-	absorptionVoltage = "-1";
-	floatVoltage = "-1";
-	battType = "-1";
-	remoteBattVoltageDetect = "-1";
+	maxOutputPower = -1;
+	nominalBattVoltage = -1;
+	nominalChargingCurrent = -1;
+	absorptionVoltage = -1;
+	floatVoltage = -1;
+	battType = -1;
+	remoteBattVoltageDetect = -1;
 	battTempCompensation = "-1";
-	remoteTempDetect = "-1";
-	battRatedVoltageSet = "-1";
-	battInSerial = "-1";
-	battLowWarningVoltage = "-1";
-	battLowShutdownDetect = "-1";
+	remoteTempDetect = -1;
+	battRatedVoltageSet = -1;
+	battInSerial = -1;
+	battLowWarningVoltage = -1;
+	battLowShutdownDetect = -1;
 
 	/* QPIGS - Device general status parameters */
 	pvInputVoltage = "-1";
@@ -76,31 +78,31 @@ std::string CommReceive::getSerialNum()
 {
 	return serialNum;
 }
-std::string CommReceive::getmaxOutputPower()
+int CommReceive::getmaxOutputPower()
 {
 	return maxOutputPower;
 }
-std::string CommReceive::getnominalBattVoltage()
+int CommReceive::getnominalBattVoltage()
 {
 	return nominalBattVoltage;
 }
-std::string CommReceive::getnominalChargingCurrent()
+int CommReceive::getnominalChargingCurrent()
 {
 	return nominalChargingCurrent;
 }
-std::string CommReceive::getabsorptionVoltage()
+int CommReceive::getabsorptionVoltage()
 {
 	return absorptionVoltage;
 }
-std::string CommReceive::getfloatVoltage()
+int CommReceive::getfloatVoltage()
 {
 	return floatVoltage;
 }
-std::string CommReceive::getbattType()
+int CommReceive::getbattType()
 {
 	return battType;
 }
-std::string CommReceive::getremoteBattVoltageDetect()
+int CommReceive::getremoteBattVoltageDetect()
 {
 	return remoteBattVoltageDetect;
 }
@@ -108,23 +110,23 @@ std::string CommReceive::getbattTempCompensation()
 {
 	return battTempCompensation;
 }
-std::string CommReceive::getremoteTempDetect()
+int CommReceive::getremoteTempDetect()
 {
 	return remoteTempDetect;
 }
-std::string CommReceive::getbattRatedVoltageSet()
+int CommReceive::getbattRatedVoltageSet()
 {
 	return battRatedVoltageSet;
 }
-std::string CommReceive::getbattInSerial()
+int CommReceive::getbattInSerial()
 {
 	return battInSerial;
 }
-std::string CommReceive::getbattLowWarningVoltage()
+int CommReceive::getbattLowWarningVoltage()
 {
 	return battLowWarningVoltage;
 }
-std::string CommReceive::getbattLowShutdownDetect()
+int CommReceive::getbattLowShutdownDetect()
 {
 	return battLowShutdownDetect;
 }
@@ -250,7 +252,7 @@ std::string CommReceive::getbattEqualizedTimeout()
 }
 
 //Parse the Device serial number
-void CommReceive::parseQID(unsigned char rx_buffer_t[256])
+void CommReceive::parseQID(unsigned char rx_buffer_t[RX_LENGTH_MAX])
 {
 	char serialnumber[14];
 	
@@ -262,93 +264,22 @@ void CommReceive::parseQID(unsigned char rx_buffer_t[256])
 	serialNum = snum; //Set the new serial number.
 }
 //Parse the device rating information
-void CommReceive::parseQPIRI(unsigned char rx_buffer_t[256])
-{
-	std::string data_i;
-	char one[1];
-	char two[2];
-	char three[3];
-	char four[4];
-	char five[5];
-
-	//Parse all the 1 character parameters
-	one[0] = rx_buffer_t[46];
-	battInSerial = data_i(one);
-	one[0] = rx_buffer_t[54];
-	battLowShutdownDetect = data_i(one);
-
-	//Parse all the 2 char parameters	
-	for(int i=0; i<2; i++)
-	{
-		two[i] = rx_buffer_t[i+7];
-	}
-	nominalBattVoltage = data_i(two,2);
-	for(int i=0; i<2; i++)
-	{
-		two[i] = rx_buffer_t[i+27];
-	}
-	battType = data_i(two,2);
-	for(int i=0; i<2; i++)
-	{
-		two[i] = rx_buffer_t[i+38];
-	}
-	remoteTempDetect = data_i(two,2);
-
-	//Parse all the 3 char parameters
-	//None to parse
-
-	//Parse all the 4 char parameters	
-	for(int i=0; i<4; i++)
-	{
-		four[i] = rx_buffer_t[i+1];
-	}
-	maxOutputPower = data_i(four,4);
-	for(int i=0; i<4; i++)
-	{
-		four[i] = rx_buffer_t[i+9];
-	}
-	nominalChargingCurrent = data_i(four,4);
-	for(int i=0; i<4; i++)
-	{
-		four[i] = rx_buffer_t[i+32];
-	}
-	battTempCompensation = data_i(four,4);
-
-	//Parse all the 5 char parameters	
-	for(int i=0; i<5; i++)
-	{
-		five[i] = rx_buffer_t[i+15];
-	}
-	absorptionVoltage = data_i(five,5);
-	for(int i=0; i<5; i++)
-	{
-		five[i] = rx_buffer_t[i+21];
-	}
-	floatVoltage = data_i(five,5);
-	for(int i=0; i<5; i++)
-	{
-		five[i] = rx_buffer_t[i+33];
-	}
-	battTempCompensation = data_i(five,5);
-	for(int i=0; i<5; i++)
-	{
-		five[i] = rx_buffer_t[i+48];
-	}
-	battLowWarningVoltage = data_i(five,5);
+void CommReceive::parseQPIRI(unsigned char rx_buffer_t[RX_LENGTH_MAX])
+{	
 
 }
 //Parse the device general status information
-void CommReceive::parseQPIGS(unsigned char rx_buffer_t[256])
+void CommReceive::parseQPIGS(unsigned char rx_buffer_t[RX_LENGTH_MAX])
 {
 
 }
 //Parse the device warning status information
-void CommReceive::parseQPIWS(unsigned char rx_buffer_t[256])
+void CommReceive::parseQPIWS(unsigned char rx_buffer_t[RX_LENGTH_MAX])
 {
 
 }
 //Parse the battery equalized information
-void CommReceive::parseQBEQI(unsigned char rx_buffer_t[256])
+void CommReceive::parseQBEQI(unsigned char rx_buffer_t[RX_LENGTH_MAX])
 {
 
 }

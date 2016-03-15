@@ -1,25 +1,27 @@
 #ifndef _COMMRECEIVE_HPP
 #define _COMMRECEIVE_HPP
 
+#define RX_LENGTH_MAX 256
+
 class CommReceive{
 
   /* QID - Device serial number */
   std::string serialNum;
 
   /* QPIRI - Device rated information paramters */
-  std::string maxOutputPower;
-  std::string nominalBattVoltage;
-  std::string nominalChargingCurrent;
-  std::string absorptionVoltage;
-  std::string floatVoltage;
-  std::string battType;
-  std::string remoteBattVoltageDetect;
+  int maxOutputPower;
+  int nominalBattVoltage;
+  int nominalChargingCurrent;
+  int absorptionVoltage;
+  int floatVoltage;
+  int battType;
+  int remoteBattVoltageDetect;
   std::string battTempCompensation;
-  std::string remoteTempDetect;
-  std::string battRatedVoltageSet;
-  std::string battInSerial;
-  std::string battLowWarningVoltage;
-  std::string battLowShutdownDetect;
+  int remoteTempDetect;
+  int battRatedVoltageSet;
+  int battInSerial;
+  int battLowWarningVoltage;
+  int battLowShutdownDetect;
 
   /* QPIGS - Device general status parameters */
   std::string pvInputVoltage;
@@ -61,30 +63,30 @@ class CommReceive{
 
 public:
   /* UART Input/Receive Buffer */
-  unsigned char rx_buffer[256];   
+  unsigned char rx_buffer[RX_LENGTH_MAX];   
 
   CommReceive();   //Default constructor
-  void parseQID(unsigned char rx_buffer_t[256]);
-  void parseQPIRI(unsigned char rx_buffer_t[256]);
-  void parseQPIGS(unsigned char rx_buffer_t[256]);
-  void parseQPIWS(unsigned char rx_buffer_t[256]);
-  void parseQBEQI(unsigned char rx_buffer_t[256]);
+  void parseQID(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
+  void parseQPIRI(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
+  void parseQPIGS(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
+  void parseQPIWS(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
+  void parseQBEQI(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
 
   //Get functions
   std::string getSerialNum();
-  std::string getmaxOutputPower();
-  std::string getnominalBattVoltage();
-  std::string getnominalChargingCurrent();
-  std::string getabsorptionVoltage();
-  std::string getfloatVoltage();
-  std::string getbattType();
-  std::string getremoteBattVoltageDetect();
+  int getmaxOutputPower();
+  int getnominalBattVoltage();
+  int getnominalChargingCurrent();
+  int getabsorptionVoltage();
+  int getfloatVoltage();
+  int getbattType();
+  int getremoteBattVoltageDetect();
   std::string getbattTempCompensation();
-  std::string getremoteTempDetect();
-  std::string getbattRatedVoltageSet();
-  std::string getbattInSerial();
-  std::string getbattLowWarningVoltage();
-  std::string getbattLowShutdownDetect();
+  int getremoteTempDetect();
+  int getbattRatedVoltageSet();
+  int getbattInSerial();
+  int getbattLowWarningVoltage();
+  int getbattLowShutdownDetect();
 
   std::string getpvInputVoltage();
   std::string getbattVoltage();

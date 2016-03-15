@@ -1,16 +1,17 @@
 #ifndef _COMMSEND_HPP
 #define _COMMSEND_HPP
 
+#define NUM_BYTES_TX_MAX 30
 class CommSend{
 
 public:
   
   //Inquiry parameters
-  char s_deviceSerialNum[6];
-  char s_deviceRatedInfo[8];
-  char s_deviceGeneralStatusInfo[8];
-  char s_deviceWarningStatus[8];
-  char s_batteryEqualizedInfo[8];
+  char s_deviceSerialNum[NUM_BYTES_TX_MAX];
+  char s_deviceRatedInfo[NUM_BYTES_TX_MAX];
+  char s_deviceGeneralStatusInfo[NUM_BYTES_TX_MAX];
+  char s_deviceWarningStatus[NUM_BYTES_TX_MAX];
+  char s_batteryEqualizedInfo[NUM_BYTES_TX_MAX];
 
   CommSend();   //Default constructor
   
