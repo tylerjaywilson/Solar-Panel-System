@@ -24,54 +24,54 @@ CommReceive::CommReceive()
   	/* QPIRI - Device rated information paramters */
 	maxOutputPower = -1;
 	nominalBattVoltage = -1;
-	nominalChargingCurrent = -1;
-	absorptionVoltage = -1;
-	floatVoltage = -1;
+	nominalChargingCurrent = -1.0;
+	absorptionVoltage = -1.0;
+	floatVoltage = -1.0;
 	battType = -1;
 	remoteBattVoltageDetect = -1;
-	battTempCompensation = "-1";
+	battTempCompensation = -1.0;
 	remoteTempDetect = -1;
 	battRatedVoltageSet = -1;
 	battInSerial = -1;
-	battLowWarningVoltage = -1;
+	battLowWarningVoltage = -1.0;
 	battLowShutdownDetect = -1;
 
 	/* QPIGS - Device general status parameters */
-	pvInputVoltage = "-1";
-	battVoltage = "-1";
-	chargingCurrent = "-1";
-	chargingCurrent1 = "-1";
-	chargingCurrent2 = "-1";
-	chargingPower = "-1";
-	unitTemp = "-1";
-	remoteBattVoltage = "-1";
-	remoteBattTemp = "-1";
-	//reserved = "-1";
-	status = "-1";
+	pvInputVoltage = -1.0;
+	battVoltage = -1.0;
+	chargingCurrent = -1.0;
+	chargingCurrent1 = -1.0;
+	chargingCurrent2 = -1.0;
+	chargingPower = -1;
+	unitTemp = -1;
+	remoteBattVoltage = -1.0;
+	remoteBattTemp = -1;
+	//reserved = -1.0;
+	status = -1;
 
 	/* QPIWS - Device warning status paramters */
-	overChargeCurrent = "-1";
-	overTemp = "-1";
-	battVoltageUnder = "-1";
-	battVoltageHigh = "-1";
-	pvHighLoss = "-1";
-	battTempLow = "-1";
-	battTempHigh = "-1";
-	pvLowLoss = "-1";
-	pvHighDerating = "-1";
-	tempHighDerating = "-1";
-	battTempLowAlarm = "-1";
-	battLowWarning = "-1";
+	overChargeCurrent = -1;
+	overTemp = -1;
+	battVoltageUnder = -1;
+	battVoltageHigh = -1;
+	pvHighLoss = -1;
+	battTempLow = -1;
+	battTempHigh = -1;
+	pvLowLoss = -1;
+	pvHighDerating = -1;
+	tempHighDerating = -1;
+	battTempLowAlarm = -1;
+	battLowWarning = -1;
 
 	/* QBEQI - Battery equalized information */
-	battEqualizedEn = "-1";
-	battEqualizedTime = "-1";
-	intervalTime = "-1";
-	maxCurrent = "-1";
-	remainingTime = "-1";
-	battEqualizeddVoltage = "-1";
-	battCVChargeTime = "-1";
-	battEqualizedTimeout = "-1";
+	battEqualizedEn = -1;
+	battEqualizedTime = -1;
+	intervalTime = -1;
+	maxCurrent = -1;
+	remainingTime = -1;
+	battEqualizeddVoltage = -1.0;
+	battCVChargeTime = -1;
+	battEqualizedTimeout = -1;
 }
 
 //Return the serial number
@@ -87,15 +87,15 @@ int CommReceive::getnominalBattVoltage()
 {
 	return nominalBattVoltage;
 }
-int CommReceive::getnominalChargingCurrent()
+float CommReceive::getnominalChargingCurrent()
 {
 	return nominalChargingCurrent;
 }
-int CommReceive::getabsorptionVoltage()
+float CommReceive::getabsorptionVoltage()
 {
 	return absorptionVoltage;
 }
-int CommReceive::getfloatVoltage()
+float CommReceive::getfloatVoltage()
 {
 	return floatVoltage;
 }
@@ -107,7 +107,7 @@ int CommReceive::getremoteBattVoltageDetect()
 {
 	return remoteBattVoltageDetect;
 }
-std::string CommReceive::getbattTempCompensation()
+float CommReceive::getbattTempCompensation()
 {
 	return battTempCompensation;
 }
@@ -123,7 +123,7 @@ int CommReceive::getbattInSerial()
 {
 	return battInSerial;
 }
-int CommReceive::getbattLowWarningVoltage()
+float CommReceive::getbattLowWarningVoltage()
 {
 	return battLowWarningVoltage;
 }
@@ -131,123 +131,123 @@ int CommReceive::getbattLowShutdownDetect()
 {
 	return battLowShutdownDetect;
 }
-std::string CommReceive::getpvInputVoltage()
+float CommReceive::getpvInputVoltage()
 {
 	return pvInputVoltage;
 }
-std::string CommReceive::getbattVoltage()
+float CommReceive::getbattVoltage()
 {
 	return battVoltage;
 }
-std::string CommReceive::getchargingCurrent()
+float CommReceive::getchargingCurrent()
 {
 	return chargingCurrent;
 }
-std::string CommReceive::getchargingCurrent1()
+float CommReceive::getchargingCurrent1()
 {
 	return chargingCurrent1;
 }
-std::string CommReceive::getchargingCurrent2()
+float CommReceive::getchargingCurrent2()
 {
 	return chargingCurrent2;
 }
-std::string CommReceive::getchargingPower()
+int CommReceive::getchargingPower()
 {
 	return chargingPower;
 }
-std::string CommReceive::getunitTemp()
+int CommReceive::getunitTemp()
 {
 	return unitTemp;
 }
-std::string CommReceive::getremoteBattVoltage()
+float CommReceive::getremoteBattVoltage()
 {
 	return remoteBattVoltage;
 }
-std::string CommReceive::getremoteBattTemp()
+int CommReceive::getremoteBattTemp()
 {
 	return remoteBattTemp;
 }
-std::string CommReceive::getstatus()
+int CommReceive::getstatus()
 {
 	return status;
 }
-std::string CommReceive::getoverChargeCurrent()
+int CommReceive::getoverChargeCurrent()
 {
 	return overChargeCurrent;
 }
-std::string CommReceive::getoverTemp()
+int CommReceive::getoverTemp()
 {
 	return overTemp;
 }
-std::string CommReceive::getbattVoltageUnder()
+int CommReceive::getbattVoltageUnder()
 {
 	return battVoltageUnder;
 }
-std::string CommReceive::getbattVoltageHigh()
+int CommReceive::getbattVoltageHigh()
 {
 	return battVoltageHigh;
 }
-std::string CommReceive::getpvHighLoss()
+int CommReceive::getpvHighLoss()
 {
 	return pvHighLoss;
 }
-std::string CommReceive::getbattTempLow()
+int CommReceive::getbattTempLow()
 {
 	return battTempLow;
 }
-std::string CommReceive::getbattTempHigh()
+int CommReceive::getbattTempHigh()
 {
 	return battTempHigh;
 }
-std::string CommReceive::getpvLowLoss()
+int CommReceive::getpvLowLoss()
 {
 	return pvLowLoss;
 }
-std::string CommReceive::getpvHighDerating()
+int CommReceive::getpvHighDerating()
 {
 	return pvHighDerating;
 }
-std::string CommReceive::gettempHighDerating()
+int CommReceive::gettempHighDerating()
 {
 	return tempHighDerating;
 }
-std::string CommReceive::getbattTempLowAlarm()
+int CommReceive::getbattTempLowAlarm()
 {
 	return battTempLowAlarm;
 }
-std::string CommReceive::getbattLowWarning()
+int CommReceive::getbattLowWarning()
 {
 	return battLowWarning;
 }
-std::string CommReceive::getbattEqualizedEn()
+int CommReceive::getbattEqualizedEn()
 {
 	return battEqualizedEn;
 }
-std::string CommReceive::getbattEqualizedTime()
+int CommReceive::getbattEqualizedTime()
 {
 	return battEqualizedTime;
 }
-std::string CommReceive::getintervalTime()
+int CommReceive::getintervalTime()
 {
 	return intervalTime;
 }
-std::string CommReceive::getmaxCurrent()
+int CommReceive::getmaxCurrent()
 {
 	return maxCurrent;
 }
-std::string CommReceive::getremainingTime()
+int CommReceive::getremainingTime()
 {
 	return remainingTime;
 }
-std::string CommReceive::getbattEqualizeddVoltage()
+float CommReceive::getbattEqualizedVoltage()
 {
 	return battEqualizeddVoltage;
 }
-std::string CommReceive::getbattCVChargeTime()
+int CommReceive::getbattCVChargeTime()
 {
 	return battCVChargeTime;
 }
-std::string CommReceive::getbattEqualizedTimeout()
+int CommReceive::getbattEqualizedTimeout()
 {
 	return battEqualizedTimeout;
 }
@@ -255,14 +255,7 @@ std::string CommReceive::getbattEqualizedTimeout()
 //Parse the Device serial number
 void CommReceive::parseQID(unsigned char rx_buffer_t[RX_LENGTH_MAX])
 {
-	char serialnumber[14];
 	
-	for (int i=0; i<14; i++)
-	{
-		serialnumber[i] = rx_buffer_t[i+1];
-	}
-	std::string snum(serialnumber, 14);
-	serialNum = snum; //Set the new serial number.
 }
 //Parse the device rating information
 void CommReceive::parseQPIRI(unsigned char rx_buffer_t[RX_LENGTH_MAX])

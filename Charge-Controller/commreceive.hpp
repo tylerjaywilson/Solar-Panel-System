@@ -11,30 +11,30 @@ class CommReceive{
   /* QPIRI - Device rated information paramters */
   int maxOutputPower;
   int nominalBattVoltage;
-  int nominalChargingCurrent;
-  int absorptionVoltage;
-  int floatVoltage;
+  float nominalChargingCurrent;
+  float absorptionVoltage;
+  float floatVoltage;
   int battType;
   int remoteBattVoltageDetect;
-  std::string battTempCompensation;
+  float battTempCompensation;
   int remoteTempDetect;
   int battRatedVoltageSet;
   int battInSerial;
-  int battLowWarningVoltage;
+  float battLowWarningVoltage;
   int battLowShutdownDetect;
 
   /* QPIGS - Device general status parameters */
-  int pvInputVoltage;
-  int battVoltage;
-  int chargingCurrent;
-  int chargingCurrent1;
-  int chargingCurrent2;
+  float pvInputVoltage;
+  float battVoltage;
+  float chargingCurrent;
+  float chargingCurrent1;
+  float chargingCurrent2;
   int chargingPower;
-  std::string unitTemp;
-  int remoteBattVoltage;
-  std::string remoteBattTemp;
-  //std::string reserved;
-  std::string status;
+  int unitTemp;
+  float remoteBattVoltage;
+  int remoteBattTemp;
+  //int reserved;
+  int status;
 
   /* QPIWS - Device warning status paramters */
   int overChargeCurrent;
@@ -56,7 +56,7 @@ class CommReceive{
   int intervalTime;
   int maxCurrent;
   int remainingTime;
-  int battEqualizeddVoltage;
+  float battEqualizeddVoltage;
   int battCVChargeTime;
   int battEqualizedTimeout;
 
@@ -74,52 +74,53 @@ public:
 
   //Get functions
   std::string getSerialNum();
+
   int getmaxOutputPower();
   int getnominalBattVoltage();
-  int getnominalChargingCurrent();
-  int getabsorptionVoltage();
-  int getfloatVoltage();
+  float getnominalChargingCurrent();
+  float getabsorptionVoltage();
+  float getfloatVoltage();
   int getbattType();
   int getremoteBattVoltageDetect();
-  std::string getbattTempCompensation();
+  float getbattTempCompensation();
   int getremoteTempDetect();
   int getbattRatedVoltageSet();
   int getbattInSerial();
-  int getbattLowWarningVoltage();
+  float getbattLowWarningVoltage();
   int getbattLowShutdownDetect();
 
-  std::string getpvInputVoltage();
-  std::string getbattVoltage();
-  std::string getchargingCurrent();
-  std::string getchargingCurrent1();
-  std::string getchargingCurrent2();
-  std::string getchargingPower();
-  std::string getunitTemp();
-  std::string getremoteBattVoltage();
-  std::string getremoteBattTemp();
-  std::string getstatus();
+  float getpvInputVoltage();
+  float getbattVoltage();
+  float getchargingCurrent();
+  float getchargingCurrent1();
+  float getchargingCurrent2();
+  int getchargingPower();
+  int getunitTemp();
+  float getremoteBattVoltage();
+  int getremoteBattTemp();
+  int getstatus();
 
-  std::string getoverChargeCurrent();
-  std::string getoverTemp();
-  std::string getbattVoltageUnder();
-  std::string getbattVoltageHigh();
-  std::string getpvHighLoss();
-  std::string getbattTempLow();
-  std::string getbattTempHigh();
-  std::string getpvLowLoss();
-  std::string getpvHighDerating();
-  std::string gettempHighDerating();
-  std::string getbattTempLowAlarm();
-  std::string getbattLowWarning();
+  int getoverChargeCurrent();
+  int getoverTemp();
+  int getbattVoltageUnder();
+  int getbattVoltageHigh();
+  int getpvHighLoss();
+  int getbattTempLow();
+  int getbattTempHigh();
+  int getpvLowLoss();
+  int getpvHighDerating();
+  int gettempHighDerating();
+  int getbattTempLowAlarm();
+  int getbattLowWarning();
 
-  std::string getbattEqualizedEn();
-  std::string getbattEqualizedTime();
-  std::string getintervalTime();
-  std::string getmaxCurrent();
-  std::string getremainingTime();
-  std::string getbattEqualizeddVoltage();
-  std::string getbattCVChargeTime();
-  std::string getbattEqualizedTimeout();  
+  int getbattEqualizedEn();
+  int getbattEqualizedTime();
+  int getintervalTime();
+  int getmaxCurrent();
+  int getremainingTime();
+  float getbattEqualizedVoltage();
+  int getbattCVChargeTime();
+  int getbattEqualizedTimeout();  
 };
 
 #endif
