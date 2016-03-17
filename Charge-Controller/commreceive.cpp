@@ -10,7 +10,7 @@
 #include "commreceive.hpp"
 
 #define RX_LENGTH_MAX 256
-
+#define IDLENGTH 14
 //Default Constructor
 CommReceive::CommReceive()
 {
@@ -255,7 +255,8 @@ int CommReceive::getbattEqualizedTimeout()
 //Parse the Device serial number
 void CommReceive::parseQID(unsigned char rx_buffer_t[RX_LENGTH_MAX])
 {
-	
+	std::string id(rx_buffer_t, rx_buffer_t + IDLENGTH);
+	serialNum = id;
 }
 //Parse the device rating information
 void CommReceive::parseQPIRI(unsigned char rx_buffer_t[RX_LENGTH_MAX])
