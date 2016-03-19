@@ -33,7 +33,7 @@ class CommReceive{
   int unitTemp;
   float remoteBattVoltage;
   int remoteBattTemp;
-  //int reserved;
+  int reserved;
   int status;
 
   /* QPIWS - Device warning status paramters */
@@ -60,17 +60,20 @@ class CommReceive{
   int battCVChargeTime;
   int battEqualizedTimeout;
 
+  /* Expected CRC value */
+  uint16_t expectedCRC;
 
 public:
   /* UART Input/Receive Buffer */
   unsigned char rx_buffer[RX_LENGTH_MAX];   
 
   CommReceive();   //Default constructor
-  void parseQID(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
-  void parseQPIRI(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
-  void parseQPIGS(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
-  void parseQPIWS(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
-  void parseQBEQI(unsigned char rx_buffer_t[RX_LENGTH_MAX]);
+  void CRCcalc(unsigned char *, uint8_t);
+  void parseQID(unsigned char *rx_buffer_t);
+  void parseQPIRI(unsigned char *rx_buffer_t);
+  void parseQPIGS(unsigned char *rx_buffer_t);
+  void parseQPIWS(unsigned char *rx_buffer_t);
+  void parseQBEQI(unsigned char *rx_buffer_t);
 
   //Get functions
   std::string getSerialNum();

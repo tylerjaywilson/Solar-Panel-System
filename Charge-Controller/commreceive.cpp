@@ -7,10 +7,13 @@
 */
 #include <string>
 #include <stdint.h>
+#include <stdio.h>
+#include <cstring>
 #include "commreceive.hpp"
 
 #define RX_LENGTH_MAX 256
 #define IDLENGTH 14
+
 //Default Constructor
 CommReceive::CommReceive()
 {
@@ -46,7 +49,7 @@ CommReceive::CommReceive()
 	unitTemp = -1;
 	remoteBattVoltage = -1.0;
 	remoteBattTemp = -1;
-	//reserved = -1.0;
+	reserved = -1;
 	status = -1;
 
 	/* QPIWS - Device warning status paramters */
@@ -72,6 +75,9 @@ CommReceive::CommReceive()
 	battEqualizeddVoltage = -1.0;
 	battCVChargeTime = -1;
 	battEqualizedTimeout = -1;
+
+	//Expected CRC
+	expectedCRC = -1;
 }
 
 //Return the serial number
@@ -252,29 +258,224 @@ int CommReceive::getbattEqualizedTimeout()
 	return battEqualizedTimeout;
 }
 
-//Parse the Device serial number
-void CommReceive::parseQID(unsigned char rx_buffer_t[RX_LENGTH_MAX])
+//Cacluate the CRC and verify that the CRC is correct
+void CommReceive::CRCcalc(unsigned char* tx_buff, uint8_t length)
 {
-	std::string id(rx_buffer_t, rx_buffer_t + IDLENGTH);
+	uint16_t crc;
+	int crc_temp;
+	uint8_t da;
+	uint8_t bCRCHign;
+    uint8_t bCRCLow;
+    uint8_t len = length;
+	uint16_t crc_ta[16]=
+	{ 
+		0x0000,0x1021,0x2042,0x3063,0x4084,0x50a5,0x60c6,0x70e7,
+
+		0x8108,0x9129,0xa14a,0xb16b,0xc18c,0xd1ad,0xe1ce,0xf1ef
+	};
+	crc=0;
+	
+	while(len--!=0) 
+	{
+		da=((uint8_t)(crc>>8))>>4; 
+
+		crc<<=4;
+
+		crc^=crc_ta[da^(*tx_buff>>4)]; 
+
+		da=((uint8_t)(crc>>8))>>4; 
+
+		crc<<=4;
+
+		crc^=crc_ta[da^(*tx_buff&0x0f)]; 
+
+		tx_buff++;
+	}
+	bCRCLow = crc;
+
+    bCRCHign= (uint8_t)(crc>>8);
+
+	if(bCRCLow==0x28||bCRCLow==0x0d||bCRCLow==0x0a)
+
+    {
+    	bCRCLow++;
+    }
+    if(bCRCHign==0x28||bCRCHign==0x0d||bCRCHign==0x0a)
+
+    {
+		bCRCHign++;
+    }
+    crc = ((uint16_t)bCRCHign)<<8;
+    crc += bCRCLow;
+
+    printf("CRC: %x \n", crc);
+}
+//Parse the Device serial number
+void CommReceive::parseQID(unsigned char *rx_buffer_t)
+{
+	char *rx_buff_p = (strtok((char *) (rx_buffer_t+1), " ")); //rx_buffer_t+1 is used to remove the beginning '(' of the received data
+	std::string id(rx_buff_p, rx_buff_p + IDLENGTH);
 	serialNum = id;
 }
+
 //Parse the device rating information
-void CommReceive::parseQPIRI(unsigned char rx_buffer_t[RX_LENGTH_MAX])
+void CommReceive::parseQPIRI(unsigned char *rx_buffer_t)
 {	
+	//Read the next string of data until the 'space' delimiter - char * strtok ( char * str, const char * delimiters );
+	char *rx_buff_p = (strtok((char *) (rx_buffer_t+1), " ")); //rx_buffer_t+1 is used to remove the beginning '(' of the received data
+	maxOutputPower = atoi(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
 
+	rx_buff_p = strtok(NULL, " ");
+	nominalBattVoltage = atoi(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	nominalChargingCurrent = atof(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	absorptionVoltage = atof(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	floatVoltage = atof(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	battType = atoi(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	remoteBattVoltageDetect = atoi(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	battTempCompensation = atof(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	remoteTempDetect = atoi(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	battRatedVoltageSet = atoi(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	battInSerial = atoi(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	battLowWarningVoltage = atof(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+	
+	rx_buff_p = strtok(NULL, " ");
+	battLowShutdownDetect = atoi(rx_buff_p);
+	printf("\n%s\n", rx_buff_p);
+
+	//Clear the char array
+	memset(&rx_buffer_t[0], 0, sizeof(rx_buffer_t));
 }
+
 //Parse the device general status information
-void CommReceive::parseQPIGS(unsigned char rx_buffer_t[RX_LENGTH_MAX])
+void CommReceive::parseQPIGS(unsigned char *rx_buffer_t)
 {
+	char *rx_buff_p = (strtok((char *) (rx_buffer_t+1), " ")); //rx_buffer_t+1 is used to remove the beginning '(' of the received data
+	pvInputVoltage = atof(rx_buff_p);
+	
+	rx_buff_p = strtok(NULL, " ");
+	battVoltage = atof(rx_buff_p);
 
+	rx_buff_p = strtok(NULL, " ");
+	chargingCurrent = atof(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	chargingCurrent1 = atof(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	chargingCurrent2 = atof(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	chargingPower = atoi(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	unitTemp = atoi(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	remoteBattVoltage = atof(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	remoteBattTemp = atoi(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	reserved = atoi(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	status = atoi(rx_buff_p);
+
+	//Clear the char array
+	memset(&rx_buffer_t[0], 0, sizeof(rx_buffer_t));
 }
+
 //Parse the device warning status information
-void CommReceive::parseQPIWS(unsigned char rx_buffer_t[RX_LENGTH_MAX])
+void CommReceive::parseQPIWS(unsigned char *rx_buffer_t)
 {
+	overChargeCurrent = rx_buffer_t[1];
+	overTemp = rx_buffer_t[2];
+	battVoltageUnder = rx_buffer_t[3];
+	battVoltageHigh = rx_buffer_t[4];
+	pvHighLoss = rx_buffer_t[5];
+	battTempLow = rx_buffer_t[6];
+	battTempHigh = rx_buffer_t[7];
+	reserved = rx_buffer_t[8];
+	reserved = rx_buffer_t[9];
+	reserved = rx_buffer_t[10];
+	reserved = rx_buffer_t[11];
+	reserved = rx_buffer_t[12];
+	reserved = rx_buffer_t[13];
+	reserved = rx_buffer_t[14];
+	reserved = rx_buffer_t[15];
+	reserved = rx_buffer_t[16];
+	reserved = rx_buffer_t[17];
+	reserved = rx_buffer_t[18];
+	reserved = rx_buffer_t[19];
+	pvLowLoss = rx_buffer_t[20];
+	pvHighDerating = rx_buffer_t[21];
+	tempHighDerating = rx_buffer_t[22];
+	battTempLowAlarm = rx_buffer_t[23];
 
+	//Clear the char array
+	memset(&rx_buffer_t[0], 0, sizeof(rx_buffer_t));
 }
-//Parse the battery equalized information
-void CommReceive::parseQBEQI(unsigned char rx_buffer_t[RX_LENGTH_MAX])
-{
 
+//Parse the battery equalized information
+void CommReceive::parseQBEQI(unsigned char *rx_buffer_t)
+{
+	char *rx_buff_p = (strtok((char *) (rx_buffer_t+1), " ")); //rx_buffer_t+1 is used to remove the beginning '(' of the received data
+	battEqualizedEn = atoi(rx_buff_p);
+	
+	rx_buff_p = strtok(NULL, " ");
+	battEqualizedTime = atoi(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	intervalTime = atoi(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	maxCurrent = atoi(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	remainingTime = atoi(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	battEqualizeddVoltage = atof(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	battCVChargeTime = atoi(rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	battEqualizedTimeout = atoi(rx_buff_p);
+
+	//Clear the char array
+	memset(&rx_buffer_t[0], 0, sizeof(rx_buffer_t));
 }

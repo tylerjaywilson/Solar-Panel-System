@@ -17,15 +17,36 @@ int main (int argc, char* argv[])
 {
 	int uart_filestream = -1; 			//UART filestream for UART communication
 	int baud_rate = 2400;				//Default 2400 value;
-	
+
 	UART uart0; 													//Create an object of class UART - Used to establish a UART connection
 	CommSend commsend;												//Create an object of class CommSend - Used to send specific requests to the charge controller
 	CommReceive commreceive;										//Create an object of class CommReceive - Used for accessing all the charge controller information
 	uart_filestream = uart0.init(uart_filestream, baud_rate);		//Initialize the UART
 		
+	
+
+	// TESTING FOR CORRECT PARSING
+	unsigned char test[256] = {0};
+	test[0] = '(';
+	test[1] = '9';
+	test[2] = '3';
+	test[3] = '3';
+	test[4] = '0';
+	test[5] = '1';
+	test[6] = '6';
+	test[7] = '0';
+	test[8] = '1';
+	test[9] = '1';
+	test[10] = '0';
+	test[11] = '0';
+	test[12] = '1';
+	test[13] = '0';
+	test[14] = '1';
+
+	commreceive.parseQID(test);
+	
 	//Menu selection
 	char menu_selection = -1;
-
 
 	while(1)
 	{
