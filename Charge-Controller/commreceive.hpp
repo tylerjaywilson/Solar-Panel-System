@@ -56,12 +56,13 @@ class CommReceive{
   int intervalTime;
   int maxCurrent;
   int remainingTime;
-  float battEqualizeddVoltage;
+  float battEqualizedVoltage;
   int battCVChargeTime;
   int battEqualizedTimeout;
 
   /* Expected CRC value */
   uint16_t expectedCRC;
+  int receivedCRC;
 
 public:
   /* UART Input/Receive Buffer */

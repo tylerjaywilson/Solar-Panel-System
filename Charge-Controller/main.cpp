@@ -10,6 +10,11 @@
 #define NUM_BYTES6 6
 #define NUM_BYTES8 8
 #define RX_BUFF_MAX 255
+#define QID_LEN 18
+#define QPIRI_LEN 56
+#define QPIGS_LEN 68
+#define QPIWS_LEN 34
+#define QBEQI_LEN 35
 
 using namespace std;
 
@@ -19,40 +24,18 @@ int main (int argc, char* argv[])
 	int baud_rate = 2400;				//Default 2400 value;
 
 	UART uart0; 													//Create an object of class UART - Used to establish a UART connection
-	CommSend commsend;												//Create an object of class CommSend - Used to send specific requests to the charge controller
-	CommReceive commreceive;										//Create an object of class CommReceive - Used for accessing all the charge controller information
 	uart_filestream = uart0.init(uart_filestream, baud_rate);		//Initialize the UART
-		
-	
 
-	// TESTING FOR CORRECT PARSING
-	unsigned char test[256] = {0};
-	test[0] = '(';
-	test[1] = '9';
-	test[2] = '3';
-	test[3] = '3';
-	test[4] = '0';
-	test[5] = '1';
-	test[6] = '6';
-	test[7] = '0';
-	test[8] = '1';
-	test[9] = '1';
-	test[10] = '0';
-	test[11] = '0';
-	test[12] = '1';
-	test[13] = '0';
-	test[14] = '1';
-
-	commreceive.parseQID(test);
-	
 	//Menu selection
 	char menu_selection = -1;
 
 	while(1)
 	{
+		CommSend commsend;												//Create an object of class CommSend - Used to send specific requests to the charge controller
+		CommReceive commreceive;										//Create an object of class CommReceive - Used for accessing all the charge controller information
 		/* THIS CODE IS USED FOR DEBUGGING THE CHARGE CONTROLLER PROTOCOL */
 
-		printf("What info do you want (Enter the number of your selection): \n\n");
+		printf("\nWhat info do you want (Enter the number of your selection): \n\n");
 		printf("1. Serial Number\n");
 		printf("2. Device Rated Info\n");
 		printf("3. Device General Status\n");
@@ -84,7 +67,7 @@ int main (int argc, char* argv[])
 				printf("Error: Incorrect entry!\n");
 		}
 
-		int rx_length = 0;
+		int rx_length, tot_length = 0;
 		bool finished_reading = false;
 
 		//Read until we have gathered all of the data from the previous inquiry
@@ -94,8 +77,9 @@ int main (int argc, char* argv[])
 			switch (menu_selection)
 			{
 				case '1':
-					rx_length += read(uart_filestream, (void*)commreceive.rx_buffer, RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
-					if(rx_length == 18)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
+					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
+					tot_length += rx_length;
+					if(tot_length == QID_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
 					{
 						finished_reading = true;
 						//Parse the data
@@ -103,8 +87,9 @@ int main (int argc, char* argv[])
 					}
 					break;
 				case '2':
-					rx_length = read(uart_filestream, (void*)commreceive.rx_buffer, RX_BUFF_MAX);
-					if(rx_length == 56)
+					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);
+					tot_length += rx_length;
+					if(tot_length == QPIRI_LEN)
 					{
 						finished_reading = true;
 						//Parse the data
@@ -112,8 +97,9 @@ int main (int argc, char* argv[])
 					}
 					break;
 				case '3':
-					rx_length = read(uart_filestream, (void*)commreceive.rx_buffer, RX_BUFF_MAX);
-					if(rx_length == 68)
+					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);
+					tot_length += rx_length;
+					if(tot_length == QPIGS_LEN)
 					{
 						finished_reading = true;
 						//Parse the data
@@ -121,8 +107,9 @@ int main (int argc, char* argv[])
 					}
 					break;
 				case '4':
-					rx_length = read(uart_filestream, (void*)commreceive.rx_buffer, RX_BUFF_MAX);
-					if(rx_length == 34)
+					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);
+					tot_length += rx_length;
+					if(tot_length == QPIWS_LEN)
 					{
 						finished_reading = true;
 						//Parse the data
@@ -130,8 +117,9 @@ int main (int argc, char* argv[])
 					}
 					break;
 				case '5':
-					rx_length = read(uart_filestream, (void*)commreceive.rx_buffer, RX_BUFF_MAX);
-					if(rx_length == 35)
+					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);
+					tot_length += rx_length;
+					if(tot_length == QBEQI_LEN)
 					{
 						finished_reading = true;
 						//Parse the data

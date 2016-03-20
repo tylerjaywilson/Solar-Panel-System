@@ -62,7 +62,7 @@ void CommSend::CRCcalc(char* tx_buff, uint8_t length)
     crc += bCRCLow;
 
     //Add the CRC to the end of the tx_buff and a carriage return
-    printf("CRC: %x \n", crc);
+    //printf("CRC: %x \n", crc);
     crc_temp = crc;
     tx_buff[0] = (char)((crc_temp >> 8) & 0xFF); //Shift by 8 bits to get the first byte of the CRC
     tx_buff[1] = (char)(crc_temp & 0xFF); //Get the second byte of the CRC;
@@ -86,7 +86,7 @@ CommSend::CommSend()
 	s_deviceRatedInfo[2] = 'I';
 	s_deviceRatedInfo[3] = 'R';
 	s_deviceRatedInfo[4] = 'I';
-	CRCcalc(s_deviceSerialNum, LEN5);
+	CRCcalc(s_deviceRatedInfo, LEN5);
 	//s_deviceRatedInfo[5] = 0xF8;
 	//s_deviceRatedInfo[6] = 0x54;
 	//s_deviceRatedInfo[7] = 0xD;
@@ -96,7 +96,7 @@ CommSend::CommSend()
 	s_deviceGeneralStatusInfo[2] = 'I';
 	s_deviceGeneralStatusInfo[3] = 'G';
 	s_deviceGeneralStatusInfo[4] = 'S';
-	CRCcalc(s_deviceSerialNum, LEN5);
+	CRCcalc(s_deviceGeneralStatusInfo, LEN5);
 	//s_deviceGeneralStatusInfo[5] = 0xB7;
 	//s_deviceGeneralStatusInfo[6] = 0xA9;
 	//s_deviceGeneralStatusInfo[7] = 0xD;
@@ -106,7 +106,7 @@ CommSend::CommSend()
 	s_deviceWarningStatus[2] = 'I';
 	s_deviceWarningStatus[3] = 'W';
 	s_deviceWarningStatus[4] = 'S';
-	CRCcalc(s_deviceSerialNum, LEN5);
+	CRCcalc(s_deviceWarningStatus, LEN5);
 	//s_deviceWarningStatus[5] = 0xB4;
 	//s_deviceWarningStatus[6] = 0xDA;
 	//s_deviceWarningStatus[7] = 0xD;
@@ -117,7 +117,7 @@ CommSend::CommSend()
 	s_batteryEqualizedInfo[2] = 'E';
 	s_batteryEqualizedInfo[3] = 'Q';
 	s_batteryEqualizedInfo[4] = 'I';
-	CRCcalc(s_deviceSerialNum, LEN5);
+	CRCcalc(s_batteryEqualizedInfo, LEN5);
 	//s_batteryEqualizedInfo[5] = 0x2E;
 	//s_batteryEqualizedInfo[6] = 0xA9;
 	//s_batteryEqualizedInfo[7] = 0xD;	
