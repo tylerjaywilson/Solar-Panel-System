@@ -1,0 +1,8 @@
+# This is the make file for the Solar Panel Project
+all: main
+
+main: main.o 
+	g++-4.9 -std=c++14 main.cpp commreceive.cpp commsend.cpp uart.cpp -o solarPanel
+	
+clean:
+	rm *o solarPanel

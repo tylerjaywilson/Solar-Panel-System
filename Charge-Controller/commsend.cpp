@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "commsend.hpp"
 
+/* These #define's indicate the number of bytes within any given character array */
 #define LEN3 3
 #define LEN5 5
 
@@ -72,52 +73,56 @@ void CommSend::CRCcalc(char* tx_buff, uint8_t length)
 //Default Constructor
 CommSend::CommSend()
 {
-	//Inquiry parameters
+	/*******Inquiry parameters*****/
+	//QID
 	s_deviceSerialNum[0] = 'Q';
 	s_deviceSerialNum[1] = 'I';
 	s_deviceSerialNum[2] = 'D';
-	CRCcalc(s_deviceSerialNum, LEN3);
+	CRCcalc(s_deviceSerialNum, LEN3);	//Calculate the CRC and append the CRC and carriage return to the array
 	//s_deviceSerialNum[3] = 0xD6;
 	//s_deviceSerialNum[4] = 0xEA;
 	//s_deviceSerialNum[5] = 0xD;
 
+	//QPIRI
 	s_deviceRatedInfo[0] = 'Q';
 	s_deviceRatedInfo[1] = 'P';
 	s_deviceRatedInfo[2] = 'I';
 	s_deviceRatedInfo[3] = 'R';
 	s_deviceRatedInfo[4] = 'I';
-	CRCcalc(s_deviceRatedInfo, LEN5);
+	CRCcalc(s_deviceRatedInfo, LEN5);	//Calculate the CRC and append the CRC and carriage return to the array
 	//s_deviceRatedInfo[5] = 0xF8;
 	//s_deviceRatedInfo[6] = 0x54;
 	//s_deviceRatedInfo[7] = 0xD;
 
+	//QPIGS
 	s_deviceGeneralStatusInfo[0] = 'Q';
 	s_deviceGeneralStatusInfo[1] = 'P';
 	s_deviceGeneralStatusInfo[2] = 'I';
 	s_deviceGeneralStatusInfo[3] = 'G';
 	s_deviceGeneralStatusInfo[4] = 'S';
-	CRCcalc(s_deviceGeneralStatusInfo, LEN5);
+	CRCcalc(s_deviceGeneralStatusInfo, LEN5);	//Calculate the CRC and append the CRC and carriage return to the array
 	//s_deviceGeneralStatusInfo[5] = 0xB7;
 	//s_deviceGeneralStatusInfo[6] = 0xA9;
 	//s_deviceGeneralStatusInfo[7] = 0xD;
 
+	//QPIWS
 	s_deviceWarningStatus[0] = 'Q';
 	s_deviceWarningStatus[1] = 'P';
 	s_deviceWarningStatus[2] = 'I';
 	s_deviceWarningStatus[3] = 'W';
 	s_deviceWarningStatus[4] = 'S';
-	CRCcalc(s_deviceWarningStatus, LEN5);
+	CRCcalc(s_deviceWarningStatus, LEN5);	//Calculate the CRC and append the CRC and carriage return to the array
 	//s_deviceWarningStatus[5] = 0xB4;
 	//s_deviceWarningStatus[6] = 0xDA;
 	//s_deviceWarningStatus[7] = 0xD;
 
-
+	//QBEQI
 	s_batteryEqualizedInfo[0] = 'Q';
 	s_batteryEqualizedInfo[1] = 'B';
 	s_batteryEqualizedInfo[2] = 'E';
 	s_batteryEqualizedInfo[3] = 'Q';
 	s_batteryEqualizedInfo[4] = 'I';
-	CRCcalc(s_batteryEqualizedInfo, LEN5);
+	CRCcalc(s_batteryEqualizedInfo, LEN5);	//Calculate the CRC and append the CRC and carriage return to the array
 	//s_batteryEqualizedInfo[5] = 0x2E;
 	//s_batteryEqualizedInfo[6] = 0xA9;
 	//s_batteryEqualizedInfo[7] = 0xD;	

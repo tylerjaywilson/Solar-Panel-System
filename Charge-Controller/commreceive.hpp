@@ -69,16 +69,18 @@ public:
   unsigned char rx_buffer[RX_LENGTH_MAX];   
 
   CommReceive();   //Default constructor
-  void CRCcalc(unsigned char *, uint8_t);
-  void parseQID(unsigned char *rx_buffer_t);
-  void parseQPIRI(unsigned char *rx_buffer_t);
-  void parseQPIGS(unsigned char *rx_buffer_t);
-  void parseQPIWS(unsigned char *rx_buffer_t);
-  void parseQBEQI(unsigned char *rx_buffer_t);
+  void CRCcalc(unsigned char *, uint8_t);       //CRC calculation function
+  void parseQID(unsigned char *rx_buffer_t);    //Parse the QID request for the device serial number
+  void parseQPIRI(unsigned char *rx_buffer_t);  //Parse the QPIRI request for device rate information  
+  void parseQPIGS(unsigned char *rx_buffer_t);  //Parse the QPIGS request for device general status parameters
+  void parseQPIWS(unsigned char *rx_buffer_t);  //Parse the QDI request for device warning status
+  void parseQBEQI(unsigned char *rx_buffer_t);  //Parse the QBEQI request for battery equalized information
 
-  //Get functions
+  /******Get functions*******/
+  //QID
   std::string getSerialNum();
 
+  //QPIRI
   int getmaxOutputPower();
   int getnominalBattVoltage();
   float getnominalChargingCurrent();
@@ -93,6 +95,7 @@ public:
   float getbattLowWarningVoltage();
   int getbattLowShutdownDetect();
 
+  //QPIGS
   float getpvInputVoltage();
   float getbattVoltage();
   float getchargingCurrent();
@@ -104,6 +107,7 @@ public:
   int getremoteBattTemp();
   int getstatus();
 
+  //QPIWS
   int getoverChargeCurrent();
   int getoverTemp();
   int getbattVoltageUnder();
@@ -117,6 +121,7 @@ public:
   int getbattTempLowAlarm();
   int getbattLowWarning();
 
+  //QBEQI
   int getbattEqualizedEn();
   int getbattEqualizedTime();
   int getintervalTime();

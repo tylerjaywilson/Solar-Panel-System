@@ -11,9 +11,9 @@
 #include <cstring>
 #include "commreceive.hpp"
 
-#define RX_LENGTH_MAX 256
-#define IDLENGTH 14
-#define INT_CONVERT 48
+#define RX_LENGTH_MAX 256	//The max receive buffer size is set to 256
+#define IDLENGTH 14			//The device ID length is expected to be 14
+#define INT_CONVERT 48		//Converts character integers to actual integer values
 
 //Default Constructor
 CommReceive::CommReceive()
@@ -82,7 +82,7 @@ CommReceive::CommReceive()
 	receivedCRC = -1;
 }
 
-//Return the serial number
+//Get functions for each parameter within the reguest commands
 std::string CommReceive::getSerialNum()
 {
 	return serialNum;
@@ -260,7 +260,8 @@ int CommReceive::getbattEqualizedTimeout()
 	return battEqualizedTimeout;
 }
 
-//Cacluate the CRC and verify that the CRC is correct
+//Cacluate the CRC and verify that the CRC is correct - This code was received from 
+//the Charge Controller MPPT-3000 company.
 void CommReceive::CRCcalc(unsigned char* tx_buff, uint8_t length)
 {
 	uint16_t crc;
@@ -310,9 +311,16 @@ void CommReceive::CRCcalc(unsigned char* tx_buff, uint8_t length)
     crc = ((uint16_t)bCRCHign)<<8;
     crc += bCRCLow;
 
-    printf("CRC: %x \n", crc);
+    //print the calculated CRC value
+    //printf("CRC: %x \n", crc);
 }
+
 //Parse the Device serial number
+/*
+	QID<cr>: The device serial number inquiry
+	Computer: QID <CRC><cr>
+	Device: (XXXXXXXXXXXXXX <CRC><cr>
+*/
 void CommReceive::parseQID(unsigned char *rx_buffer_t)
 {
 	char *rx_buff_p = (strtok((char *) (rx_buffer_t+1), " ")); //rx_buffer_t+1 is used to remove the beginning '(' of the received data
@@ -322,6 +330,11 @@ void CommReceive::parseQID(unsigned char *rx_buffer_t)
 }
 
 //Parse the device rating information
+/*
+	QPIRI<cr>: Device Rated Information inquiry
+	Computer: QPIRI<CRC><cr>
+	Device: (BBBB CC DD.D EE.EE FF.FF GG HH II.I JJ KKKK L MM.MM N<CRC><cr>
+*/
 void CommReceive::parseQPIRI(unsigned char *rx_buffer_t)
 {	
 	//Read the next string of data until the 'space' delimiter - char * strtok ( char * str, const char * delimiters );
@@ -329,8 +342,8 @@ void CommReceive::parseQPIRI(unsigned char *rx_buffer_t)
 	maxOutputPower = atoi(rx_buff_p);
 	//printf("\nMax power: %s\n", rx_buff_p);
 
-	rx_buff_p = strtok(NULL, " ");
-	nominalBattVoltage = atoi(rx_buff_p);
+	rx_buff_p = strtok(NULL, " ");	//read the next set of data until the next 'space'
+	nominalBattVoltage = atoi(rx_buff_p);	
 	//printf("\nNominal v: %s\n", rx_buff_p);
 
 	rx_buff_p = strtok(NULL, " ");
@@ -386,6 +399,11 @@ void CommReceive::parseQPIRI(unsigned char *rx_buffer_t)
 }
 
 //Parse the device general status information
+/*
+	QPIGS<cr>: Device general status parameters inquiry
+	Computer: QPIGS <CRC><cr>
+	Device: (BBB.B CC.CC DD.DD EE.EE FF.FF GGGG ±HHH II.II ±JJJ KKKK b7b6b5b4b3b2b1b0 <CRC><cr>
+*/
 void CommReceive::parseQPIGS(unsigned char *rx_buffer_t)
 {
 	char *rx_buff_p = (strtok((char *) (rx_buffer_t+1), " ")); //rx_buffer_t+1 is used to remove the beginning '(' of the received data
@@ -441,6 +459,42 @@ void CommReceive::parseQPIGS(unsigned char *rx_buffer_t)
 }
 
 //Parse the device warning status information
+/*
+	QPIWS<cr>: Device Warning Status inquiry
+	Computer: QPIWS<CRC> <cr>
+	Device: (a1a2.....a14a15-a30<CRC><cr>
+
+	a1,..., a30 is the warning status. If the warning happened, the relevant bit will set to 1, else the
+	relevant bit will set 0. The following table is the warning code.
+
+	bit | 			Warning	 			|	Description		|	
+	---------------------------------------------------------
+	a1 		Over charge current 			Fault
+	a2 		Over temperature 				Fault
+	a3 		Battery voltage under 			Fault
+	a4 		Battery voltage high 			Fault
+	a5 		PV high loss 					Fault
+	a6 		Battery temperature too low 	Fault
+	a7 		Battery temperature too high 	Fault
+	a8 		Reserved 						Reserved
+	a9 		Reserved 						Reserved
+	a10 	Reserved 						Reserved
+	a11 	Reserved 						Reserved
+	a12 	Reserved 						Reserved
+	a13 	Reserved 						Reserved
+	a14 	Reserved 						Reserved
+	a15 	Reserved 						Reserved
+	a16 	Reserved 						Reserved
+	a17 	Reserved 						Reserved
+	a18 	Reserved 						Reserved
+	a19 	Reserved 						Reserved
+	a20 	PV low loss 					Warning
+	a21 	PV high derating 				Warning
+	a22 	Temperature high derating 		Warning
+	a23 	Battery temperature low alarm 	Warning
+	a30 	Battery low warning 			Just for AS400 card
+
+*/
 void CommReceive::parseQPIWS(unsigned char *rx_buffer_t)
 {
 	/* Display the entire string if desired */
@@ -500,6 +554,11 @@ void CommReceive::parseQPIWS(unsigned char *rx_buffer_t)
 }
 
 //Parse the battery equalized information
+/*
+	QBEQI<cr>: The battery equalized information
+	Computer: QBEQI<CRC><cr>
+	Device: (B CCC DDD EEE FFF GG.GG HHH III<CRC><cr>
+*/
 void CommReceive::parseQBEQI(unsigned char *rx_buffer_t)
 {
 	char *rx_buff_p = (strtok((char *) (rx_buffer_t+1), " ")); //rx_buffer_t+1 is used to remove the beginning '(' of the received data
