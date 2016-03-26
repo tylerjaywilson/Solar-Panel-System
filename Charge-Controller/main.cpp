@@ -29,13 +29,6 @@ int main (int argc, char* argv[])
 	//Menu selection
 	char menu_selection;
 
-	//Test section
-	float absorbVolt = 11.11;
-	int volt = 10;
-	CommSend communication;
-	communication.setTimeBatteryEqualizedTimeout(volt);
-	//End test section
-
 	while(1)
 	{		
 		CommSend commsend;												//Create an object of class CommSend - Used to send specific requests to the charge controller
