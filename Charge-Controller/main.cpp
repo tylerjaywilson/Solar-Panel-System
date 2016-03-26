@@ -27,10 +27,17 @@ int main (int argc, char* argv[])
 	uart_filestream = uart0.init(uart_filestream, baud_rate);		//Initialize the UART
 
 	//Menu selection
-	char menu_selection = -1;
+	char menu_selection;
+
+	//Test section
+	float absorbVolt = 11.11;
+	int volt = 10;
+	CommSend communication;
+	communication.setTimeBatteryEqualizedTimeout(volt);
+	//End test section
 
 	while(1)
-	{
+	{		
 		CommSend commsend;												//Create an object of class CommSend - Used to send specific requests to the charge controller
 		CommReceive commreceive;										//Create an object of class CommReceive - Used for accessing all the charge controller information
 		/* THIS CODE IS USED FOR DEBUGGING THE CHARGE CONTROLLER PROTOCOL */
