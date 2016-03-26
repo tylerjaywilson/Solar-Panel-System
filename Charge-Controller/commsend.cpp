@@ -285,13 +285,50 @@ CommSend::CommSend()
 	CRCcalc(s_setTimeBatteryEqualizedTimeout, LEN9);	//Apend CRC
 
 	//PF
+	/*
+	PF<cr>: Setting control parameter to default value
+	Computer: PF<CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	All Device parameters set to default value.
+
+	Item	 								|	Default
+	--------------------------------------------------------------
+	Battery type            				|	0 - AGM
+	Battery voltage 						|	00 - Auto sensing
+	Max charging current 					|	060 - 60A
+	BTS temperature compensation 			|	00.0 - 0mV
+	Remote battery voltage detect 			|	00 - Disable
+	Absorption voltage 						|	14.10V
+	Floating voltage 						|	13.50V
+	Battery equalized enable/disable 		| 	disable
+	Battery equalized time 					|	60minutes
+	Interval time of battery equalization 	|	30 Days
+	The max current of battery equalization	|	15A
+	Battery equalized voltage per unit		|	14.60V
+	Battery C.V. charge time 				| 	150minutes
+	*/
 	s_setControlParameterDefault[0] = 'P';			//PF setting array
 	s_setControlParameterDefault[1] = 'F';			//Reset to all default parameters
 	CRCcalc(s_setControlParameterDefault, LEN2);	//Append CRC	
 }
 
-/*******Set functions*******/
+
+/************************Set functions***************************/
+
 //Set the battery type
+/*
+	PBT<TT><cr>: Setting battery type
+	Computer: PBT<TT ><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	Set device working range in line mode, 00 for AGM, 01 for Flooded battery
+	
+	TT(Battery Type)	|	AA.A(Absorption)	|	FF.F(Floating)
+	--------------------------------------------------------------
+						|	12V 24V 48V 		|	12V 24V 48V
+	00 AGM 				|	14.1 28.2 56.4 		|	13.5 27.0 54.0
+	01 Flooded 			|	14.6 29.2 58.4 		|	13.5 27.0 54.0
+	02 Customized 		|						|
+*/
 void CommSend::setBattType(int battType)
 {
 	if(battType == 0)		//Set to AGM
@@ -315,6 +352,19 @@ void CommSend::setBattType(int battType)
 }
 
 //Set the battery absorbtion charging voltage
+/*
+	Computer: PBAV<AA.AA ><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	AA.AA - C.V voltage per cell
+	
+	Battery Type 	|	AA.AA(Absorption)
+					|	12V/24V/48V
+	-------------------------------------
+	Customized 		|	aa.aa
+	-------------------------------------
+
+	aa.aa - Voltage set by user (12.00V~15.00V), active on customized battery type.
+*/
 void CommSend::setBattAbsorbtionChargingVoltage(float chargeVolt)
 {
 	char chargeVolt_p[5];
@@ -336,6 +386,20 @@ void CommSend::setBattAbsorbtionChargingVoltage(float chargeVolt)
 }
 
 //Set the battery floating charging voltage
+/*
+	PBFV< FF.FF><cr>: Setting battery floating charging voltage
+	Computer: PBFV<FF.FF><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	FF.FF - Floating voltage per cell
+	
+	Battery Type 	|	FF.FF(Floating)
+					|	12V/24V/48V
+	-----------------------------------
+	Customized 		|	ff.ff
+	-----------------------------------
+
+	ff.ff - Voltage set by user(12.00V~15.00V) , activated on customized battery type.
+*/
 void CommSend::setBattFloatingChargingVoltage(float floatVolt)
 {
 	char floatVolt_p[5];
@@ -357,6 +421,16 @@ void CommSend::setBattFloatingChargingVoltage(float floatVolt)
 }
 
 //Set the rated battery voltage
+/*
+	PBRV<NN><cr>: Setting rated battery voltage
+	Computer: PBRV<NN><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	00: Enable battery voltage auto sensing
+	01: Set rated battery voltage 12V
+	02: Set rated battery voltage 24V
+	03: Set rated battery voltage 36V (Reserved)
+	04: Set rated battery voltage 48V
+*/
 void CommSend::setRatedBattVoltage(int battV)
 {
 	char const *battV_p;
@@ -376,6 +450,12 @@ void CommSend::setRatedBattVoltage(int battV)
 }
 
 //set the max charging current
+/*
+	MCHGC<NNN><cr>: Setting max charging current
+	Computer: MCHGC<NNN><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	NNN is from 010 ~ 060 for MPPT-3000-Standard, unit is A.
+*/
 void CommSend::setMaxChargingCurrent(int chargeCurr)
 {
 	char const *chargeCurr_p;
@@ -396,6 +476,13 @@ void CommSend::setMaxChargingCurrent(int chargeCurr)
 }
 
 //set the remote battery voltage detect enable/disable
+/*
+	PRBD<NN><cr>: Enable/disable remote battery voltage detect
+	Computer: PRBD<NN><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	00 - Disable remote battery voltage detect
+	01 - Enable remote battery voltage detect
+*/
 void CommSend::setEnRemoteBatteryVoltageDetect(int endis)
 {
 	if(endis == 0)	//Disable
@@ -418,6 +505,12 @@ void CommSend::setEnRemoteBatteryVoltageDetect(int endis)
 }
 
 //set the battery low warning voltage
+/*
+	PBLV<nn.nn><cr>: Set battery low warning voltage
+	Computer: PBLV< nn.nn ><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	nn.nn 10.00~12.50V
+*/
 void CommSend::setBattLowWarningVoltage(float lowVolt)
 {
 	char lowVolt_p[5];
@@ -438,6 +531,12 @@ void CommSend::setBattLowWarningVoltage(float lowVolt)
 }
 
 //set the battery low shutdown detect enable/disable
+/*
+	PBLSEn<cr>: Set battery low shutdown detect enable/disable
+	Computer: PBLSEn <CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	n: 0 means disable, 1 means enable
+*/
 void CommSend::setBattLowShutdownDetectEn(int endis)
 {
 	if(endis == 0)	//Disable
@@ -458,6 +557,12 @@ void CommSend::setBattLowShutdownDetectEn(int endis)
 }
 
 //set the battery equalization enable/disable
+/*
+	PBEQEn<cr>: Set battery equalization enable/disable.
+	Computer:PBEQEn<CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	n: 0 means disable, 1 means enable
+*/
 void CommSend::setBattEqualizationEn(int endis)
 {
 	if(endis == 0)	//Disable
@@ -478,6 +583,12 @@ void CommSend::setBattEqualizationEn(int endis)
 }	
 
 //Set the battery equalized time			
+/*
+	PBEQT<nnn><cr>: Set battery equalized time.
+	Computer:PBEQT<nnn><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	nnn:5~300, the unit is minute.
+*/
 void CommSend::setBattEqualizedTime(int eqTime)
 {
 	char const *eqTime_p;
@@ -514,7 +625,13 @@ void CommSend::setBattEqualizedTime(int eqTime)
 	//	printf("%c", s_setBattEqualizedTime[i]);
 }	
 
-//Set the period of the battery equalization			
+//Set the period of the battery equalization	
+/*
+	PBEQP<nnn><cr>: Set the period of battery equalization.
+	Computer:PBEQP<nnn><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	nnn:0~060, the unit is days. 0 means battery equalization function only activate by key.
+*/		
 void CommSend::setPeriodBattEqualization(int period)
 {
 	char const *period_p;
@@ -552,6 +669,12 @@ void CommSend::setPeriodBattEqualization(int period)
 }		
 
 //Set the max current of the battery equalization	
+/*
+	PBEQMC<nnn><cr>: Set the max current of battery equalization.
+	Computer:PBEQMC<nnn><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	nnn:005~060, the unit is A. this value must less than max charged current.
+*/
 void CommSend::setMaxCurrentBatteryEqualization(int maxCurr)
 {
 	char const *maxCurr_p;
@@ -589,6 +712,12 @@ void CommSend::setMaxCurrentBatteryEqualization(int maxCurr)
 }	
 
 //set the battery equalized voltage
+/*
+	PBEQV<nn.nn><cr>: Set battery equalized voltage.
+	Computer:PBEQV<nn.nn><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	nn.n:12.00~15.50, the unit is V. this value must more than bulk voltage.
+*/
 void CommSend::setBattEqualizedVoltage(float equalVolt)
 {
 	char equalVolt_p[5];
@@ -609,6 +738,12 @@ void CommSend::setBattEqualizedVoltage(float equalVolt)
 }			
 
 //set the battery CV charge time
+/*
+	PBCVT<nnn><cr>: Set battery C.V. charge time.
+	Computer:PBCVT<nnn><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	nnn:5~300, the unit is minute.
+*/
 void CommSend::setBattCVChargeTime(int cvtime)
 {
 	char const *cvtime_p;
@@ -645,7 +780,13 @@ void CommSend::setBattCVChargeTime(int cvtime)
 	//	printf("%c", s_setBattCVChargeTime[i]);
 }		
 
-//set the time of the battery equalized timeout		
+//set the time of the battery equalized timeout	
+/*
+	PBEQOT<nnn><cr>: Set the time of battery equalized timeout.
+	Computer:PBEQOT<nnn><CRC><cr>
+	Device: (ACK<CRC><cr> if device accepted, or respond (NAK<CRC><cr>
+	nnn:5~360, the unit is minute.
+*/	
 void CommSend::setTimeBatteryEqualizedTimeout(int timeout)
 {
 	char const *timeout_p;
