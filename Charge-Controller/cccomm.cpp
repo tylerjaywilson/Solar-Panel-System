@@ -11,7 +11,13 @@
 #include <stdio.h>
 #include <cstring>
 #include <stdlib.h>
+#include <ctime>
+#include <unistd.h>			//Used for UART
+#include <fcntl.h>			//Used for UART
+#include <termios.h>		//Used for UART
+#include "uart.hpp"
 #include "cccomm.hpp"
+
 
 #define RX_LENGTH_MAX 256	//The max receive buffer size is set to 256
 #define IDLENGTH 14			//The device ID length is expected to be 14
@@ -38,9 +44,27 @@
 
 #define INTEGER_BASE 10
 
+#define ONESECOND 1.0
+
+/* DEFINES */
+#define NUM_BYTES6 6
+#define NUM_BYTES8 8
+#define RX_BUFF_MAX 255
+#define QID_LEN 18
+#define QPIRI_LEN 56
+#define QPIGS_LEN 68
+#define QPIWS_LEN 34
+#define QBEQI_LEN 35
+
 //Default Constructor
 CCComm::CCComm()
 {
+	/********UART Inititialization***********/
+	/* UART Stuff */
+  	uart0.setFilestream(-1);       //UART filestream for UART communication
+  	uart0.setBaud(2400);       //Default 2400 value;
+	uart0.setFilestream(uart0.init(uart0.getFilestream(), uart0.getBaud()));   //Initialize the UART
+
 	/*****************SEND VARIABLES*****************/
 
 	/*******Inquiry parameters*****/
@@ -336,6 +360,9 @@ CCComm::CCComm()
 	//Expected CRC
 	expectedCRC = -1;
 	receivedCRC = -1;
+
+	//Timeout variable 
+	startTime = 0;
 }
 
 
@@ -688,10 +715,28 @@ bool CCComm::parseACKNAK(unsigned char *rx_buffer_t)
 		return false;
 }
 
+// Determine if the data is older than one second and return true if an update is needed
+bool CCComm::updateParameters()
+{
+	if( ((clock()-getstartTime()) > ONESECOND) / (double) CLOCKS_PER_SEC )
+	{
+		setStartTime(clock());	//Update the new start time
+		return true;
+	}
+	else
+		return false;
+}
+
 /**************Get functions for charge controller parameters*************/
 
 std::string CCComm::getSerialNum()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command
+	{
+		int tx_count = write(uart0.getFilestream(), &s_deviceSerialNum[0], NUM_BYTES6);	//write(filestream, starting address of inquiry, number of bytes to transmit)
+	}
 	return serialNum;
 }
 int CCComm::getmaxOutputPower()
@@ -866,7 +911,10 @@ int CCComm::getbattEqualizedTimeout()
 {
 	return battEqualizedTimeout;
 }
-
+clock_t CCComm::getstartTime()
+{
+	return startTime;
+}
 /************************Set functions***************************/
 
 //Set the battery type
@@ -1376,3 +1424,9 @@ void CCComm::setTimeBatteryEqualizedTimeout(int timeout)
 	//for(int i=0; i<LEN9; i++)
 	//	printf("%c", s_setTimeBatteryEqualizedTimeout[i]);
 }	
+
+//Set the start time back to the current time
+void CCComm::setStartTime(clock_t startTime_t)
+{
+	startTime = startTime_t;
+}

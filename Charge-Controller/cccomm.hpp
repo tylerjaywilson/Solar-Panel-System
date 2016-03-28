@@ -102,7 +102,16 @@ class CCComm{
   void parseQBEQI(unsigned char *rx_buffer_t);  //Parse the QBEQI request for battery equalized information
   bool parseACKNAK(unsigned char *rx_buffer_t); //Parse the ACKNAK response to a setting command - Return true if ACK
 
-
+  /*Timeout variable and function - Used for updating the charge controller parameters*/
+  clock_t startTime;
+  bool updateParameters();   //Return true if the data needs updating
+  //Get function - Timeout - Start Time
+  clock_t getstartTime();
+  void setStartTime(clock_t);
+  
+  //UART object
+  UART uart0;                           //Create an object of class UART - Used to establish a UART connection
+  
 public:
 
   CCComm();   //Default constructor
@@ -125,7 +134,7 @@ public:
   void setMaxCurrentBatteryEqualization(int); 
   void setBattEqualizedVoltage(float);      
   void setBattCVChargeTime(int);        
-  void setTimeBatteryEqualizedTimeout(int); 
+  void setTimeBatteryEqualizedTimeout(int);   
   
   /******Get functions*******/
   //QID
@@ -180,7 +189,7 @@ public:
   int   getremainingTime();
   float getbattEqualizedVoltage();
   int   getbattCVChargeTime();
-  int   getbattEqualizedTimeout();  
+  int   getbattEqualizedTimeout();    
 };
 
 #endif
