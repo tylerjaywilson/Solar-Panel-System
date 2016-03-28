@@ -1,0 +1,794 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"charge",
+				"chargeVolt_p"
+			],
+			[
+				"char",
+				"chargeVolt"
+			],
+			[
+				"charVo",
+				"chargeVolt_p"
+			],
+			[
+				"B",
+				"B"
+			],
+			[
+				"V",
+				"V"
+			],
+			[
+				"commreceive",
+				"commreceive"
+			],
+			[
+				"rx_bu",
+				"rx_buffer_t"
+			],
+			[
+				"crct",
+				"crc_temp"
+			],
+			[
+				"battEqu",
+				"battEqualizedTimeout"
+			],
+			[
+				"battEq",
+				"battEqualizeddVoltage"
+			],
+			[
+				"battLowW",
+				"battLowWarning"
+			],
+			[
+				"pvHih",
+				"pvHighDerating"
+			],
+			[
+				"battVol",
+				"battVoltageHigh"
+			],
+			[
+				"batt",
+				"battVoltageUnder"
+			],
+			[
+				"remoteBatt",
+				"remoteBattTemp"
+			],
+			[
+				"remote",
+				"remoteBattVoltage"
+			],
+			[
+				"battLow",
+				"battLowShutdownDetect"
+			],
+			[
+				"battLowWarn",
+				"battLowWarningVoltage"
+			],
+			[
+				"battTemp",
+				"battTempCompensation"
+			],
+			[
+				"remot",
+				"remoteBattVoltageDetect"
+			],
+			[
+				"nom",
+				"nominalChargingCurrent"
+			],
+			[
+				"max",
+				"maxOutputPower"
+			],
+			[
+				"rx",
+				"rx_buffer_t"
+			],
+			[
+				"ser",
+				"serialNum_t"
+			],
+			[
+				"get_num",
+				"get_num_misses"
+			],
+			[
+				"num",
+				"num_misses_t"
+			],
+			[
+				"nu",
+				"num_preemptions_t"
+			],
+			[
+				"ready",
+				"ready_for_execution"
+			],
+			[
+				"curr",
+				"curr_entry"
+			],
+			[
+				"wai",
+				"waitingQueue"
+			],
+			[
+				"rem_e",
+				"rem_extime_t"
+			],
+			[
+				"rem",
+				"rem_extime_t"
+			],
+			[
+				"deadl",
+				"deadline_missed_task_t"
+			],
+			[
+				"sim",
+				"sim_time"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "commreceive.cpp",
+			"settings":
+			{
+				"buffer_size": 15811,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "commreceive.hpp",
+			"settings":
+			{
+				"buffer_size": 3516,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "commsend.cpp",
+			"settings":
+			{
+				"buffer_size": 25285,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "commsend.hpp",
+			"settings":
+			{
+				"buffer_size": 2471,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "i2c.cpp",
+			"settings":
+			{
+				"buffer_size": 1883,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "i2c.hpp",
+			"settings":
+			{
+				"buffer_size": 125,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "main.cpp",
+			"settings":
+			{
+				"buffer_size": 4156,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "uart.cpp",
+			"settings":
+			{
+				"buffer_size": 3285,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "uart.hpp",
+			"settings":
+			{
+				"buffer_size": 454,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 372.0,
+		"selected_items":
+		[
+			[
+				"Package Control:",
+				"Package Control: Add Repository"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Enable Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/A01205668/.config/sublime-text-2/Settings/Session.sublime_session",
+		"/home/A01205668/ECE6470/Lab2/lab2/s35932/s35932.v",
+		"/home/A01205668/ECE6470/Lab2/lab2/env.tcl",
+		"/home/A01205668/ECE6470/Lab2/lab2/dc.tcl",
+		"/home/A01205668/ECE6470/Lab2/lab2/S35932_BENCH.mr",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/uart.cpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/uart.hpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commreceive.cpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commreceive.hpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.hpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.cpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/i2c.cpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/i2c.hpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/main.cpp",
+		"/home/A01205668/ECE6470/FloatingPointProject/inputparser.cpp",
+		"/home/A01205668/ECE6470/FloatingPointProject/inputparser.hpp",
+		"/home/A01205668/ECE6470/FloatingPointProject/calculation.cpp",
+		"/home/A01205668/ECE6470/FloatingPointProject/calculation.hpp",
+		"/home/A01205668/ECE6470/FloatingPointProject/binaryconvert.hpp",
+		"/home/A01205668/ECE6470/FloatingPointProject/binaryconvert.cpp",
+		"/home/A01205668/ECE6470/FloatingPointProject/main.cpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/makefile",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/makefilePI",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/CRC_chargeController.c",
+		"/home/A01205668/ECE6470/Lab4/outputDir/check_timing.txt",
+		"/home/A01205668/ECE6470/Lab4/outputDir/check_design.txt",
+		"/home/A01205668/ECE6470/Lab4/outputDir/area_report.txt",
+		"/home/A01205668/ECE6470/Lab3/lab3/place.tcl",
+		"/home/A01205668/ECE6470/Lab4/route.tcl",
+		"/home/A01205668/ECE6470/Lab3/s35932_bench_preCTS_part3.summary",
+		"/home/A01205668/ECE6470/Lab3/lab3/env.tcl",
+		"/home/A01205668/ECE6470/Lab3/lab3/prectsTimingReports/s35932_bench_preCTS.summary",
+		"/home/A01205668/ECE6470/Lab3/lab3/encounter.logv2",
+		"/home/A01205668/ECE6470/Lab3/lab3/encounter.logv",
+		"/home/A01205668/ECE6470/Lab3/lab3/encounter.log2",
+		"/home/A01205668/ECE6470/Lab3/lab3/encounter.log3",
+		"/home/A01205668/ECE6470/Lab3/lab3/encounter.log1",
+		"/home/A01205668/ECE6470/Lab3/lab3/encounter.log",
+		"/home/A01205668/ECE6470/Lab3/lab3/dc.tcl",
+		"/home/A01205668/ECE6470/Lab3/s35932_bench_preCTS.summary",
+		"/home/A01205668/ECE6470/Lab3/lab3/preplaceTimingReports/s35932_bench_prePlace.summary",
+		"/home/A01205668/ECE6470/Lab3/lab3/outputDir/area_report.txt",
+		"/home/A01205668/ECE6470/Lab3/lab3/outputDir/check_design.txt",
+		"/home/A01205668/ECE6470/Lab3/lab3/outputDir/check_timing.txt",
+		"/home/A01205668/ECE6470/Lab3/lab3/outputDir/latch_report.txt",
+		"/home/A01205668/ECE6470/Lab3/lab3/outputDir/power_report.txt",
+		"/home/A01205668/ECE6470/Lab3/lab3/outputDir/timing_report.txt",
+		"/home/A01205668/ECE6470/Lab3/lab3/outputDir/violator_report.txt",
+		"/home/A01205668/ECE6470/FloatingPointProject/makefile",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/schedule.cpp",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/schedule.hpp",
+		"/home/A01205668/ECE5780/HW4/problem6.fps",
+		"/home/A01205668/Downloads/readme.txt",
+		"/home/A01205668/ECE5780/HW4/h2_5_RM.fps",
+		"/home/A01205668/ECE5780/HW2/h2_5_RM.fps",
+		"/home/A01205668/ECE5780/InClassEx/Elf/4.1/sensor.dis",
+		"/home/A01205668/ECE5780/InClassEx/wcetex/table.sh",
+		"/home/A01205668/ECE5780/InClassEx/wcetex/sum/main.c",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5/src/cpu/o3/inst_queue_impl.hh",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5/configs/cmp.py",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5_new/configs/cmp.py",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5_new/configs/common/Options.py",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/main.cpp",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/task.hpp",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/task.cpp",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/README.txt",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/input_file.txt",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/makefile",
+		"/home/A01205668/.config/sublime-text-2/Packages/User/Preferences.sublime-settings",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/file_input.cpp",
+		"/home/A01205668/ECE5780/Lab2/lab2rts/make",
+		"/home/A01205668/ECE5780/HW2/h2_5_31.fps",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5/testrun/script.sh",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5/testrun/ScriptSimulation.sh",
+		"/home/A01205668/ECE5780/HW2/hw2_5_3.fps",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5/configs/benchcmd.py",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5/configs/Mybench.py",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5/configs/SPEC2k6.py",
+		"/home/A01205668/ECE5750/ECE5750_project/gem5/configs/common/Options.py",
+		"/home/A01205668/ECE5780/HW2/h2_5_2_missed1.fps",
+		"/home/A01205668/ECE5780/HW2/h2_5_2_met.fps",
+		"/home/A01205668/ECE5780/HW2/5.2_missed-met.txt",
+		"/home/A01205668/ECE5780/HW2/h2_warmup.fps",
+		"/home/A01205668/ECE5780/HW2/h2_5_DM.fps",
+		"/home/A01205668/ECE5780/HW2/h2_5_RM-DM_output.txt",
+		"/home/A01205668/ECE5780/HW2/h2_warmup_output.txt",
+		"/home/A01205668/ECE5780/HW2/h2_5_2_missed.fps",
+		"/home/A01205668/ECE5750/Assignment2/condor_submit_file~",
+		"/home/A01205668/ECE5750/ECE5750_project/script/runBench.sh",
+		"/home/A01205668/ECE5780/HW2/h2_5_RM_output.txt",
+		"/home/A01205668/ECE5780/Lab1/README",
+		"/home/A01205668/ECE6470/Lab2/lab2/outputDir/area_report.txt",
+		"/home/A01205668/.config/sublime-text-2/Packages/User/Plain text.sublime-settings",
+		"/home/A01205668/.config/sublime-text-2/Packages/Package Control/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"settimeoutentBatteryEqualization",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"setMaxCurrentBatteryEqualization",
+			"setcvtimeentBatteryEqualization",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"MaxCurr",
+			"maxCurr",
+			"7",
+			"6",
+			"5",
+			"setBattEqualizedTime",
+			"period",
+			"setMaxChargingCurrent",
+			"setBattLowShutdownDetectEn",
+			"enRemoteBatteryVoltageDetect",
+			"setBattFloatingChargingVoltage",
+			"floatVolt",
+			"setBattFloatingChargingVoltage",
+			"set",
+			"setMaxChargingCurrent",
+			"setRatedBattVoltage",
+			"setBattFloatingChargingVoltage",
+			"chargeVolt_p",
+			"setBattAbsorbtionChargingVoltage",
+			"void ",
+			" ",
+			"setBattAbsorbtionChargingVoltage",
+			";",
+			"[NUM_BYTETX_MAX]",
+			"S_",
+			"s_",
+			"S_",
+			"s_",
+			"S_",
+			"s_",
+			"S_",
+			"s_",
+			"S_",
+			"s_",
+			"S_",
+			"s_",
+			"S_",
+			"s_",
+			"char",
+			"Char",
+			"char",
+			"NUM_BYTES_TX_MAX",
+			"char",
+			"Char",
+			"char",
+			"Char",
+			"char",
+			"net length",
+			"net Length",
+			"\"-1\"",
+			"1.0",
+			"\"-1\"",
+			"std::string",
+			"uint8_t",
+			"std::string",
+			"uint8_t",
+			"std::string",
+			"int",
+			"std::string",
+			"INT8U",
+			"INT16U",
+			"std::string",
+			"\"-1\"",
+			"std::string",
+			" ",
+			"()",
+			"()\n",
+			";",
+			"char",
+			"1",
+			"uint8_t",
+			"1",
+			"i_",
+			"i",
+			"I",
+			"i",
+			"1",
+			"uint8_t",
+			"Tyler Wilson",
+			"set_preem",
+			"set_deadline_missed",
+			"Future"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 8,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "commreceive.cpp",
+					"settings":
+					{
+						"buffer_size": 15811,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "commreceive.hpp",
+					"settings":
+					{
+						"buffer_size": 3516,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "commsend.cpp",
+					"settings":
+					{
+						"buffer_size": 25285,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "commsend.hpp",
+					"settings":
+					{
+						"buffer_size": 2471,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "i2c.cpp",
+					"settings":
+					{
+						"buffer_size": 1883,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "i2c.hpp",
+					"settings":
+					{
+						"buffer_size": 125,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "main.cpp",
+					"settings":
+					{
+						"buffer_size": 4156,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "uart.cpp",
+					"settings":
+					{
+						"buffer_size": 3285,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "uart.hpp",
+					"settings":
+					{
+						"buffer_size": 454,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}

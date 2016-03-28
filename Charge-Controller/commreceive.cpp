@@ -596,3 +596,15 @@ void CommReceive::parseQBEQI(unsigned char *rx_buffer_t)
 	//Clear the char array
 	memset(&rx_buffer_t[0], 0, sizeof(rx_buffer_t));
 }
+
+/*
+	Parse the ACKNAK response to a setting command
+*/
+bool CommReceive::parseACKNAK(unsigned char *rx_buffer_t)
+{
+	//Check to see if an ACKNOWLEDGED was received
+	if((rx_buffer[1] == 'A') && (rx_buffer_t[2] == 'C') && (rx_buffer_t[3] == 'K'))
+		return true;
+	else	//A NOT ACKNOWLEDGED was received
+		return false;
+}

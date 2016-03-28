@@ -3,8 +3,7 @@
 #include <unistd.h>
 #include <stdint.h>
 #include "uart.hpp"
-#include "commreceive.hpp"
-#include "commsend.hpp"
+#include "cccomm.hpp"
 
 /* DEFINES */
 #define NUM_BYTES6 6
@@ -31,8 +30,8 @@ int main (int argc, char* argv[])
 
 	while(1)
 	{		
-		CommSend commsend;												//Create an object of class CommSend - Used to send specific requests to the charge controller
-		CommReceive commreceive;										//Create an object of class CommReceive - Used for accessing all the charge controller information
+		CCComm cccommunicaton;
+
 		/* THIS CODE IS USED FOR DEBUGGING THE CHARGE CONTROLLER PROTOCOL */
 
 		printf("\nWhat info do you want (Enter the number of your selection): \n\n");
@@ -49,19 +48,19 @@ int main (int argc, char* argv[])
 		switch (menu_selection)
 		{
 			case '1':
-				tx_count = write(uart_filestream, &commsend.s_deviceSerialNum[0], NUM_BYTES6);	//write(filestream, starting address of inquiry, number of bytes to transmit)
+				//tx_count = write(uart_filestream, &cccommunicaton.s_deviceSerialNum[0], NUM_BYTES6);	//write(filestream, starting address of inquiry, number of bytes to transmit)
 				break;
 			case '2':
-				tx_count = write(uart_filestream, &commsend.s_deviceRatedInfo[0], NUM_BYTES8);
+				//tx_count = write(uart_filestream, &cccommunicaton.s_deviceRatedInfo[0], NUM_BYTES8);
 				break;
 			case '3':
-				tx_count = write(uart_filestream, &commsend.s_deviceGeneralStatusInfo[0], NUM_BYTES8);
+				//tx_count = write(uart_filestream, &cccommunicaton.s_deviceGeneralStatusInfo[0], NUM_BYTES8);
 				break;
 			case '4':
-				tx_count = write(uart_filestream, &commsend.s_deviceWarningStatus[0], NUM_BYTES8);
+				//tx_count = write(uart_filestream, &cccommunicaton.s_deviceWarningStatus[0], NUM_BYTES8);
 				break;
 			case '5':
-				tx_count = write(uart_filestream, &commsend.s_batteryEqualizedInfo[0], NUM_BYTES8);
+				//tx_count = write(uart_filestream, &cccommunicaton.s_batteryEqualizedInfo[0], NUM_BYTES8);
 				break;
 			default:
 				printf("Error: Incorrect entry!\n");
@@ -77,53 +76,53 @@ int main (int argc, char* argv[])
 			switch (menu_selection)
 			{
 				case '1':
-					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
+					rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
 					tot_length += rx_length;
 					if(tot_length == QID_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
 					{
 						finished_reading = true;
 						//Parse the data
-						commreceive.parseQID(commreceive.rx_buffer);
+						//cccommunicaton.parseQID(cccommunicaton.rx_buffer);
 					}
 					break;
 				case '2':
-					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);
+					rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);
 					tot_length += rx_length;
 					if(tot_length == QPIRI_LEN)
 					{
 						finished_reading = true;
 						//Parse the data
-						commreceive.parseQPIRI(commreceive.rx_buffer);
+						//cccommunicaton.parseQPIRI(cccommunicaton.rx_buffer);
 					}
 					break;
 				case '3':
-					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);
+					rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);
 					tot_length += rx_length;
 					if(tot_length == QPIGS_LEN)
 					{
 						finished_reading = true;
 						//Parse the data
-						commreceive.parseQPIGS(commreceive.rx_buffer);
+						//cccommunicaton.parseQPIGS(cccommunicaton.rx_buffer);
 					}
 					break;
 				case '4':
-					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);
+					rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);
 					tot_length += rx_length;
 					if(tot_length == QPIWS_LEN)
 					{
 						finished_reading = true;
 						//Parse the data
-						commreceive.parseQPIWS(commreceive.rx_buffer);
+						//cccommunicaton.parseQPIWS(cccommunicaton.rx_buffer);
 					}
 					break;
 				case '5':
-					rx_length = read(uart_filestream, (void*)(commreceive.rx_buffer+tot_length), RX_BUFF_MAX);
+					rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);
 					tot_length += rx_length;
 					if(tot_length == QBEQI_LEN)
 					{
 						finished_reading = true;
 						//Parse the data
-						commreceive.parseQBEQI(commreceive.rx_buffer);
+						//cccommunicaton.parseQBEQI(cccommunicaton.rx_buffer);
 					}
 					break;
 				default:

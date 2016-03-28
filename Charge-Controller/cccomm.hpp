@@ -1,9 +1,38 @@
-#ifndef _COMMRECEIVE_HPP
-#define _COMMRECEIVE_HPP
+#ifndef _CCCOMM_HPP
+#define _CCCOMM_HPP
 
-#define RX_LENGTH_MAX 256
+#define RX_LENGTH_MAX 256       //Max number of bytes in a receive array
+#define NUM_BYTES_TX_MAX 20     //Max number of bytes in a request(transmit) array
 
-class CommReceive{
+class CCComm{
+
+  /**********Variables for sending************/
+  //Request command arrays
+  char s_deviceSerialNum[NUM_BYTES_TX_MAX];     //QID request array
+  char s_deviceRatedInfo[NUM_BYTES_TX_MAX];     //QPIRI request array
+  char s_deviceGeneralStatusInfo[NUM_BYTES_TX_MAX]; //QPIGS request array
+  char s_deviceWarningStatus[NUM_BYTES_TX_MAX];   //QPIWS request array
+  char s_batteryEqualizedInfo[NUM_BYTES_TX_MAX];    //QBEQI request array
+
+  //Setting parameters commands
+  char s_setBattType[NUM_BYTES_TX_MAX];           //PBT setting array
+  char s_setBattAbsorbtionChargingVoltage[NUM_BYTES_TX_MAX];  //PBAV setting array
+  char s_setBattFloatingChargingVoltage[NUM_BYTES_TX_MAX];  //PBFV setting array
+  char s_setRatedBattVoltage[NUM_BYTES_TX_MAX];       //PBRV setting array
+  char s_setMaxChargingCurrent[NUM_BYTES_TX_MAX];       //MCHGC setting array
+  char s_enRemoteBatteryVoltageDetect[NUM_BYTES_TX_MAX];    //PRBD setting array
+  char s_setBattLowWarningVoltage[NUM_BYTES_TX_MAX];      //PBLV setting array
+  char s_setBattLowShutdownDetectEn[NUM_BYTES_TX_MAX];    //PBLSE setting array
+  char s_setBattEqualizationEn[NUM_BYTES_TX_MAX];       //PBEQE setting array
+  char s_setBattEqualizedTime[NUM_BYTES_TX_MAX];        //PBEQT setting array
+  char s_setPeriodBattEqualization[NUM_BYTES_TX_MAX];     //PBEQP setting array
+  char s_setMaxCurrentBatteryEqualization[NUM_BYTES_TX_MAX];  //PBEQMC setting array
+  char s_setBattEqualizedVoltage[NUM_BYTES_TX_MAX];     //PBEQV setting array
+  char s_setBattCVChargeTime[NUM_BYTES_TX_MAX];       //PBCVT setting array
+  char s_setTimeBatteryEqualizedTimeout[NUM_BYTES_TX_MAX];  //PBEQOT setting array
+  char s_setControlParameterDefault[NUM_BYTES_TX_MAX];    //PF setting array
+
+  /*********Variables and functions for receiving data***********/
 
   /* QID - Device serial number */
   std::string serialNum;
@@ -64,18 +93,39 @@ class CommReceive{
   uint16_t  expectedCRC;
   int       receivedCRC;
 
-public:
-  /* UART Input/Receive Buffer */
-  unsigned char rx_buffer[RX_LENGTH_MAX];   
-
-  CommReceive();   //Default constructor
-  void CRCcalc(unsigned char *, uint8_t);       //CRC calculation function
+  /*Parsing and CRC functions*/
+  void CRCcalc(char *, uint8_t);       //CRC calculation function
   void parseQID(unsigned char *rx_buffer_t);    //Parse the QID request for the device serial number
   void parseQPIRI(unsigned char *rx_buffer_t);  //Parse the QPIRI request for device rate information  
   void parseQPIGS(unsigned char *rx_buffer_t);  //Parse the QPIGS request for device general status parameters
   void parseQPIWS(unsigned char *rx_buffer_t);  //Parse the QDI request for device warning status
   void parseQBEQI(unsigned char *rx_buffer_t);  //Parse the QBEQI request for battery equalized information
   bool parseACKNAK(unsigned char *rx_buffer_t); //Parse the ACKNAK response to a setting command - Return true if ACK
+
+
+public:
+
+  CCComm();   //Default constructor
+
+  /* UART Input/Receive Buffer */
+  unsigned char rx_buffer[RX_LENGTH_MAX];   
+
+  /*******Set functions********/
+  void setBattType(int);
+  void setBattAbsorbtionChargingVoltage(float);
+  void setBattFloatingChargingVoltage(float);
+  void setRatedBattVoltage(int);
+  void setMaxChargingCurrent(int);
+  void setEnRemoteBatteryVoltageDetect(int);
+  void setBattLowWarningVoltage(float);
+  void setBattLowShutdownDetectEn(int);
+  void setBattEqualizationEn(int);        
+  void setBattEqualizedTime(int);       
+  void setPeriodBattEqualization(int);      
+  void setMaxCurrentBatteryEqualization(int); 
+  void setBattEqualizedVoltage(float);      
+  void setBattCVChargeTime(int);        
+  void setTimeBatteryEqualizedTimeout(int); 
   
   /******Get functions*******/
   //QID
