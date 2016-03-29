@@ -116,13 +116,11 @@ class CCComm{
   bool parseACKNACK(unsigned char *rx_buffer_t);  //Parse the ACKNAK response to a setting command - Return true if ACK
 
   /*Timeout variable and function - Used for updating the charge controller parameters*/
-  clock_t startTime;
-  
+  clock_t startTime;  
 
   //Get function - Timeout - Start Time
   clock_t getStartTime();
   void setStartTime(clock_t);
-
   
   //UART object
   UART uart0;   //Create an object of class UART - Used to establish a UART connection
@@ -135,6 +133,8 @@ class CCComm{
   unsigned char rx_buffer[RX_LENGTH_MAX];   
 
 public:
+  /* I2C object and functions */
+  I2C i2c0;     //Create an object of class I2C - Used for communication to the PSoC5
 
   CCComm();   //Default constructor
   bool updateParameters();   //Return true if the data needs updating

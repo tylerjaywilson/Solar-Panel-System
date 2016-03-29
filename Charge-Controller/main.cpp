@@ -17,11 +17,6 @@ int main (int argc, char* argv[])
 	//TEST SECTION
 	CCComm uartComm;
 
-	uartComm.updateParameters();
-	usleep(2000000);
-	uartComm.updateParameters();
-
-
 	while(1)
 	{	
 

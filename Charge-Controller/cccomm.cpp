@@ -16,6 +16,7 @@
 #include <fcntl.h>			//Used for UART
 #include <termios.h>		//Used for UART
 #include "uart.hpp"
+#include "i2c.hpp"
 #include "cccomm.hpp"
 
 
@@ -412,7 +413,7 @@ CCComm::CCComm()
 	receivedCRC = -1;
 
 	//Timeout variable 
-	startTime = 0;
+	startTime = clock();
 }
 
 
@@ -817,11 +818,20 @@ bool CCComm::parseACKNACK(unsigned char *rx_buffer_t)
 // Determine if the data is older than one second and return true if an update is needed
 bool CCComm::updateParameters()
 {
-	printf("Current Time - Start Time: %d - %d\n", clock(), getStartTime());
+	float elapsedTime = 0;
+	float starttime = (float) getStartTime();
+	float curtime = (float) clock();
+
+	//printf("Start Time: %f\n", starttime);
+	//printf("Current Time: %f\n", curtime);
+
+	//Calculate the elapsed time
+	elapsedTime = curtime-starttime;
+	//printf("Elapsed Time: %f\n", (elapsedTime/CLOCKS_PER_SEC));
+
 	//See if more than one second has elapsed
-	if( ((clock()-getStartTime()) > ONESECOND) / (double) CLOCKS_PER_SEC )
+	if( (elapsedTime/CLOCKS_PER_SEC) > ONESECOND )
 	{
-		printf("Current Time - Start Time: %d - %d\n", clock(), getStartTime());
 		setStartTime(clock());	//Update the new start time
 		return true;
 	}

@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"MAX",
+				"MAX_CHARGE_CURRENT"
+			],
+			[
+				"RATE",
+				"RATED_BATT_VOLT"
+			],
+			[
 				"charge",
 				"chargeVolt_p"
 			],
@@ -147,7 +155,7 @@
 			"file": "main.cpp",
 			"settings":
 			{
-				"buffer_size": 3746,
+				"buffer_size": 3687,
 				"line_ending": "Unix"
 			}
 		},
@@ -155,7 +163,7 @@
 			"file": "cccomm.hpp",
 			"settings":
 			{
-				"buffer_size": 6860,
+				"buffer_size": 7443,
 				"line_ending": "Unix"
 			}
 		},
@@ -163,7 +171,7 @@
 			"file": "cccomm.cpp",
 			"settings":
 			{
-				"buffer_size": 43422,
+				"buffer_size": 60907,
 				"line_ending": "Unix"
 			}
 		},
@@ -240,6 +248,7 @@
 	},
 	"file_history":
 	[
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/CRC_README.txt",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.cpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.hpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commreceive.cpp",
@@ -351,6 +360,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"updatePara",
+			"setStartTime",
+			"SERIAL_NUM",
+			"uart_filestream",
+			"(cccommunicaton.",
+			"#define",
 			"commreceive",
 			"commsend",
 			"CommSend",
@@ -481,7 +496,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -489,15 +504,15 @@
 					"file": "main.cpp",
 					"settings":
 					{
-						"buffer_size": 3746,
+						"buffer_size": 3687,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3651,
-								3651
+								574,
+								574
 							]
 						],
 						"settings":
@@ -506,7 +521,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 216.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -516,15 +531,15 @@
 					"file": "cccomm.hpp",
 					"settings":
 					{
-						"buffer_size": 6860,
+						"buffer_size": 7443,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4438,
-								4438
+								5170,
+								5170
 							]
 						],
 						"settings":
@@ -534,7 +549,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 378.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -544,15 +559,15 @@
 					"file": "cccomm.cpp",
 					"settings":
 					{
-						"buffer_size": 43422,
+						"buffer_size": 60907,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								23295,
-								23295
+								26962,
+								26962
 							]
 						],
 						"settings":
@@ -561,7 +576,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 12635.0,
+						"translation.y": 14275.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
