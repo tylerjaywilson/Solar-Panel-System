@@ -24,13 +24,13 @@
 #define INT_CONVERT 48		//Converts character integers to actual integer values
 
 /* These #define's indicate the number of bytes within any given character array */
-#define LEN2 2
-#define LEN3 3
-#define LEN5 5
-#define LEN6 6
-#define LEN8 8
-#define LEN9 9
-#define LEN10 10
+#define NUM_BYTES2 2
+#define NUM_BYTES3 3
+#define NUM_BYTES5 5
+#define NUM_BYTES6 6
+#define NUM_BYTES8 8
+#define NUM_BYTES9 9
+#define NUM_BYTES10 10
 
 #define AGM 0
 #define FLOODED 1
@@ -47,14 +47,37 @@
 #define ONESECOND 1.0
 
 /* DEFINES */
-#define NUM_BYTES6 6
-#define NUM_BYTES8 8
 #define RX_BUFF_MAX 255
 #define QID_LEN 18
 #define QPIRI_LEN 56
 #define QPIGS_LEN 68
 #define QPIWS_LEN 34
 #define QBEQI_LEN 35
+
+/* What kind of read or write is occuring */
+#define SERIAL_NUM 1
+#define RATED_INFO 2
+#define GENERAL_STATUS 3
+#define WARNING_STATUS 4
+#define EQUALIZED_INFO 5
+#define BATT_TYPE 6
+#define ABSORB_CHARGE_VOLT 7
+#define FLOAT_CHARGE_VOLT 8
+#define RATED_BATT_VOLT 9
+#define MAX_CHARGE_CURRENT 10
+#define BATT_VOLT_DETECT 11
+#define LOW_WARN_VOLT 12
+#define LOW_SHUTDOWN_DETECT_EN 13
+#define EQUALIZATAION_EN 14
+#define EQUALIZED_TIME 15
+#define PERIOD_EQUALIZATION 16
+#define MAX_CURRENT_EQUALIZATION 17
+#define EQUALIZED_VOLT 18
+#define CV_CHARGE_TIME 19
+#define EQUALIZED_TIMEOUT 20
+#define DEFAULTS 21
+
+#define ACKNACK 
 
 //Default Constructor
 CCComm::CCComm()
@@ -72,7 +95,7 @@ CCComm::CCComm()
 	s_deviceSerialNum[0] = 'Q';
 	s_deviceSerialNum[1] = 'I';
 	s_deviceSerialNum[2] = 'D';
-	CRCcalc(s_deviceSerialNum, LEN3);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_deviceSerialNum, NUM_BYTES3);	//Calculate the CRC and append the CRC and carriage return to the array
 	
 	//QPIRI
 	s_deviceRatedInfo[0] = 'Q';
@@ -80,7 +103,7 @@ CCComm::CCComm()
 	s_deviceRatedInfo[2] = 'I';
 	s_deviceRatedInfo[3] = 'R';
 	s_deviceRatedInfo[4] = 'I';
-	CRCcalc(s_deviceRatedInfo, LEN5);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_deviceRatedInfo, NUM_BYTES5);	//Calculate the CRC and append the CRC and carriage return to the array
 
 	//QPIGS
 	s_deviceGeneralStatusInfo[0] = 'Q';
@@ -88,7 +111,7 @@ CCComm::CCComm()
 	s_deviceGeneralStatusInfo[2] = 'I';
 	s_deviceGeneralStatusInfo[3] = 'G';
 	s_deviceGeneralStatusInfo[4] = 'S';
-	CRCcalc(s_deviceGeneralStatusInfo, LEN5);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_deviceGeneralStatusInfo, NUM_BYTES5);	//Calculate the CRC and append the CRC and carriage return to the array
 	
 	//QPIWS
 	s_deviceWarningStatus[0] = 'Q';
@@ -96,7 +119,7 @@ CCComm::CCComm()
 	s_deviceWarningStatus[2] = 'I';
 	s_deviceWarningStatus[3] = 'W';
 	s_deviceWarningStatus[4] = 'S';
-	CRCcalc(s_deviceWarningStatus, LEN5);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_deviceWarningStatus, NUM_BYTES5);	//Calculate the CRC and append the CRC and carriage return to the array
 
 	//QBEQI
 	s_batteryEqualizedInfo[0] = 'Q';
@@ -104,7 +127,7 @@ CCComm::CCComm()
 	s_batteryEqualizedInfo[2] = 'E';
 	s_batteryEqualizedInfo[3] = 'Q';
 	s_batteryEqualizedInfo[4] = 'I';
-	CRCcalc(s_batteryEqualizedInfo, LEN5);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_batteryEqualizedInfo, NUM_BYTES5);	//Calculate the CRC and append the CRC and carriage return to the array
 	/******END OF INQUIRY PARAMETERS************/
 
 	/*******Setting Parameters********/
@@ -114,7 +137,7 @@ CCComm::CCComm()
 	s_setBattType[2] = 'T';
 	s_setBattType[3] = '0';		//Default battery type - 00 - AGM
 	s_setBattType[4] = '0';	
-	CRCcalc(s_setBattType, LEN5);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_setBattType, NUM_BYTES5);	//Calculate the CRC and append the CRC and carriage return to the array
 
 	//PBAV
 	s_setBattAbsorbtionChargingVoltage[0] = 'P';	//PBAV setting array
@@ -126,7 +149,7 @@ CCComm::CCComm()
 	s_setBattAbsorbtionChargingVoltage[6] = '.';
 	s_setBattAbsorbtionChargingVoltage[7] = '1';
 	s_setBattAbsorbtionChargingVoltage[8] = '0';
-	CRCcalc(s_setBattAbsorbtionChargingVoltage, LEN9);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_setBattAbsorbtionChargingVoltage, NUM_BYTES9);	//Calculate the CRC and append the CRC and carriage return to the array
 
 	//PBFV
 	s_setBattFloatingChargingVoltage[0] = 'P';		//PBFV setting array
@@ -138,7 +161,7 @@ CCComm::CCComm()
 	s_setBattFloatingChargingVoltage[6] = '.';
 	s_setBattFloatingChargingVoltage[7] = '5';
 	s_setBattFloatingChargingVoltage[8] = '0';
-	CRCcalc(s_setBattFloatingChargingVoltage, LEN9);	//Calculate CRC and append with carriage return
+	CRCcalc(s_setBattFloatingChargingVoltage, NUM_BYTES9);	//Calculate CRC and append with carriage return
 
 	//PBRV
 	s_setRatedBattVoltage[0] = 'P';		//PBRV setting array
@@ -147,7 +170,7 @@ CCComm::CCComm()
 	s_setRatedBattVoltage[3] = 'V';
 	s_setRatedBattVoltage[4] = '0';		//Set the default to auto-sensing - 00
 	s_setRatedBattVoltage[5] = '0';
-	CRCcalc(s_setRatedBattVoltage, LEN6);	//Append CRC
+	CRCcalc(s_setRatedBattVoltage, NUM_BYTES6);	//Append CRC
 
 	//MCHGC
 	s_setMaxChargingCurrent[0] = 'M';	//MCHGC setting array
@@ -158,7 +181,7 @@ CCComm::CCComm()
 	s_setMaxChargingCurrent[5] = '0';	//Set the default to 60 A
 	s_setMaxChargingCurrent[6] = '6';
 	s_setMaxChargingCurrent[7] = '0';
-	CRCcalc(s_setMaxChargingCurrent, LEN8);	//Append CRC
+	CRCcalc(s_setMaxChargingCurrent, NUM_BYTES8);	//Append CRC
 
 	//PRBD
 	s_enRemoteBatteryVoltageDetect[0] = 'P';		//PRBD setting array
@@ -167,7 +190,7 @@ CCComm::CCComm()
 	s_enRemoteBatteryVoltageDetect[3] = 'D';
 	s_enRemoteBatteryVoltageDetect[4] = '0';		//Set the default to disabled for the remote batt voltage detect
 	s_enRemoteBatteryVoltageDetect[5] = '0';
-	CRCcalc(s_enRemoteBatteryVoltageDetect, LEN6);	//Append CRC
+	CRCcalc(s_enRemoteBatteryVoltageDetect, NUM_BYTES6);	//Append CRC
 
 	//PBLV
 	s_setBattLowWarningVoltage[0] = 'P';		//PBLV setting array
@@ -179,7 +202,7 @@ CCComm::CCComm()
 	s_setBattLowWarningVoltage[6] = '.';
 	s_setBattLowWarningVoltage[7] = '2';
 	s_setBattLowWarningVoltage[8] = '5';
-	CRCcalc(s_setBattLowWarningVoltage, LEN9);		//Append CRC
+	CRCcalc(s_setBattLowWarningVoltage, NUM_BYTES9);		//Append CRC
 
 	//PBLSE
 	s_setBattLowShutdownDetectEn[0] = 'P';			//PBLSE setting array
@@ -188,7 +211,7 @@ CCComm::CCComm()
 	s_setBattLowShutdownDetectEn[3] = 'S';
 	s_setBattLowShutdownDetectEn[4] = 'E';
 	s_setBattLowShutdownDetectEn[5] = '1';			//Set the default to enabled for low battery shutdown detect
-	CRCcalc(s_setBattLowShutdownDetectEn, LEN6);	//Append CRC
+	CRCcalc(s_setBattLowShutdownDetectEn, NUM_BYTES6);	//Append CRC
 
 	//PBEQE
 	s_setBattEqualizationEn[0] = 'P';		//PBEQE setting array
@@ -197,7 +220,7 @@ CCComm::CCComm()
 	s_setBattEqualizationEn[3] = 'Q';
 	s_setBattEqualizationEn[4] = 'E';
 	s_setBattEqualizationEn[5] = '0';		//Set the default to disabled for the battery equalization
-	CRCcalc(s_setBattEqualizationEn, LEN6);		//Append CRC
+	CRCcalc(s_setBattEqualizationEn, NUM_BYTES6);		//Append CRC
 
 	//PBEQT
 	s_setBattEqualizedTime[0] = 'P';		//PBEQT setting array
@@ -208,7 +231,7 @@ CCComm::CCComm()
 	s_setBattEqualizedTime[5] = '0';		//Set the default to 60 minutes for the battery equalized time
 	s_setBattEqualizedTime[6] = '6';
 	s_setBattEqualizedTime[7] = '0';
-	CRCcalc(s_setBattEqualizedTime, LEN8);	//Append CRC
+	CRCcalc(s_setBattEqualizedTime, NUM_BYTES8);	//Append CRC
 
 	//PBEQP
 	s_setPeriodBattEqualization[0] = 'P';			//PBEQP setting array
@@ -219,7 +242,7 @@ CCComm::CCComm()
 	s_setPeriodBattEqualization[5] = '0';		//Default period of battery equalization is 30 days
 	s_setPeriodBattEqualization[6] = '3';
 	s_setPeriodBattEqualization[7] = '0';
-	CRCcalc(s_setPeriodBattEqualization, LEN8);	//Append CRC
+	CRCcalc(s_setPeriodBattEqualization, NUM_BYTES8);	//Append CRC
 
 	//PBEQMC
 	s_setMaxCurrentBatteryEqualization[0] = 'P';	//PBEQMC setting array
@@ -231,7 +254,7 @@ CCComm::CCComm()
 	s_setMaxCurrentBatteryEqualization[6] = '0';	//Set the default max current of batt equalization to 15 A
 	s_setMaxCurrentBatteryEqualization[7] = '1';
 	s_setMaxCurrentBatteryEqualization[8] = '5';
-	CRCcalc(s_setMaxCurrentBatteryEqualization, LEN9);	//Append CRC
+	CRCcalc(s_setMaxCurrentBatteryEqualization, NUM_BYTES9);	//Append CRC
 
 	//PBEQV
 	s_setBattEqualizedVoltage[0] = 'P';			//PBEQV setting array
@@ -244,7 +267,7 @@ CCComm::CCComm()
 	s_setBattEqualizedVoltage[7] = '.';
 	s_setBattEqualizedVoltage[8] = '6';
 	s_setBattEqualizedVoltage[9] = '0';
-	CRCcalc(s_setBattEqualizedVoltage, LEN10);	//Append CRC
+	CRCcalc(s_setBattEqualizedVoltage, NUM_BYTES10);	//Append CRC
 
 	//PBCVT
 	s_setBattCVChargeTime[0] = 'P';				//PBCVT setting array
@@ -255,7 +278,7 @@ CCComm::CCComm()
 	s_setBattCVChargeTime[5] = '1';				//Default charge time set to 150 minutes
 	s_setBattCVChargeTime[6] = '5';
 	s_setBattCVChargeTime[7] = '0';
-	CRCcalc(s_setBattCVChargeTime, LEN8);	//Append CRC
+	CRCcalc(s_setBattCVChargeTime, NUM_BYTES8);	//Append CRC
 
 	//PBEQOT
 	s_setTimeBatteryEqualizedTimeout[0] = 'P';		//PBEQOT setting array
@@ -267,7 +290,7 @@ CCComm::CCComm()
 	s_setTimeBatteryEqualizedTimeout[6] = '1';		//Default equalized timeout to 180 minutes
 	s_setTimeBatteryEqualizedTimeout[7] = '8';
 	s_setTimeBatteryEqualizedTimeout[8] = '0';
-	CRCcalc(s_setTimeBatteryEqualizedTimeout, LEN9);	//Apend CRC
+	CRCcalc(s_setTimeBatteryEqualizedTimeout, NUM_BYTES9);	//Apend CRC
 
 	//PF
 	/*
@@ -294,7 +317,7 @@ CCComm::CCComm()
 	*/
 	s_setControlParameterDefault[0] = 'P';			//PF setting array
 	s_setControlParameterDefault[1] = 'F';			//Reset to all default parameters
-	CRCcalc(s_setControlParameterDefault, LEN2);	//Append CRC	
+	CRCcalc(s_setControlParameterDefault, NUM_BYTES2);	//Append CRC	
 	
 
 	/******************RECEIVE VARIABLES********************/
@@ -727,6 +750,44 @@ bool CCComm::updateParameters()
 		return false;
 }
 
+//UART Write function - Write data to the charge controller based on the write type (what kind of request)
+void CCComm::uartWrite(int writeType)
+{
+	int tx_count = 0;
+	switch(writeType)
+	{
+		case SERIAL_NUM:
+			tx_count = write(uart0.getFilestream(), &s_deviceSerialNum[0], NUM_BYTES6);	//write(filestream, starting address of inquiry, number of bytes to transmit)
+			break;
+		case RATED_INFO:
+			tx_count = write(uart0.getFilestream(), &s_deviceRatedInfo[0], NUM_BYTES8);
+			break;
+		case GENERAL_STATUS:
+			tx_count = write(uart0.getFilestream(), &s_deviceGeneralStatusInfo[0], NUM_BYTES8);
+			break;
+		case WARNING_STATUS:
+			tx_count = write(uart0.getFilestream(), &s_deviceWarningStatus[0], NUM_BYTES8);
+			break;
+		case EQUALIZED_INFO:
+			tx_count = write(uart0.getFilestream(), &s_batteryEqualizedInfo[0], NUM_BYTES8);
+			break;
+		case BATT_TYPE:
+			tx_count = write(uart0.getFilestream(), &s_setBattType[0], NUM_BYTES5);
+			break;
+		case ABSORB_CHARGE_VOLT:
+			tx_count = write(uart0.getFilestream(), &s_setBattAbsorbtionChargingVoltage[0], NUM_BYTES9);
+			break;
+		default:
+			printf("Error: Write Type!\n");
+	}
+}
+
+//UART Read function
+void CCComm::uartRead(int readType)
+{
+
+}
+
 /**************Get functions for charge controller parameters*************/
 
 std::string CCComm::getSerialNum()
@@ -735,8 +796,8 @@ std::string CCComm::getSerialNum()
 	
 	if(update)	//If an update is needed then send the appropriate write command
 	{
-		int tx_count = write(uart0.getFilestream(), &s_deviceSerialNum[0], NUM_BYTES6);	//write(filestream, starting address of inquiry, number of bytes to transmit)
-	}
+		uartWrite(SERIAL_NUM);
+	}	
 	return serialNum;
 }
 int CCComm::getmaxOutputPower()
@@ -937,19 +998,19 @@ void CCComm::setBattType(int battType)
 	{
 		s_setBattType[3] = '0';
 		s_setBattType[4] = '0';
-		CRCcalc(s_setBattType, LEN5);
+		CRCcalc(s_setBattType, NUM_BYTES5);
 	}
 	else if(battType == FLOODED)	//Set to Flooded
 	{
 		s_setBattType[3] = '0';
 		s_setBattType[4] = '1';
-		CRCcalc(s_setBattType, LEN5);
+		CRCcalc(s_setBattType, NUM_BYTES5);
 	}
 	else					//Set to customized
 	{
 		s_setBattType[3] = '0';
 		s_setBattType[4] = '2';
-		CRCcalc(s_setBattType, LEN5);
+		CRCcalc(s_setBattType, NUM_BYTES5);
 	}
 }
 
@@ -981,9 +1042,9 @@ void CCComm::setBattAbsorbtionChargingVoltage(float chargeVolt)
 	s_setBattAbsorbtionChargingVoltage[7] = chargeVolt_p[3];
 	s_setBattAbsorbtionChargingVoltage[8] = chargeVolt_p[4];
 	
-	CRCcalc(s_setBattAbsorbtionChargingVoltage, LEN9);
+	CRCcalc(s_setBattAbsorbtionChargingVoltage, NUM_BYTES9);
 
-	//for(int i=0; i<LEN9; i++)
+	//for(int i=0; i<NUM_BYTES9; i++)
 	//	printf("%c", s_setBattAbsorbtionChargingVoltage[i]);
 }
 
@@ -1016,9 +1077,9 @@ void CCComm::setBattFloatingChargingVoltage(float floatVolt)
 	s_setBattFloatingChargingVoltage[7] = floatVolt_p[3];
 	s_setBattFloatingChargingVoltage[8] = floatVolt_p[4];
 	
-	CRCcalc(s_setBattFloatingChargingVoltage, LEN9);
+	CRCcalc(s_setBattFloatingChargingVoltage, NUM_BYTES9);
 
-	//for(int i=0; i<LEN9; i++)
+	//for(int i=0; i<NUM_BYTES9; i++)
 	//	printf("%c", s_setBattFloatingChargingVoltage[i]);
 }
 
@@ -1045,9 +1106,9 @@ void CCComm::setRatedBattVoltage(int battV)
 	s_setRatedBattVoltage[4] = '0';
 	s_setRatedBattVoltage[5] = battV_p[0];
 	
-	CRCcalc(s_setRatedBattVoltage, LEN6);
+	CRCcalc(s_setRatedBattVoltage, NUM_BYTES6);
 
-	//for(int i=0; i<LEN6; i++)
+	//for(int i=0; i<NUM_BYTES6; i++)
 	//	printf("%c", s_setRatedBattVoltage[i]);
 }
 
@@ -1071,9 +1132,9 @@ void CCComm::setMaxChargingCurrent(int chargeCurr)
 	s_setMaxChargingCurrent[6] = chargeCurr_p[0];
 	s_setMaxChargingCurrent[7] = chargeCurr_p[1];
 	
-	CRCcalc(s_setMaxChargingCurrent, LEN8);
+	CRCcalc(s_setMaxChargingCurrent, NUM_BYTES8);
 
-	//for(int i=0; i<LEN8; i++)
+	//for(int i=0; i<NUM_BYTES8; i++)
 	//	printf("%c", s_setMaxChargingCurrent[i]);
 }
 
@@ -1100,9 +1161,9 @@ void CCComm::setEnRemoteBatteryVoltageDetect(int endis)
 		s_enRemoteBatteryVoltageDetect[5] = '1';	
 	}
 		
-	CRCcalc(s_enRemoteBatteryVoltageDetect, LEN6);
+	CRCcalc(s_enRemoteBatteryVoltageDetect, NUM_BYTES6);
 
-	//for(int i=0; i<LEN6; i++)
+	//for(int i=0; i<NUM_BYTES6; i++)
 	//	printf("%c", s_enRemoteBatteryVoltageDetect[i]);
 }
 
@@ -1126,9 +1187,9 @@ void CCComm::setBattLowWarningVoltage(float lowVolt)
 	s_setBattLowWarningVoltage[6] = lowVolt_p[2];
 	s_setBattLowWarningVoltage[7] = lowVolt_p[3];
 	s_setBattLowWarningVoltage[8] = lowVolt_p[4];
-	CRCcalc(s_setBattLowWarningVoltage, LEN9);
+	CRCcalc(s_setBattLowWarningVoltage, NUM_BYTES9);
 
-	//for(int i=0; i<LEN9; i++)
+	//for(int i=0; i<NUM_BYTES9; i++)
 	//	printf("%c", s_setBattLowWarningVoltage[i]);
 }
 
@@ -1152,9 +1213,9 @@ void CCComm::setBattLowShutdownDetectEn(int endis)
 		s_setBattLowShutdownDetectEn[5] = '1';	
 	}
 		
-	CRCcalc(s_setBattLowShutdownDetectEn, LEN6);
+	CRCcalc(s_setBattLowShutdownDetectEn, NUM_BYTES6);
 
-	//for(int i=0; i<LEN6; i++)
+	//for(int i=0; i<NUM_BYTES6; i++)
 	//	printf("%c", s_setBattLowShutdownDetectEn[i]);
 }
 
@@ -1178,9 +1239,9 @@ void CCComm::setBattEqualizationEn(int endis)
 		s_setBattEqualizationEn[5] = '1';	
 	}
 		
-	CRCcalc(s_setBattEqualizationEn, LEN6);
+	CRCcalc(s_setBattEqualizationEn, NUM_BYTES6);
 
-	//for(int i=0; i<LEN6; i++)
+	//for(int i=0; i<NUM_BYTES6; i++)
 	//	printf("%c", s_setBattEqualizationEn[i]);
 }	
 
@@ -1221,9 +1282,9 @@ void CCComm::setBattEqualizedTime(int eqTime)
 		s_setBattEqualizedTime[7] = eqTime_p[0];
 	}
 	
-	CRCcalc(s_setBattEqualizedTime, LEN8);
+	CRCcalc(s_setBattEqualizedTime, NUM_BYTES8);
 
-	//for(int i=0; i<LEN8; i++)
+	//for(int i=0; i<NUM_BYTES8; i++)
 	//	printf("%c", s_setBattEqualizedTime[i]);
 }	
 
@@ -1264,9 +1325,9 @@ void CCComm::setPeriodBattEqualization(int period)
 		s_setBattEqualizedTime[7] = period_p[0];
 	}
 	
-	CRCcalc(s_setBattEqualizedTime, LEN8);
+	CRCcalc(s_setBattEqualizedTime, NUM_BYTES8);
 
-	//for(int i=0; i<LEN8; i++)
+	//for(int i=0; i<NUM_BYTES8; i++)
 	//	printf("%c", s_setBattEqualizedTime[i]);
 }		
 
@@ -1307,9 +1368,9 @@ void CCComm::setMaxCurrentBatteryEqualization(int maxCurr)
 		s_setMaxCurrentBatteryEqualization[8] = maxCurr_p[0];
 	}
 	
-	CRCcalc(s_setMaxCurrentBatteryEqualization, LEN9);
+	CRCcalc(s_setMaxCurrentBatteryEqualization, NUM_BYTES9);
 
-	//for(int i=0; i<LEN9; i++)
+	//for(int i=0; i<NUM_BYTES9; i++)
 	//	printf("%c", s_setMaxCurrentBatteryEqualization[i]);
 }	
 
@@ -1333,9 +1394,9 @@ void CCComm::setBattEqualizedVoltage(float equalVolt)
 	s_setBattEqualizedVoltage[7] = equalVolt_p[2];
 	s_setBattEqualizedVoltage[8] = equalVolt_p[3];
 	s_setBattEqualizedVoltage[9] = equalVolt_p[4];
-	CRCcalc(s_setBattEqualizedVoltage, LEN10);
+	CRCcalc(s_setBattEqualizedVoltage, NUM_BYTES10);
 
-	//for(int i=0; i<LEN10; i++)
+	//for(int i=0; i<NUM_BYTES10; i++)
 	//	printf("%c", s_setBattEqualizedVoltage[i]);
 }			
 
@@ -1376,9 +1437,9 @@ void CCComm::setBattCVChargeTime(int cvtime)
 		s_setBattCVChargeTime[7] = cvtime_p[0];
 	}
 	
-	CRCcalc(s_setBattCVChargeTime, LEN8);
+	CRCcalc(s_setBattCVChargeTime, NUM_BYTES8);
 
-	//for(int i=0; i<LEN8; i++)
+	//for(int i=0; i<NUM_BYTES8; i++)
 	//	printf("%c", s_setBattCVChargeTime[i]);
 }		
 
@@ -1419,9 +1480,9 @@ void CCComm::setTimeBatteryEqualizedTimeout(int timeout)
 		s_setTimeBatteryEqualizedTimeout[8] = timeout_p[0];
 	}
 	
-	CRCcalc(s_setTimeBatteryEqualizedTimeout, LEN9);
+	CRCcalc(s_setTimeBatteryEqualizedTimeout, NUM_BYTES9);
 
-	//for(int i=0; i<LEN9; i++)
+	//for(int i=0; i<NUM_BYTES9; i++)
 	//	printf("%c", s_setTimeBatteryEqualizedTimeout[i]);
 }	
 

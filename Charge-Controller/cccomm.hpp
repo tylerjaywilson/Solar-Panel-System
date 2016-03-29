@@ -112,6 +112,10 @@ class CCComm{
   //UART object
   UART uart0;                           //Create an object of class UART - Used to establish a UART connection
   
+  //Write and read functions for communicating to the Charge controller
+  void uartWrite(int);
+  void uartRead(int);
+
 public:
 
   CCComm();   //Default constructor
