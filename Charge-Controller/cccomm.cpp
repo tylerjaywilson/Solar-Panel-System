@@ -31,61 +31,71 @@
 #define NUM_BYTES8 8
 #define NUM_BYTES9 9
 #define NUM_BYTES10 10
+#define NUM_BYTES11 11
+#define NUM_BYTES12 12
+#define NUM_BYTES13 13
 
+//Battery Types
 #define AGM 0
 #define FLOODED 1
 #define CUSTOM 2
 
+//Enable or disable different parameters
 #define ENABLE 1
 #define DISABLE 0
 
+//Number of digits in an integer
 #define TRIPDIGIT 100
 #define DOUBDIGIT 10
 
+//Used for converting characters to integers
 #define INTEGER_BASE 10
 
+//Used for timing - Updating the charge controller parameters
 #define ONESECOND 1.0
 
-/* DEFINES */
+//Lengths of received arrays after sending an inquiry
 #define RX_BUFF_MAX 255
 #define QID_LEN 18
 #define QPIRI_LEN 56
 #define QPIGS_LEN 68
+#define QDI_LEN 40
 #define QPIWS_LEN 34
 #define QBEQI_LEN 35
+#define ACKNACK_LEN 7
 
 /* What kind of read or write is occuring */
 #define SERIAL_NUM 1
 #define RATED_INFO 2
 #define GENERAL_STATUS 3
-#define WARNING_STATUS 4
-#define EQUALIZED_INFO 5
-#define BATT_TYPE 6
-#define ABSORB_CHARGE_VOLT 7
-#define FLOAT_CHARGE_VOLT 8
-#define RATED_BATT_VOLT 9
-#define MAX_CHARGE_CURRENT 10
-#define BATT_VOLT_DETECT 11
-#define LOW_WARN_VOLT 12
-#define LOW_SHUTDOWN_DETECT_EN 13
-#define EQUALIZATAION_EN 14
-#define EQUALIZED_TIME 15
-#define PERIOD_EQUALIZATION 16
-#define MAX_CURRENT_EQUALIZATION 17
-#define EQUALIZED_VOLT 18
-#define CV_CHARGE_TIME 19
-#define EQUALIZED_TIMEOUT 20
-#define DEFAULTS 21
-
-#define ACKNACK 
+#define DEFAULT_SETTING 4
+#define WARNING_STATUS 5
+#define EQUALIZED_INFO 6
+#define BATT_TYPE 7
+#define ABSORB_CHARGE_VOLT 8
+#define FLOAT_CHARGE_VOLT 9
+#define RATED_BATT_VOLT 10
+#define MAX_CHARGE_CURRENT 11
+#define BATT_VOLT_DETECT 12
+#define LOW_WARN_VOLT 13
+#define LOW_SHUTDOWN_DETECT_EN 14
+#define EQUALIZATAION_EN 15
+#define EQUALIZED_TIME 16
+#define PERIOD_EQUALIZATION 17
+#define MAX_CURRENT_EQUALIZATION 18
+#define EQUALIZED_VOLT 19
+#define CV_CHARGE_TIME 20
+#define EQUALIZED_TIMEOUT 21
+#define DEFAULTS 22
+#define ACKNACK 23
 
 //Default Constructor
 CCComm::CCComm()
 {
 	/********UART Inititialization***********/
 	/* UART Stuff */
-  	uart0.setFilestream(-1);       //UART filestream for UART communication
-  	uart0.setBaud(2400);       //Default 2400 value;
+  	uart0.setFilestream(-1);       	//UART filestream for UART communication
+  	uart0.setBaud(2400);       		//Default 2400 value;
 	uart0.setFilestream(uart0.init(uart0.getFilestream(), uart0.getBaud()));   //Initialize the UART
 
 	/*****************SEND VARIABLES*****************/
@@ -95,7 +105,7 @@ CCComm::CCComm()
 	s_deviceSerialNum[0] = 'Q';
 	s_deviceSerialNum[1] = 'I';
 	s_deviceSerialNum[2] = 'D';
-	CRCcalc(s_deviceSerialNum, NUM_BYTES3);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_deviceSerialNum, NUM_BYTES3);			//Calculate the CRC and append the CRC and carriage return to the array
 	
 	//QPIRI
 	s_deviceRatedInfo[0] = 'Q';
@@ -103,7 +113,7 @@ CCComm::CCComm()
 	s_deviceRatedInfo[2] = 'I';
 	s_deviceRatedInfo[3] = 'R';
 	s_deviceRatedInfo[4] = 'I';
-	CRCcalc(s_deviceRatedInfo, NUM_BYTES5);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_deviceRatedInfo, NUM_BYTES5);			//Calculate the CRC and append the CRC and carriage return to the array
 
 	//QPIGS
 	s_deviceGeneralStatusInfo[0] = 'Q';
@@ -113,13 +123,19 @@ CCComm::CCComm()
 	s_deviceGeneralStatusInfo[4] = 'S';
 	CRCcalc(s_deviceGeneralStatusInfo, NUM_BYTES5);	//Calculate the CRC and append the CRC and carriage return to the array
 	
+	//QDI
+	s_defaultSettingValueInfo[0] = 'Q';
+	s_defaultSettingValueInfo[1] = 'D';
+	s_defaultSettingValueInfo[2] = 'I';
+	CRCcalc(s_defaultSettingValueInfo, NUM_BYTES3);	//Calculate the CRC and append the CRC and carriage return to the array
+
 	//QPIWS
 	s_deviceWarningStatus[0] = 'Q';
 	s_deviceWarningStatus[1] = 'P';
 	s_deviceWarningStatus[2] = 'I';
 	s_deviceWarningStatus[3] = 'W';
 	s_deviceWarningStatus[4] = 'S';
-	CRCcalc(s_deviceWarningStatus, NUM_BYTES5);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_deviceWarningStatus, NUM_BYTES5);		//Calculate the CRC and append the CRC and carriage return to the array
 
 	//QBEQI
 	s_batteryEqualizedInfo[0] = 'Q';
@@ -137,7 +153,7 @@ CCComm::CCComm()
 	s_setBattType[2] = 'T';
 	s_setBattType[3] = '0';		//Default battery type - 00 - AGM
 	s_setBattType[4] = '0';	
-	CRCcalc(s_setBattType, NUM_BYTES5);	//Calculate the CRC and append the CRC and carriage return to the array
+	CRCcalc(s_setBattType, NUM_BYTES5);				//Calculate the CRC and append the CRC and carriage return to the array
 
 	//PBAV
 	s_setBattAbsorbtionChargingVoltage[0] = 'P';	//PBAV setting array
@@ -170,7 +186,7 @@ CCComm::CCComm()
 	s_setRatedBattVoltage[3] = 'V';
 	s_setRatedBattVoltage[4] = '0';		//Set the default to auto-sensing - 00
 	s_setRatedBattVoltage[5] = '0';
-	CRCcalc(s_setRatedBattVoltage, NUM_BYTES6);	//Append CRC
+	CRCcalc(s_setRatedBattVoltage, NUM_BYTES6);		//Append CRC
 
 	//MCHGC
 	s_setMaxChargingCurrent[0] = 'M';	//MCHGC setting array
@@ -355,6 +371,17 @@ CCComm::CCComm()
 	remoteBattTemp = -1;
 	reserved = -1;
 	status = -1;
+
+	/* QDI - Default Setting Value information */
+  	// The 'd' is to indicate 'default'
+	d_battRatedVoltageSet = -1;
+   	d_maxChargingCurrent = -1.0;
+    d_battType = -1;
+   	d_absorbtionVoltage = -1.0;
+   	d_floatingVoltage = -1.0;
+    d_remoteBattVoltageDetect = -1;
+   	d_tempCompensationRatio = -1.0;
+    d_reserved = -1;
 
 	/* QPIWS - Device warning status paramters */
 	overChargeCurrent = -1;
@@ -587,6 +614,55 @@ void CCComm::parseQPIGS(unsigned char *rx_buffer_t)
 	memset(&rx_buffer_t[0], 0, sizeof(rx_buffer_t));
 }
 
+/*
+	Parse the default setting value information
+
+	QDI<cr>: The default setting value information
+	Computer: QDI<CRC><cr>
+	Device: (BB CC.C DD EE.EE FF.FF GG ±HH.H IIII<CRC><cr>
+*/
+void CCComm::parseQDI(unsigned char *rx_buffer_t)
+{
+	char *rx_buff_p = (strtok((char *) (rx_buffer_t+1), " ")); //rx_buffer_t+1 is used to remove the beginning '(' of the received data
+	d_battRatedVoltageSet = atoi(rx_buff_p);
+	//printf("\nPV Voltage: %s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	d_maxChargingCurrent = atof(rx_buff_p);
+	//printf("\nBatt Voltage: %s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	d_battType = atoi(rx_buff_p);
+	//printf("\nCharging i: %s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	d_absorbtionVoltage = atof(rx_buff_p);
+	//printf("\nCharging1 i: %s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	d_floatingVoltage = atof(rx_buff_p);
+	//printf("\nCharging2 i: %s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	d_remoteBattVoltageDetect = atoi(rx_buff_p);
+	//printf("\nCharging Power: %s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	d_tempCompensationRatio = atof(rx_buff_p);
+	//printf("\nUnit Temp: %s\n", rx_buff_p);
+
+	rx_buff_p = strtok(NULL, " ");
+	d_reserved = atoi(rx_buff_p);
+	//printf("\nRemote Batt V: %s\n", rx_buff_p);
+
+	//rx_buff_p = strtok(NULL, "\r");
+	//receivedCRC = atoi(rx_buff_p);
+	//printf("\nCRC: %s\n", rx_buff_p);
+
+	//Clear the char array
+	memset(&rx_buffer_t[0], 0, sizeof(rx_buffer_t));
+}
+
 //Parse the device warning status information
 /*
 	QPIWS<cr>: Device Warning Status inquiry
@@ -729,7 +805,7 @@ void CCComm::parseQBEQI(unsigned char *rx_buffer_t)
 /*
 	Parse the ACKNAK response to a setting command
 */
-bool CCComm::parseACKNAK(unsigned char *rx_buffer_t)
+bool CCComm::parseACKNACK(unsigned char *rx_buffer_t)
 {
 	//Check to see if an ACKNOWLEDGED was received
 	if((rx_buffer[1] == 'A') && (rx_buffer_t[2] == 'C') && (rx_buffer_t[3] == 'K'))
@@ -741,8 +817,11 @@ bool CCComm::parseACKNAK(unsigned char *rx_buffer_t)
 // Determine if the data is older than one second and return true if an update is needed
 bool CCComm::updateParameters()
 {
-	if( ((clock()-getstartTime()) > ONESECOND) / (double) CLOCKS_PER_SEC )
+	printf("Current Time - Start Time: %d - %d\n", clock(), getStartTime());
+	//See if more than one second has elapsed
+	if( ((clock()-getStartTime()) > ONESECOND) / (double) CLOCKS_PER_SEC )
 	{
+		printf("Current Time - Start Time: %d - %d\n", clock(), getStartTime());
 		setStartTime(clock());	//Update the new start time
 		return true;
 	}
@@ -751,9 +830,10 @@ bool CCComm::updateParameters()
 }
 
 //UART Write function - Write data to the charge controller based on the write type (what kind of request)
+//The function determines what kind of request or setting of parameters is occurring
 void CCComm::uartWrite(int writeType)
 {
-	int tx_count = 0;
+	int tx_count = 0;	//Need to use this for error detection
 	switch(writeType)
 	{
 		case SERIAL_NUM:
@@ -772,20 +852,166 @@ void CCComm::uartWrite(int writeType)
 			tx_count = write(uart0.getFilestream(), &s_batteryEqualizedInfo[0], NUM_BYTES8);
 			break;
 		case BATT_TYPE:
-			tx_count = write(uart0.getFilestream(), &s_setBattType[0], NUM_BYTES5);
+			tx_count = write(uart0.getFilestream(), &s_setBattType[0], NUM_BYTES8);
 			break;
 		case ABSORB_CHARGE_VOLT:
-			tx_count = write(uart0.getFilestream(), &s_setBattAbsorbtionChargingVoltage[0], NUM_BYTES9);
+			tx_count = write(uart0.getFilestream(), &s_setBattAbsorbtionChargingVoltage[0], NUM_BYTES12);
+			break;
+		case FLOAT_CHARGE_VOLT:
+			tx_count = write(uart0.getFilestream(), &s_setBattFloatingChargingVoltage[0], NUM_BYTES12);
+			break;
+		case RATED_BATT_VOLT:
+			tx_count = write(uart0.getFilestream(), &s_setRatedBattVoltage[0], NUM_BYTES9);
+			break;
+		case MAX_CHARGE_CURRENT:
+			tx_count = write(uart0.getFilestream(), &s_setMaxChargingCurrent[0], NUM_BYTES11);
+			break;
+		case BATT_VOLT_DETECT:
+			tx_count = write(uart0.getFilestream(), &s_enRemoteBatteryVoltageDetect[0], NUM_BYTES9);
+			break;
+		case LOW_WARN_VOLT:
+			tx_count = write(uart0.getFilestream(), &s_setBattLowWarningVoltage[0], NUM_BYTES12);
+			break;
+		case LOW_SHUTDOWN_DETECT_EN:
+			tx_count = write(uart0.getFilestream(), &s_setBattLowShutdownDetectEn[0], NUM_BYTES9);
+			break;
+		case EQUALIZATAION_EN:
+			tx_count = write(uart0.getFilestream(), &s_setBattEqualizationEn[0], NUM_BYTES9);
+			break;
+		case EQUALIZED_TIME:
+			tx_count = write(uart0.getFilestream(), &s_setBattEqualizedTime[0], NUM_BYTES11);
+			break;
+		case PERIOD_EQUALIZATION:
+			tx_count = write(uart0.getFilestream(), &s_setPeriodBattEqualization[0], NUM_BYTES11);
+			break;
+		case MAX_CURRENT_EQUALIZATION:
+			tx_count = write(uart0.getFilestream(), &s_setMaxCurrentBatteryEqualization[0], NUM_BYTES12);
+			break;
+		case EQUALIZED_VOLT:
+			tx_count = write(uart0.getFilestream(), &s_setBattEqualizedVoltage[0], NUM_BYTES13);
+			break;
+		case CV_CHARGE_TIME:
+			tx_count = write(uart0.getFilestream(), &s_setBattCVChargeTime[0], NUM_BYTES11);
+			break;
+		case EQUALIZED_TIMEOUT:
+			tx_count = write(uart0.getFilestream(), &s_setTimeBatteryEqualizedTimeout[0], NUM_BYTES12);
+			break;
+		case DEFAULTS:
+			tx_count = write(uart0.getFilestream(), &s_setControlParameterDefault[0], NUM_BYTES5);
 			break;
 		default:
 			printf("Error: Write Type!\n");
 	}
 }
 
-//UART Read function
+//UART Charge Controller Read function
+//Depending on which type of read is occuring, continue to read the available data until the 
+//expected length of the response is met
 void CCComm::uartRead(int readType)
 {
+	int rx_length, tot_length = 0;	//Need to use this for error detection
+	bool finishedReading = false;
 
+	//Continue reading incoming data until the expected limit is reached
+	while(!finishedReading)
+	{
+		//Which type of read are we expecting to have
+		switch(readType)
+		{
+			case SERIAL_NUM:				
+				//Determine the rx_length of incoming data (total number of bytes)
+				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
+				
+				//Add the rx_length to the total accumulated length.
+				tot_length += rx_length;
+				
+				//If the tot_length == the expected length then parse the data
+				if(tot_length == QID_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
+				{
+					finishedReading = true;
+					//Parse the data
+					parseQID(rx_buffer);
+				}
+				break;
+			case RATED_INFO:
+				//Determine the rx_length of incoming data (total number of bytes)
+				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
+				
+				//Add the rx_length to the total accumulated length.
+				tot_length += rx_length;
+				
+				//If the tot_length == the expected length then parse the data
+				if(tot_length == QPIRI_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
+				{
+					finishedReading = true;
+					//Parse the data
+					parseQPIRI(rx_buffer);
+				}
+				break;
+			case GENERAL_STATUS:
+				//Determine the rx_length of incoming data (total number of bytes)
+				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
+				
+				//Add the rx_length to the total accumulated length.
+				tot_length += rx_length;
+				
+				//If the tot_length == the expected length then parse the data
+				if(tot_length == QPIGS_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
+				{
+					finishedReading = true;
+					//Parse the data
+					parseQPIGS(rx_buffer);
+				}
+				break;
+			case WARNING_STATUS:
+				//Determine the rx_length of incoming data (total number of bytes)
+				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
+				
+				//Add the rx_length to the total accumulated length.
+				tot_length += rx_length;
+				
+				//If the tot_length == the expected length then parse the data
+				if(tot_length == QPIWS_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
+				{
+					finishedReading = true;
+					//Parse the data
+					parseQPIWS(rx_buffer);
+				}
+				break;
+			case EQUALIZED_INFO:
+				//Determine the rx_length of incoming data (total number of bytes)
+				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
+				
+				//Add the rx_length to the total accumulated length.
+				tot_length += rx_length;
+				
+				//If the tot_length == the expected length then parse the data
+				if(tot_length == QBEQI_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
+				{
+					finishedReading = true;
+					//Parse the data
+					parseQBEQI(rx_buffer);
+				}
+				break;
+			case ACKNACK:
+				//Determine the rx_length of incoming data (total number of bytes)
+				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
+				
+				//Add the rx_length to the total accumulated length.
+				tot_length += rx_length;
+				
+				//If the tot_length == the expected length then parse the data
+				if(tot_length == ACKNACK_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
+				{
+					finishedReading = true;
+					//Parse the data
+					parseACKNACK(rx_buffer);
+				}
+				break;
+			default:
+				printf("Error: Read Type!\n");
+		}
+	}
 }
 
 /**************Get functions for charge controller parameters*************/
@@ -794,185 +1020,487 @@ std::string CCComm::getSerialNum()
 {
 	bool update = updateParameters();
 	
-	if(update)	//If an update is needed then send the appropriate write command
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(SERIAL_NUM);
+		uartRead(SERIAL_NUM);
 	}	
 	return serialNum;
 }
-int CCComm::getmaxOutputPower()
+int CCComm::getMaxOutputPower()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return maxOutputPower;
 }
-int CCComm::getnominalBattVoltage()
+int CCComm::getNominalBattVoltage()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return nominalBattVoltage;
 }
-float CCComm::getnominalChargingCurrent()
+float CCComm::getNominalChargingCurrent()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return nominalChargingCurrent;
 }
-float CCComm::getabsorptionVoltage()
+float CCComm::getAbsorptionVoltage()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return absorptionVoltage;
 }
-float CCComm::getfloatVoltage()
+float CCComm::getFloatVoltage()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return floatVoltage;
 }
-int CCComm::getbattType()
+int CCComm::getBattType()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return battType;
 }
-int CCComm::getremoteBattVoltageDetect()
+int CCComm::getRemoteBattVoltageDetect()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return remoteBattVoltageDetect;
 }
-float CCComm::getbattTempCompensation()
+float CCComm::getBattTempCompensation()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return battTempCompensation;
 }
-int CCComm::getremoteTempDetect()
+int CCComm::getRemoteTempDetect()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return remoteTempDetect;
 }
-int CCComm::getbattRatedVoltageSet()
+int CCComm::getBattRatedVoltageSet()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return battRatedVoltageSet;
 }
-int CCComm::getbattInSerial()
+int CCComm::getBattInSerial()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return battInSerial;
 }
-float CCComm::getbattLowWarningVoltage()
+float CCComm::getBattLowWarningVoltage()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return battLowWarningVoltage;
 }
-int CCComm::getbattLowShutdownDetect()
+int CCComm::getBattLowShutdownDetect()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(RATED_INFO);
+		uartRead(RATED_INFO);
+	}	
 	return battLowShutdownDetect;
 }
-float CCComm::getpvInputVoltage()
+float CCComm::getPVInputVoltage()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return pvInputVoltage;
 }
-float CCComm::getbattVoltage()
+float CCComm::getBattVoltage()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return battVoltage;
 }
-float CCComm::getchargingCurrent()
+float CCComm::getChargingCurrent()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return chargingCurrent;
 }
-float CCComm::getchargingCurrent1()
+float CCComm::getChargingCurrent1()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return chargingCurrent1;
 }
-float CCComm::getchargingCurrent2()
+float CCComm::getChargingCurrent2()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return chargingCurrent2;
 }
-int CCComm::getchargingPower()
+int CCComm::getChargingPower()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return chargingPower;
 }
-int CCComm::getunitTemp()
+int CCComm::getUnitTemp()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return unitTemp;
 }
-float CCComm::getremoteBattVoltage()
+float CCComm::getRemoteBattVoltage()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return remoteBattVoltage;
 }
-int CCComm::getremoteBattTemp()
+int CCComm::getRemoteBattTemp()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return remoteBattTemp;
 }
-int CCComm::getstatus()
+int CCComm::getStatus()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(GENERAL_STATUS);
+		uartRead(GENERAL_STATUS);
+	}	
 	return status;
 }
-int CCComm::getoverChargeCurrent()
+int CCComm::getOverChargeCurrent()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return overChargeCurrent;
 }
-int CCComm::getoverTemp()
+int CCComm::getOverTemp()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return overTemp;
 }
-int CCComm::getbattVoltageUnder()
+int CCComm::getBattVoltageUnder()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return battVoltageUnder;
 }
-int CCComm::getbattVoltageHigh()
+int CCComm::getBattVoltageHigh()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return battVoltageHigh;
 }
-int CCComm::getpvHighLoss()
+int CCComm::getPVHighLoss()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return pvHighLoss;
 }
-int CCComm::getbattTempLow()
+int CCComm::getBattTempLow()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return battTempLow;
 }
-int CCComm::getbattTempHigh()
+int CCComm::getBattTempHigh()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return battTempHigh;
 }
-int CCComm::getpvLowLoss()
+int CCComm::getPVLowLoss()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return pvLowLoss;
 }
-int CCComm::getpvHighDerating()
+int CCComm::getPVHighDerating()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return pvHighDerating;
 }
-int CCComm::gettempHighDerating()
+int CCComm::getTempHighDerating()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return tempHighDerating;
 }
-int CCComm::getbattTempLowAlarm()
+int CCComm::getBattTempLowAlarm()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return battTempLowAlarm;
 }
-int CCComm::getbattLowWarning()
+int CCComm::getBattLowWarning()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(WARNING_STATUS);
+		uartRead(WARNING_STATUS);
+	}	
 	return battLowWarning;
 }
-int CCComm::getbattEqualizedEn()
+int CCComm::getBattEqualizedEn()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(EQUALIZED_INFO);
+		uartRead(EQUALIZED_INFO);
+	}	
 	return battEqualizedEn;
 }
-int CCComm::getbattEqualizedTime()
+int CCComm::getBattEqualizedTime()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(EQUALIZED_INFO);
+		uartRead(EQUALIZED_INFO);
+	}	
 	return battEqualizedTime;
 }
-int CCComm::getintervalTime()
+int CCComm::getIntervalTime()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(EQUALIZED_INFO);
+		uartRead(EQUALIZED_INFO);
+	}	
 	return intervalTime;
 }
-int CCComm::getmaxCurrent()
+int CCComm::getMaxCurrent()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(EQUALIZED_INFO);
+		uartRead(EQUALIZED_INFO);
+	}	
 	return maxCurrent;
 }
-int CCComm::getremainingTime()
+int CCComm::getRemainingTime()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(EQUALIZED_INFO);
+		uartRead(EQUALIZED_INFO);
+	}	
 	return remainingTime;
 }
-float CCComm::getbattEqualizedVoltage()
+float CCComm::getBattEqualizedVoltage()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(EQUALIZED_INFO);
+		uartRead(EQUALIZED_INFO);
+	}	
 	return battEqualizedVoltage;
 }
-int CCComm::getbattCVChargeTime()
+int CCComm::getBattCVChargeTime()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(EQUALIZED_INFO);
+		uartRead(EQUALIZED_INFO);
+	}	
 	return battCVChargeTime;
 }
-int CCComm::getbattEqualizedTimeout()
+int CCComm::getBattEqualizedTimeout()
 {
+	bool update = updateParameters();
+	
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
+		uartWrite(EQUALIZED_INFO);
+		uartRead(EQUALIZED_INFO);
+	}	
 	return battEqualizedTimeout;
 }
-clock_t CCComm::getstartTime()
+clock_t CCComm::getStartTime()
 {
 	return startTime;
 }

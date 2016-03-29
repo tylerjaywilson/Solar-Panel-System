@@ -144,34 +144,34 @@
 	"buffers":
 	[
 		{
-			"file": "commreceive.cpp",
+			"file": "main.cpp",
 			"settings":
 			{
-				"buffer_size": 15811,
+				"buffer_size": 3746,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "commreceive.hpp",
+			"file": "cccomm.hpp",
 			"settings":
 			{
-				"buffer_size": 3516,
+				"buffer_size": 6860,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "commsend.cpp",
+			"file": "cccomm.cpp",
 			"settings":
 			{
-				"buffer_size": 25285,
+				"buffer_size": 43422,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "commsend.hpp",
+			"file": "makefile",
 			"settings":
 			{
-				"buffer_size": 2471,
+				"buffer_size": 174,
 				"line_ending": "Unix"
 			}
 		},
@@ -188,14 +188,6 @@
 			"settings":
 			{
 				"buffer_size": 125,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "main.cpp",
-			"settings":
-			{
-				"buffer_size": 4156,
 				"line_ending": "Unix"
 			}
 		},
@@ -248,6 +240,10 @@
 	},
 	"file_history":
 	[
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.cpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.hpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commreceive.cpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commreceive.hpp",
 		"/home/A01205668/.config/sublime-text-2/Settings/Session.sublime_session",
 		"/home/A01205668/ECE6470/Lab2/lab2/s35932/s35932.v",
 		"/home/A01205668/ECE6470/Lab2/lab2/env.tcl",
@@ -255,10 +251,6 @@
 		"/home/A01205668/ECE6470/Lab2/lab2/S35932_BENCH.mr",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/uart.cpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/uart.hpp",
-		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commreceive.cpp",
-		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commreceive.hpp",
-		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.hpp",
-		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.cpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/i2c.cpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/i2c.hpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/main.cpp",
@@ -359,6 +351,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"commreceive",
+			"commsend",
+			"CommSend",
+			"CommReceive",
 			"settimeoutentBatteryEqualization",
 			"MaxCurr",
 			"maxCurr",
@@ -485,23 +481,23 @@
 	"groups":
 	[
 		{
-			"selected": 8,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "commreceive.cpp",
+					"file": "main.cpp",
 					"settings":
 					{
-						"buffer_size": 15811,
+						"buffer_size": 3746,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3651,
+								3651
 							]
 						],
 						"settings":
@@ -517,18 +513,18 @@
 				},
 				{
 					"buffer": 1,
-					"file": "commreceive.hpp",
+					"file": "cccomm.hpp",
 					"settings":
 					{
-						"buffer_size": 3516,
+						"buffer_size": 6860,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								4438,
+								4438
 							]
 						],
 						"settings":
@@ -545,18 +541,18 @@
 				},
 				{
 					"buffer": 2,
-					"file": "commsend.cpp",
+					"file": "cccomm.cpp",
 					"settings":
 					{
-						"buffer_size": 25285,
+						"buffer_size": 43422,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								23295,
+								23295
 							]
 						],
 						"settings":
@@ -565,31 +561,30 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 12635.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "commsend.hpp",
+					"file": "makefile",
 					"settings":
 					{
-						"buffer_size": 2471,
+						"buffer_size": 174,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								116,
+								116
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -609,8 +604,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								1822,
+								1822
 							]
 						],
 						"settings":
@@ -619,7 +614,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 432.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -652,18 +647,18 @@
 				},
 				{
 					"buffer": 6,
-					"file": "main.cpp",
+					"file": "uart.cpp",
 					"settings":
 					{
-						"buffer_size": 4156,
+						"buffer_size": 3285,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								124,
+								236
 							]
 						],
 						"settings":
@@ -679,33 +674,6 @@
 				},
 				{
 					"buffer": 7,
-					"file": "uart.cpp",
-					"settings":
-					{
-						"buffer_size": 3285,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
 					"file": "uart.hpp",
 					"settings":
 					{

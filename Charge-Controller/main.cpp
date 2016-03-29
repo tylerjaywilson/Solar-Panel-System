@@ -2,18 +2,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdint.h>
+#include <ctime>
+#include "i2c.hpp"
 #include "uart.hpp"
 #include "cccomm.hpp"
-
-/* DEFINES */
-#define NUM_BYTES6 6
-#define NUM_BYTES8 8
-#define RX_BUFF_MAX 255
-#define QID_LEN 18
-#define QPIRI_LEN 56
-#define QPIGS_LEN 68
-#define QPIWS_LEN 34
-#define QBEQI_LEN 35
 
 using namespace std;
 
@@ -22,9 +14,16 @@ int main (int argc, char* argv[])
 	//Menu selection
 	char menu_selection;
 
+	//TEST SECTION
+	CCComm uartComm;
+
+	uartComm.updateParameters();
+	usleep(2000000);
+	uartComm.updateParameters();
+
+
 	while(1)
-	{		
-		CCComm cccommunicaton;
+	{	
 
 		/* THIS CODE IS USED FOR DEBUGGING THE CHARGE CONTROLLER PROTOCOL */
 
