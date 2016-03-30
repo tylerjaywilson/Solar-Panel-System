@@ -8,6 +8,7 @@
 #include <fcntl.h>			//Used for UART
 #include <termios.h>		//Used for UART
 #include <stdio.h>
+#include <stdint.h>
 #include "uart.hpp"
 
 //Default Constructor

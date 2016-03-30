@@ -3,12 +3,16 @@
 
 class I2C
 {
-	int slave_addr;
+	int psoc_addr;
 	int filestream;
 
 public:
   	I2C();   				//Default constructor
-  	void i2c_init();
+  	void init();
+  	void write8(unsigned char *);
+  	void write16(unsigned char *);
+  	int read8();
+  	int read16();
 };
 
 #endif

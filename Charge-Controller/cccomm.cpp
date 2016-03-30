@@ -99,9 +99,6 @@ CCComm::CCComm()
   	uart0.setBaud(2400);       		//Default 2400 value;
 	uart0.setFilestream(uart0.init(uart0.getFilestream(), uart0.getBaud()));   //Initialize the UART
 
-	/*********I2C Initialization****************/
-
-
 	/*****************SEND VARIABLES*****************/
 
 	/*******Inquiry parameters*****/

@@ -133,9 +133,6 @@ class CCComm{
   unsigned char rx_buffer[RX_LENGTH_MAX];   
 
 public:
-  /* I2C object and functions */
-  I2C i2c0;     //Create an object of class I2C - Used for communication to the PSoC5
-
   CCComm();   //Default constructor
   bool updateParameters();   //Return true if the data needs updating
   /*******Set functions********/
