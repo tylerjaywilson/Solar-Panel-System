@@ -186,6 +186,16 @@ public:
   int   getRemoteBattTemp();
   int   getStatus();
 
+  //QDI
+  int   getDBattRatedVoltageSet();
+  float getDMaxChargingCurrent();
+  int   getDBattType();
+  float getDAbsorptionVoltage();
+  float getDFloatingVoltage();
+  int   getDRemoteBattVoltageDetect();
+  float getDTempCompensationRatio();
+  int   getDReserved();
+
   //QPIWS
   int   getOverChargeCurrent();
   int   getOverTemp();

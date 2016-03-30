@@ -99,6 +99,9 @@ CCComm::CCComm()
   	uart0.setBaud(2400);       		//Default 2400 value;
 	uart0.setFilestream(uart0.init(uart0.getFilestream(), uart0.getBaud()));   //Initialize the UART
 
+	/*********I2C Initialization****************/
+
+
 	/*****************SEND VARIABLES*****************/
 
 	/*******Inquiry parameters*****/
@@ -1509,6 +1512,38 @@ int CCComm::getBattEqualizedTimeout()
 		uartRead(EQUALIZED_INFO);
 	}	
 	return battEqualizedTimeout;
+}
+int CCComm::getDBattRatedVoltageSet()
+{
+	return d_battRatedVoltageSet;
+}
+float CCComm::getDMaxChargingCurrent()
+{
+	return d_maxChargingCurrent;
+}
+int CCComm::getDBattType()
+{
+	return d_battType;
+}
+float CCComm::getDAbsorptionVoltage()
+{
+	return d_absorbtionVoltage;
+}
+float CCComm::getDFloatingVoltage()
+{
+	return d_floatingVoltage;
+}
+int CCComm::getDRemoteBattVoltageDetect()
+{
+	return d_remoteBattVoltageDetect;
+}
+float CCComm::getDTempCompensationRatio()
+{
+	return d_tempCompensationRatio;
+}
+int CCComm::getDReserved()
+{
+	return d_reserved;
 }
 clock_t CCComm::getStartTime()
 {
