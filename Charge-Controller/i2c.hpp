@@ -11,8 +11,8 @@ public:
   	void init();
   	void write8(unsigned char *);
   	void write16(unsigned char *);
-  	int read8();
-  	int read16();
+  	int read8(int);
+  	int read16(int);
 };
 
 #endif

@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <ctime>
+#include "psoccomm.hpp"
 #include "i2c.hpp"
 #include "uart.hpp"
 #include "cccomm.hpp"
@@ -15,7 +16,10 @@ int main (int argc, char* argv[])
 	char menu_selection;
 
 	//TEST SECTION
-	CCComm uartComm;
+	CCComm chargeController;
+	PSOCComm psoc;
+
+	//psoc.get
 
 	while(1)
 	{	

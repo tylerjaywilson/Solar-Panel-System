@@ -66,43 +66,59 @@ void I2C::write16(unsigned char *buffer)
 }
 
 //Read an 8 bit value from the PSoC5 and return it after the appropriate request has been made.
-int I2C::read8()
-{
-	unsigned char buffer[MAX_RX_BUFF] = {0};
+int I2C::read8(int address)
+{	
+	unsigned char tx_buffer[MAX_RX_BUFF] = {0};
+	unsigned char rx_buffer[MAX_RX_BUFF] = {0};
 
-	if (read(filestream, buffer, NUM_BYTES1) != NUM_BYTES1)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
+	tx_buffer[0] = (char) address;
+
+	if (write(filestream, tx_buffer, NUM_BYTES1) != NUM_BYTES1)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
+	{
+		/* ERROR HANDLING: i2c transaction failed */
+		printf("Failed to write to the i2c bus.\n");
+	}
+	if (read(filestream, rx_buffer, NUM_BYTES1) != NUM_BYTES1)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		//ERROR HANDLING: i2c transaction failed
 		printf("Failed to read from the i2c bus.\n");
 	}
 	else
 	{
-		printf("Data read: %s\n", buffer);
+		printf("Data read: %s\n", rx_buffer);
 	}
 
 	//Convert the character value to an integer and return it.
-	return ((int)(buffer[0]));
+	return ((int)(rx_buffer[0]));
 }
 
 //Read a 16 bit value from the PSoC5 and return it after the appropriate request has been made
-int I2C::read16()
+int I2C::read16(int address)
 {
-	unsigned char buffer[MAX_RX_BUFF] = {0};
+	unsigned char tx_buffer[MAX_RX_BUFF] = {0};
+	unsigned char rx_buffer[MAX_RX_BUFF] = {0};
 
-	if (read(filestream, buffer, NUM_BYTES2) != NUM_BYTES2)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
+	tx_buffer[0] = (char) address;
+
+	if (write(filestream, tx_buffer, NUM_BYTES1) != NUM_BYTES1)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
+	{
+		/* ERROR HANDLING: i2c transaction failed */
+		printf("Failed to write to the i2c bus.\n");
+	}
+	if (read(filestream, rx_buffer, NUM_BYTES2) != NUM_BYTES2)		//read() returns the number of bytes actually read, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		//ERROR HANDLING: i2c transaction failed
 		printf("Failed to read from the i2c bus.\n");
 	}
 	else
 	{
-		printf("Data read: %s\n", buffer);
+		printf("Data read: %s\n", rx_buffer);
 	}
 
 	//Convert the two read characters into integers. Shift the HighByte of data to the left by 8 bits.
 	//'And' the converted integer values to get the full 16 bit value. 
-	int lowbyte = (int) buffer[0];
-	int highbyte = (int) buffer[1];
+	int lowbyte = (int) rx_buffer[0];
+	int highbyte = (int) rx_buffer[1];
 	int returnVal = (highbyte << BITS8) & lowbyte;
 
 	return returnVal;
