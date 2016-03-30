@@ -19,7 +19,8 @@ int main (int argc, char* argv[])
 	CCComm chargeController;
 	PSOCComm psoc;
 
-	//psoc.get
+	//float value = psoc.getBatteryVoltage();
+	//printf("Battery Voltage: %f\n", value);
 
 	while(1)
 	{	

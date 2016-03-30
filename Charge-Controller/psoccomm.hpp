@@ -5,14 +5,14 @@ class PSOCComm
 {	
 	float batteryVoltage;
 	float batteryCurrent;
-	float loadVoltage = 0;
-	float loadCurrent = 0;
-	float externalVoltage = 0;
-	float externalCurrent = 0;
-	float extraVoltage = 0;
+	float loadVoltage;
+	float loadCurrent;
+	float externalVoltage;
+	float externalCurrent;
+	float extraVoltage;
 
 	I2C i2c0;
-	
+
 public:
   	PSOCComm();   				//Default constructor
   	void writei2c(int);
