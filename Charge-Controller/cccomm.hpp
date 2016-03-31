@@ -1,8 +1,8 @@
 #ifndef _CCCOMM_HPP
 #define _CCCOMM_HPP
 
-#define RX_LENGTH_MAX 256       //Max number of bytes in a receive array
-#define NUM_BYTES_TX_MAX 20     //Max number of bytes in a request(transmit) array
+#define     RX_LENGTH_MAX         256       //Max number of bytes in a receive array
+#define     NUM_BYTES_TX_MAX      20     //Max number of bytes in a request(transmit) array
 
 class CCComm{
 
@@ -120,7 +120,7 @@ class CCComm{
 
   //Get function - Timeout - Start Time
   clock_t getStartTime();
-  void setStartTime(clock_t);
+  void    setStartTime(clock_t);
   
   //UART object
   UART uart0;   //Create an object of class UART - Used to establish a UART connection
@@ -132,9 +132,12 @@ class CCComm{
   /* UART Input/Receive Buffer */
   unsigned char rx_buffer[RX_LENGTH_MAX];   
 
+  //Function used for determining if the parameters of the charge controller need to be updated
+  bool updateParameters();   //Return true if the data needs updating
+
 public:
   CCComm();   //Default constructor
-  bool updateParameters();   //Return true if the data needs updating
+  
   /*******Set functions********/
   void setBattType(int);
   void setBattAbsorbtionChargingVoltage(float);

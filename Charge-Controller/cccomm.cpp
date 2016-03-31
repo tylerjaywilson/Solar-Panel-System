@@ -19,75 +19,75 @@
 #include "cccomm.hpp"
 
 
-#define RX_LENGTH_MAX 256	//The max receive buffer size is set to 256
-#define IDLENGTH 14			//The device ID length is expected to be 14
-#define INT_CONVERT 48		//Converts character integers to actual integer values
+#define 		RX_LENGTH_MAX 				256	//The max receive buffer size is set to 256
+#define 		IDLENGTH 					14	//The device ID length is expected to be 14
+#define 		INT_CONVERT 				48	//Converts character integers to actual integer values
 
-/* These #define's indicate the number of bytes within any given character array */
-#define NUM_BYTES2 2
-#define NUM_BYTES3 3
-#define NUM_BYTES5 5
-#define NUM_BYTES6 6
-#define NUM_BYTES8 8
-#define NUM_BYTES9 9
-#define NUM_BYTES10 10
-#define NUM_BYTES11 11
-#define NUM_BYTES12 12
-#define NUM_BYTES13 13
+/* These #define's indicate the	 number of bytes within any given character array */
+#define 		NUM_BYTES2 					2
+#define 		NUM_BYTES3 					3
+#define 		NUM_BYTES5 					5
+#define 		NUM_BYTES6 					6
+#define 		NUM_BYTES8 					8
+#define 		NUM_BYTES9 					9
+#define 		NUM_BYTES10					10
+#define 		NUM_BYTES11					11
+#define 		NUM_BYTES12					12
+#define 		NUM_BYTES13					13
 
 //Battery Types
-#define AGM 0
-#define FLOODED 1
-#define CUSTOM 2
+#define 		AGM 						0
+#define 		FLOODED 					1
+#define 		CUSTOM 						2
 
 //Enable or disable different parameters
-#define ENABLE 1
-#define DISABLE 0
+#define 		ENABLE 						1
+#define 		DISABLE 					0
 
 //Number of digits in an integer
-#define TRIPDIGIT 100
-#define DOUBDIGIT 10
+#define 		TRIPDIGIT 					100
+#define 		DOUBDIGIT 					10
 
 //Used for converting characters to integers
-#define INTEGER_BASE 10
+#define 		INTEGER_BASE 				10
 
 //Used for timing - Updating the charge controller parameters
-#define ONESECOND 1.0
+#define 		ONESECOND 					1.0
 
 //Lengths of received arrays after sending an inquiry
-#define RX_BUFF_MAX 255
-#define QID_LEN 18
-#define QPIRI_LEN 56
-#define QPIGS_LEN 68
-#define QDI_LEN 40
-#define QPIWS_LEN 34
-#define QBEQI_LEN 35
-#define ACKNACK_LEN 7
+#define 		RX_BUFF_MAX 				255
+#define 		QID_LEN 					18
+#define 		QPIRI_LEN 					56
+#define 		QPIGS_LEN 					68
+#define 		QDI_LEN 					40
+#define 		QPIWS_LEN 					34
+#define 		QBEQI_LEN 					35
+#define 		ACKNACK_LEN 				7
 
 /* What kind of read or write is occuring */
-#define SERIAL_NUM 1
-#define RATED_INFO 2
-#define GENERAL_STATUS 3
-#define DEFAULT_SETTING 4
-#define WARNING_STATUS 5
-#define EQUALIZED_INFO 6
-#define BATT_TYPE 7
-#define ABSORB_CHARGE_VOLT 8
-#define FLOAT_CHARGE_VOLT 9
-#define RATED_BATT_VOLT 10
-#define MAX_CHARGE_CURRENT 11
-#define BATT_VOLT_DETECT 12
-#define LOW_WARN_VOLT 13
-#define LOW_SHUTDOWN_DETECT_EN 14
-#define EQUALIZATAION_EN 15
-#define EQUALIZED_TIME 16
-#define PERIOD_EQUALIZATION 17
-#define MAX_CURRENT_EQUALIZATION 18
-#define EQUALIZED_VOLT 19
-#define CV_CHARGE_TIME 20
-#define EQUALIZED_TIMEOUT 21
-#define DEFAULTS 22
-#define ACKNACK 23
+#define 		SERIAL_NUM 					1
+#define 		RATED_INFO 					2
+#define 		GENERAL_STATUS 				3
+#define 		DEFAULT_SETTING 			4
+#define 		WARNING_STATUS 				5
+#define 		EQUALIZED_INFO 				6
+#define 		BATT_TYPE 					7
+#define 		ABSORB_CHARGE_VOLT 			8
+#define 		FLOAT_CHARGE_VOLT 			9
+#define 		RATED_BATT_VOLT 			10
+#define 		MAX_CHARGE_CURRENT 			11
+#define 		BATT_VOLT_DETECT 			12
+#define 		LOW_WARN_VOLT 				13
+#define 		LOW_SHUTDOWN_DETECT_EN 		14
+#define 		EQUALIZATAION_EN 			15
+#define 		EQUALIZED_TIME 				16
+#define 		PERIOD_EQUALIZATION 		17
+#define 		MAX_CURRENT_EQUALIZATION 	18
+#define 		EQUALIZED_VOLT 				19
+#define 		CV_CHARGE_TIME 				20
+#define 		EQUALIZED_TIMEOUT 			21
+#define 		DEFAULTS 					22
+#define 		ACKNACK 					23
 
 //Default Constructor
 CCComm::CCComm()
@@ -345,67 +345,67 @@ CCComm::CCComm()
 	serialNum = "-1";
 
   	/* QPIRI - Device rated information paramters */
-	maxOutputPower = -1;
-	nominalBattVoltage = -1;
-	nominalChargingCurrent = -1.0;
-	absorptionVoltage = -1.0;
-	floatVoltage = -1.0;
-	battType = -1;
-	remoteBattVoltageDetect = -1;
-	battTempCompensation = -1.0;
-	remoteTempDetect = -1;
-	battRatedVoltageSet = -1;
-	battInSerial = -1;
-	battLowWarningVoltage = -1.0;
-	battLowShutdownDetect = -1;
+	maxOutputPower 			=	-1;
+	nominalBattVoltage 		=	-1;
+	nominalChargingCurrent 	= 	-1.0;
+	absorptionVoltage 		=	-1.0;
+	floatVoltage 			= 	-1.0;
+	battType 				= 	-1;
+	remoteBattVoltageDetect =	-1;
+	battTempCompensation 	=	-1.0;
+	remoteTempDetect 		=	-1;
+	battRatedVoltageSet 	= 	-1;
+	battInSerial 			= 	-1;
+	battLowWarningVoltage 	= 	-1.0;
+	battLowShutdownDetect 	= 	-1;
 
 	/* QPIGS - Device general status parameters */
-	pvInputVoltage = -1.0;
-	battVoltage = -1.0;
-	chargingCurrent = -1.0;
-	chargingCurrent1 = -1.0;
-	chargingCurrent2 = -1.0;
-	chargingPower = -1;
-	unitTemp = -1;
-	remoteBattVoltage = -1.0;
-	remoteBattTemp = -1;
-	reserved = -1;
-	status = -1;
+	pvInputVoltage 			=	 -1.0;
+	battVoltage 			=	 -1.0;
+	chargingCurrent 		=	 -1.0;
+	chargingCurrent1 		=	 -1.0;
+	chargingCurrent2 		=	 -1.0;
+	chargingPower 			=	 -1;
+	unitTemp 				=	 -1;
+	remoteBattVoltage 		=	 -1.0;
+	remoteBattTemp 			=	 -1;
+	reserved 				=	 -1;
+	status 					=	 -1;
 
 	/* QDI - Default Setting Value information */
   	// The 'd' is to indicate 'default'
-	d_battRatedVoltageSet = -1;
-   	d_maxChargingCurrent = -1.0;
-    d_battType = -1;
-   	d_absorbtionVoltage = -1.0;
-   	d_floatingVoltage = -1.0;
-    d_remoteBattVoltageDetect = -1;
-   	d_tempCompensationRatio = -1.0;
-    d_reserved = -1;
+	d_battRatedVoltageSet 		=	 -1;
+   	d_maxChargingCurrent 		=	 -1.0;
+    d_battType 					=	 -1;
+   	d_absorbtionVoltage 		=	 -1.0;
+   	d_floatingVoltage 			=	 -1.0;
+    d_remoteBattVoltageDetect 	=	 -1;
+   	d_tempCompensationRatio 	=	 -1.0;
+    d_reserved 					=	 -1;
 
 	/* QPIWS - Device warning status paramters */
-	overChargeCurrent = -1;
-	overTemp = -1;
-	battVoltageUnder = -1;
-	battVoltageHigh = -1;
-	pvHighLoss = -1;
-	battTempLow = -1;
-	battTempHigh = -1;
-	pvLowLoss = -1;
-	pvHighDerating = -1;
-	tempHighDerating = -1;
-	battTempLowAlarm = -1;
-	battLowWarning = -1;
+	overChargeCurrent 		=	 -1;
+	overTemp 				=	 -1;
+	battVoltageUnder 		=	 -1;
+	battVoltageHigh 		=	 -1;
+	pvHighLoss 				=	 -1;
+	battTempLow 			=	 -1;
+	battTempHigh 			=	 -1;
+	pvLowLoss 				=	 -1;
+	pvHighDerating 			=	 -1;
+	tempHighDerating 		=	 -1;
+	battTempLowAlarm 		=	 -1;
+	battLowWarning 			=	 -1;
 
 	/* QBEQI - Battery equalized information */
-	battEqualizedEn = -1;
-	battEqualizedTime = -1;
-	intervalTime = -1;
-	maxCurrent = -1;
-	remainingTime = -1;
-	battEqualizedVoltage = -1.0;
-	battCVChargeTime = -1;
-	battEqualizedTimeout = -1;
+	battEqualizedEn 		=	 -1;
+	battEqualizedTime 		=	 -1;
+	intervalTime 			=	 -1;
+	maxCurrent 				=	 -1;
+	remainingTime 			=	 -1;
+	battEqualizedVoltage 	=	 -1.0;
+	battCVChargeTime 		=	 -1;
+	battEqualizedTimeout 	=	 -1;
 
 	//Expected CRC
 	expectedCRC = -1;

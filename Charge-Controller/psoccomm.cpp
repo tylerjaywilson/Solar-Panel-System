@@ -9,14 +9,14 @@
 #include "i2c.hpp"
 #include "psoccomm.hpp"
 
-#define		MV_2_V		1000
-#define		M10A_2_A	100
+#define			MV_2_V				1000
+#define			M10A_2_A			100
 
 //Default Constructor
 PSOCComm::PSOCComm()
 {
 	i2c0.init();	//Connect the PSoC to the RaPi2 
-	batteryVoltage = 0.0;
+	batteryVoltage 	= 0.0;
 	batteryCurrent = 0.0;
 	loadVoltage = 0.0;
 	loadCurrent = 0.0;
@@ -60,6 +60,7 @@ void PSOCComm::setExtraVoltage(float extraVolt)
 
 float PSOCComm::getBatteryVoltage()
 {
+	//Read the battery voltage level, convert it to a float, and do the appropriate arithmetic to convert to Volt form (instead of mV)
 	int16_t retVal = i2c0.read16(I2C_BATT_VOLTAGE_LBYTE);
 	batteryVoltage = (float) retVal;
 	return (batteryVoltage/MV_2_V);
@@ -99,5 +100,4 @@ float PSOCComm::getExtraVoltage()
 	int16_t retVal = i2c0.read16(I2C_EXTRA_VOLTAGE_LBYTE);
 	extraVoltage = (float) retVal;
 	return (extraVoltage/MV_2_V);
-}
-  	
+}  	

@@ -4,12 +4,12 @@
 		"selected_items":
 		[
 			[
-				"MAX",
-				"MAX_CHARGE_CURRENT"
+				"NUM",
+				"NUM_BYTES2"
 			],
 			[
-				"RATE",
-				"RATED_BATT_VOLT"
+				"ela",
+				"elapsedTime"
 			],
 			[
 				"charge",
@@ -152,50 +152,27 @@
 	"buffers":
 	[
 		{
-			"file": "main.cpp",
+			"file": "i2cdefines.hpp",
 			"settings":
 			{
-				"buffer_size": 3687,
+				"buffer_size": 10162,
+				"line_ending": "Unix",
+				"name": "/* ========================================"
+			}
+		},
+		{
+			"file": "psoccomm.cpp",
+			"settings":
+			{
+				"buffer_size": 2299,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "cccomm.hpp",
+			"file": "psoccomm.hpp",
 			"settings":
 			{
-				"buffer_size": 7443,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "cccomm.cpp",
-			"settings":
-			{
-				"buffer_size": 60907,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "makefile",
-			"settings":
-			{
-				"buffer_size": 174,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "i2c.cpp",
-			"settings":
-			{
-				"buffer_size": 1883,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "i2c.hpp",
-			"settings":
-			{
-				"buffer_size": 125,
+				"buffer_size": 833,
 				"line_ending": "Unix"
 			}
 		},
@@ -203,7 +180,7 @@
 			"file": "uart.cpp",
 			"settings":
 			{
-				"buffer_size": 3285,
+				"buffer_size": 3305,
 				"line_ending": "Unix"
 			}
 		},
@@ -212,6 +189,54 @@
 			"settings":
 			{
 				"buffer_size": 454,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "makefile",
+			"settings":
+			{
+				"buffer_size": 187,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "cccomm.cpp",
+			"settings":
+			{
+				"buffer_size": 61601,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "cccomm.hpp",
+			"settings":
+			{
+				"buffer_size": 7706,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "i2c.cpp",
+			"settings":
+			{
+				"buffer_size": 4470,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "i2c.hpp",
+			"settings":
+			{
+				"buffer_size": 267,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "main.cpp",
+			"settings":
+			{
+				"buffer_size": 1641,
 				"line_ending": "Unix"
 			}
 		}
@@ -248,7 +273,11 @@
 	},
 	"file_history":
 	[
-		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/CRC_README.txt",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/cccomm.cpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/cccomm.hpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/makefile",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/uart.hpp",
+		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/uart.cpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.cpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commsend.hpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/commreceive.cpp",
@@ -258,8 +287,6 @@
 		"/home/A01205668/ECE6470/Lab2/lab2/env.tcl",
 		"/home/A01205668/ECE6470/Lab2/lab2/dc.tcl",
 		"/home/A01205668/ECE6470/Lab2/lab2/S35932_BENCH.mr",
-		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/uart.cpp",
-		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/uart.hpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/i2c.cpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/i2c.hpp",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/main.cpp",
@@ -270,7 +297,6 @@
 		"/home/A01205668/ECE6470/FloatingPointProject/binaryconvert.hpp",
 		"/home/A01205668/ECE6470/FloatingPointProject/binaryconvert.cpp",
 		"/home/A01205668/ECE6470/FloatingPointProject/main.cpp",
-		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/makefile",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/makefilePI",
 		"/home/A01205668/ECE6140/SolarPanelProject/Solar-Panel-System/Charge-Controller/CRC_chargeController.c",
 		"/home/A01205668/ECE6470/Lab4/outputDir/check_timing.txt",
@@ -360,12 +386,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"updatePara",
-			"setStartTime",
-			"SERIAL_NUM",
-			"uart_filestream",
-			"(cccommunicaton.",
-			"#define",
+			"//",
 			"commreceive",
 			"commsend",
 			"CommSend",
@@ -496,150 +517,15 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "main.cpp",
+					"file": "i2cdefines.hpp",
 					"settings":
 					{
-						"buffer_size": 3687,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								574,
-								574
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 216.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "cccomm.hpp",
-					"settings":
-					{
-						"buffer_size": 7443,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5170,
-								5170
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 378.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "cccomm.cpp",
-					"settings":
-					{
-						"buffer_size": 60907,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								26962,
-								26962
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 14275.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "makefile",
-					"settings":
-					{
-						"buffer_size": 174,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								116,
-								116
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Makefile/Makefile.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "i2c.cpp",
-					"settings":
-					{
-						"buffer_size": 1883,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1822,
-								1822
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 432.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "i2c.hpp",
-					"settings":
-					{
-						"buffer_size": 125,
+						"buffer_size": 10162,
 						"regions":
 						{
 						},
@@ -652,28 +538,29 @@
 						],
 						"settings":
 						{
+							"auto_name": "/* ========================================",
 							"syntax": "Packages/C++/C++.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4609.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "uart.cpp",
+					"buffer": 1,
+					"file": "psoccomm.cpp",
 					"settings":
 					{
-						"buffer_size": 3285,
+						"buffer_size": 2299,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								124,
-								236
+								0,
+								0
 							]
 						],
 						"settings":
@@ -688,7 +575,62 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 2,
+					"file": "psoccomm.hpp",
+					"settings":
+					{
+						"buffer_size": 833,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "uart.cpp",
+					"settings":
+					{
+						"buffer_size": 3305,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
 					"file": "uart.hpp",
 					"settings":
 					{
@@ -706,6 +648,167 @@
 						"settings":
 						{
 							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "makefile",
+					"settings":
+					{
+						"buffer_size": 187,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "cccomm.cpp",
+					"settings":
+					{
+						"buffer_size": 61601,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "cccomm.hpp",
+					"settings":
+					{
+						"buffer_size": 7706,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "i2c.cpp",
+					"settings":
+					{
+						"buffer_size": 4470,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "i2c.hpp",
+					"settings":
+					{
+						"buffer_size": 267,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "main.cpp",
+					"settings":
+					{
+						"buffer_size": 1641,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
