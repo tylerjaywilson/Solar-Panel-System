@@ -84,7 +84,7 @@ float PSOCComm::getLoadCurrent()
 }
 float PSOCComm::getExternalVoltage()
 {
-	int16_t retVal = i2c0.read16(I2C_EXT_VOLTAGE_LBYTE);
+	int16_t retVal = i2c0.read16(I2C_LOAD_CURRENT_LBYTE);
 	externalVoltage = (float) retVal;
 	return (externalVoltage/MV_2_V);
 }

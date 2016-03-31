@@ -90,7 +90,7 @@ int8_t I2C::read8(int address)
 	}
 
 	//Convert the character value to an integer and return it.
-	return ((int8_t)(rx_buffer[0]));
+	return ((uint8_t)(rx_buffer[0]));
 }
 
 //Read a 16 bit value from the PSoC5 and return it after the appropriate request has been made

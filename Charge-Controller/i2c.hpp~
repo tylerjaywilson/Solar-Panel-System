@@ -11,8 +11,8 @@ public:
   	void init();
   	void write8(unsigned char *);
   	void write16(unsigned char *);
-  	int8_t read8(int);
-  	int16_t read16(int);
+  	uint8_t read8(int);
+  	uint16_t read16(int);
 };
 
 #endif
