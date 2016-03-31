@@ -13,19 +13,19 @@ class PSOCComm
 
 	I2C i2c0;
 
+  /* SET FUNCTIONS */
+    void setBatteryVoltage(float);
+    void setBatteryCurrent(float);
+    void setLoadVoltage(float);
+    void setLoadCurrent(float);
+    void setExternalVoltage(float);
+    void setExternalCurrent(float);
+    void setExtraVoltage(float);
+
 public:
   	PSOCComm();   				//Default constructor
   	void writei2c(int);
-  	void readi2c(int);
-
-  	/* SET FUNCTIONS */
-  	void setBatteryVoltage(float);
-  	void setBatteryCurrent(float);
-  	void setLoadVoltage(float);
-  	void setLoadCurrent(float);
-  	void setExternalVoltage(float);
-  	void setExternalCurrent(float);
-  	void setExtraVoltage(float);
+  	void readi2c(int);  	
   	
   	/* GET FUNCTIONS */
   	float getBatteryVoltage();

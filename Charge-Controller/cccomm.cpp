@@ -16,7 +16,6 @@
 #include <fcntl.h>			//Used for UART
 #include <termios.h>		//Used for UART
 #include "uart.hpp"
-#include "i2c.hpp"
 #include "cccomm.hpp"
 
 

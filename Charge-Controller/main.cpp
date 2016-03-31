@@ -3,8 +3,8 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <ctime>
-#include "psoccomm.hpp"
 #include "i2c.hpp"
+#include "psoccomm.hpp"
 #include "uart.hpp"
 #include "cccomm.hpp"
 
@@ -19,109 +19,59 @@ int main (int argc, char* argv[])
 	CCComm chargeController;
 	PSOCComm psoc;
 
-	//float value = psoc.getBatteryVoltage();
-	//printf("Battery Voltage: %f\n", value);
-
 	while(1)
 	{	
 
 		/* THIS CODE IS USED FOR DEBUGGING THE CHARGE CONTROLLER PROTOCOL */
 
 		printf("\nWhat info do you want (Enter the number of your selection): \n\n");
-		printf("1. Serial Number\n");
-		printf("2. Device Rated Info\n");
-		printf("3. Device General Status\n");
-		printf("4. Device Warning Status\n");
-		printf("5. Battery Equalized Info\n");
+		printf("1. Battery Voltage\n");
+		printf("2. Battery Current\n");
+		printf("3. Load Voltage\n");
+		printf("4. Load Current\n");
+		printf("5. External Voltage\n");
+		printf("6. External Current\n");
+		printf("7. Extra Voltage\n");
 
 		cin >> menu_selection;
 
 		/* Transmit the inquiry */
 		int tx_count = -1;
+		float val = 0;
+
 		switch (menu_selection)
 		{
 			case '1':
-				//tx_count = write(uart_filestream, &cccommunicaton.s_deviceSerialNum[0], NUM_BYTES6);	//write(filestream, starting address of inquiry, number of bytes to transmit)
+				val = psoc.getBatteryVoltage();
+				printf("Battery Voltage: %f\n", val);
 				break;
 			case '2':
-				//tx_count = write(uart_filestream, &cccommunicaton.s_deviceRatedInfo[0], NUM_BYTES8);
+				val = psoc.getBatteryCurrent();
+				printf("Battery Current: %f\n", val);
 				break;
 			case '3':
-				//tx_count = write(uart_filestream, &cccommunicaton.s_deviceGeneralStatusInfo[0], NUM_BYTES8);
+				val = psoc.getLoadVoltage();
+				printf("Load Voltage: %f\n", val);
 				break;
 			case '4':
-				//tx_count = write(uart_filestream, &cccommunicaton.s_deviceWarningStatus[0], NUM_BYTES8);
+				val = psoc.getLoadCurrent();
+				printf("Load Current: %f\n", val);
 				break;
 			case '5':
-				//tx_count = write(uart_filestream, &cccommunicaton.s_batteryEqualizedInfo[0], NUM_BYTES8);
+				val = psoc.getExternalVoltage();
+				printf("External Voltage: %f\n", val);
+				break;
+			case '6':
+				val = psoc.getExternalCurrent();
+				printf("External Current: %f\n", val);
+				break;
+			case '7':
+				val = psoc.getExtraVoltage();
+				printf("Extra Voltage: %f\n", val);
 				break;
 			default:
 				printf("Error: Incorrect entry!\n");
-		}
-
-		int rx_length, tot_length = 0;
-		bool finished_reading = false;
-
-		//Read until we have gathered all of the data from the previous inquiry
-		while(!finished_reading)
-		{
-			/* Receive the information */
-			switch (menu_selection)
-			{
-				case '1':
-					//rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
-					//tot_length += rx_length;
-					//if(tot_length == QID_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
-					//{
-					//	finished_reading = true;
-						//Parse the data
-						//cccommunicaton.parseQID(cccommunicaton.rx_buffer);
-					//}
-					break;
-				case '2':
-					//rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);
-					//tot_length += rx_length;
-					//if(tot_length == QPIRI_LEN)
-					//{
-					//	finished_reading = true;
-						//Parse the data
-						//cccommunicaton.parseQPIRI(cccommunicaton.rx_buffer);
-					//}
-					break;
-				case '3':
-					//rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);
-					//tot_length += rx_length;
-					//if(tot_length == QPIGS_LEN)
-					//{
-					//	finished_reading = true;
-						//Parse the data
-						//cccommunicaton.parseQPIGS(cccommunicaton.rx_buffer);
-					//}
-					break;
-				case '4':
-					//rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);
-					//tot_length += rx_length;
-					//if(tot_length == QPIWS_LEN)
-					//{
-					//	finished_reading = true;
-						//Parse the data
-						//cccommunicaton.parseQPIWS(cccommunicaton.rx_buffer);
-					//}
-					break;
-				case '5':
-					//rx_length = read(uart_filestream, (void*)(cccommunicaton.rx_buffer+tot_length), RX_BUFF_MAX);
-					//tot_length += rx_length;
-					//if(tot_length == QBEQI_LEN)
-					//{
-					//	finished_reading = true;
-						//Parse the data
-						//cccommunicaton.parseQBEQI(cccommunicaton.rx_buffer);
-					//}
-					break;
-				default:
-					printf("Error: Incorrect entry!\n");
-			}
-		}	
+		}		
 	}
 	return 1;
 }

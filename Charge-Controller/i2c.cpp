@@ -4,6 +4,7 @@
 *
 */
 #include <stdio.h>
+#include <stdint.h>
 #include <unistd.h>				//Needed for I2C port
 #include <fcntl.h>				//Needed for I2C port
 #include <sys/ioctl.h>			//Needed for I2C port
@@ -35,7 +36,7 @@ void I2C::init()
 		return;
 	}
 	
-	//<<<<<The I2C address of the slave 
+	//The I2C address of the slave 
 	if (ioctl(filestream, I2C_SLAVE, psoc_addr) < 0)
 	{
 		printf("Failed to acquire bus access and/or talk to slave.\n");
@@ -66,12 +67,12 @@ void I2C::write16(unsigned char *buffer)
 }
 
 //Read an 8 bit value from the PSoC5 and return it after the appropriate request has been made.
-int I2C::read8(int address)
+uint8_t I2C::read8(int address)
 {	
 	unsigned char tx_buffer[MAX_RX_BUFF] = {0};
 	unsigned char rx_buffer[MAX_RX_BUFF] = {0};
 
-	tx_buffer[0] = (char) address;
+	tx_buffer[0] = (unsigned char) address;
 
 	if (write(filestream, tx_buffer, NUM_BYTES1) != NUM_BYTES1)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
@@ -89,16 +90,16 @@ int I2C::read8(int address)
 	}
 
 	//Convert the character value to an integer and return it.
-	return ((int)(rx_buffer[0]));
+	return ((uint8_t)(rx_buffer[0]));
 }
 
 //Read a 16 bit value from the PSoC5 and return it after the appropriate request has been made
-int I2C::read16(int address)
+uint16_t I2C::read16(int address)
 {
 	unsigned char tx_buffer[MAX_RX_BUFF] = {0};
 	unsigned char rx_buffer[MAX_RX_BUFF] = {0};
 
-	tx_buffer[0] = (char) address;
+	tx_buffer[0] = (unsigned char) address;
 
 	if (write(filestream, tx_buffer, NUM_BYTES1) != NUM_BYTES1)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
@@ -117,9 +118,10 @@ int I2C::read16(int address)
 
 	//Convert the two read characters into integers. Shift the HighByte of data to the left by 8 bits.
 	//'And' the converted integer values to get the full 16 bit value. 
-	int lowbyte = (int) rx_buffer[0];
-	int highbyte = (int) rx_buffer[1];
-	int returnVal = (highbyte << BITS8) & lowbyte;
+	uint16_t lowbyte = (uint16_t) rx_buffer[0];
+	uint16_t highbyte = (uint16_t) rx_buffer[1];
+	uint16_t returnVal = (highbyte << BITS8) & lowbyte;
+	printf("Low Byte: %o High Byte: %o Combined Value: %o\n", lowbyte, highbyte, returnVal);
 
 	return returnVal;
 }

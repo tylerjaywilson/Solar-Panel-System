@@ -5,8 +5,8 @@
 */
 #include <stdio.h>
 #include <stdint.h>
-#include "i2c.hpp"
 #include "i2cdefines.hpp"
+#include "i2c.hpp"
 #include "psoccomm.hpp"
 
 //Default Constructor
@@ -20,54 +20,6 @@ PSOCComm::PSOCComm()
 	externalVoltage = 0.0;
 	externalCurrent = 0.0;
 	extraVoltage = 0.0;
-}
-
-void PSOCComm::writei2c(int writeType)
-{
-	switch(writeType)
-	{
-		default:
-			printf("Error with write request!\n");
-	}
-}
-
-void PSOCComm::readi2c(int readType)
-{	
-	int retVal;
-
-	switch(readType)
-	{
-		case I2C_BATT_VOLTAGE_LBYTE:
-			retVal = i2c0.read16(I2C_BATT_VOLTAGE_LBYTE);
-			setBatteryVoltage((float)retVal);
-			break;
-		case I2C_BATT_CURRENT_LBYTE:
-			retVal = i2c0.read16(I2C_BATT_CURRENT_LBYTE);
-			setBatteryCurrent((float)retVal);
-			break;
-		case I2C_LOAD_VOLTAGE_LBYTE:
-			retVal = i2c0.read16(I2C_LOAD_VOLTAGE_LBYTE);
-			setLoadVoltage((float)retVal);
-			break;
-		case I2C_LOAD_CURRENT_LBYTE:
-			retVal = i2c0.read16(I2C_LOAD_CURRENT_LBYTE);
-			setLoadCurrent((float)retVal);
-			break;
-		case I2C_EXT_VOLTAGE_LBYTE:
-			retVal = i2c0.read16(I2C_EXT_VOLTAGE_LBYTE);
-			setExternalVoltage((float)retVal);
-			break;
-		case I2C_EXT_CURRENT_LBYTE:
-			retVal = i2c0.read16(I2C_EXT_CURRENT_LBYTE);
-			setExternalCurrent((float)retVal);
-			break;
-		case I2C_EXTRA_VOLTAGE_LBYTE:
-			retVal = i2c0.read16(I2C_EXTRA_VOLTAGE_LBYTE);
-			setExtraVoltage((float)retVal);
-			break;
-		default:
-			printf("Error with write request!\n");
-	}
 }
 
 /**********SET FUNCTIONS*************/
@@ -105,30 +57,44 @@ void PSOCComm::setExtraVoltage(float extraVolt)
 
 float PSOCComm::getBatteryVoltage()
 {
-	readi2c(I2C_BATT_VOLTAGE_LBYTE);
+	uint16_t retVal = i2c0.read16(I2C_BATT_VOLTAGE_LBYTE);
+	batteryVoltage = (float) retVal;
+	return batteryVoltage;
 }
 float PSOCComm::getBatteryCurrent()
 {
-	readi2c(I2C_BATT_CURRENT_LBYTE);
+	uint16_t retVal = i2c0.read16(I2C_BATT_CURRENT_LBYTE);
+	batteryCurrent = (float) retVal;
+	return batteryCurrent;
 }
 float PSOCComm::getLoadVoltage()
 {
-	readi2c(I2C_LOAD_VOLTAGE_LBYTE);
+	uint16_t retVal = i2c0.read16(I2C_LOAD_VOLTAGE_LBYTE);
+	loadVoltage = (float) retVal;
+	return loadVoltage;
 }
 float PSOCComm::getLoadCurrent()
 {
-	readi2c(I2C_LOAD_CURRENT_LBYTE);
+	uint16_t retVal = i2c0.read16(I2C_LOAD_CURRENT_LBYTE);
+	loadCurrent = (float) retVal;
+	return loadCurrent;
 }
 float PSOCComm::getExternalVoltage()
 {
-	readi2c(I2C_EXT_VOLTAGE_LBYTE);
+	uint16_t retVal = i2c0.read16(I2C_LOAD_CURRENT_LBYTE);
+	externalVoltage = (float) retVal;
+	return externalVoltage;
 }
 float PSOCComm::getExternalCurrent()
 {
-	readi2c(I2C_EXT_CURRENT_LBYTE);
+	uint16_t retVal = i2c0.read16(I2C_EXT_CURRENT_LBYTE);
+	externalCurrent = (float) retVal;
+	return externalCurrent;
 }
 float PSOCComm::getExtraVoltage()
 {
-	readi2c(I2C_EXTRA_VOLTAGE_LBYTE);
+	uint16_t retVal = i2c0.read16(I2C_EXTRA_VOLTAGE_LBYTE);
+	extraVoltage = (float) retVal;
+	return extraVoltage;
 }
   	
