@@ -26,34 +26,211 @@ PSOCComm::PSOCComm()
 }
 
 /**********SET FUNCTIONS*************/
+void    PSOCComm::setLoadRelay(bool)
+{
+	
+}
+void    PSOCComm::setExternalRelay(bool)
+{
+	
+}
+void    PSOCComm::setTimeMinMaxAveMinutes(int8_t)
+{
+	
+}   
+void    PSOCComm::setTimeMinMaxAveSeconds(int8_t)
+{
+	
+}
 
-void PSOCComm::setBatteryVoltage(float battVolt)
+  //Battery Variables
+void    PSOCComm::setBatteryVoltageGain(float)
 {
-	batteryVoltage = battVolt;
+	
 }
-void PSOCComm::setBatteryCurrent(float battCurr)
+void    PSOCComm::setBatteryVoltageOffset(float)
 {
-	batteryCurrent = battCurr;	
+	
 }
-void PSOCComm::setLoadVoltage(float loadVolt)
+void    PSOCComm::setBatteryCurrentGain(float)
 {
-	loadVoltage = loadVolt;
+	
 }
-void PSOCComm::setLoadCurrent(float loadCurr)
+void    PSOCComm::setBatteryCurrentOffset(float)
 {
-	loadCurrent = loadCurr;
+	
 }
-void PSOCComm::setExternalVoltage(float extVolt)
+
+  //Load Variables
+void    PSOCComm::setLoadVoltageGain(float)
 {
-	externalVoltage = extVolt;
+	
 }
-void PSOCComm::setExternalCurrent(float extCurr)
+void    PSOCComm::setLoadVoltageOffset(float)
 {
-	externalCurrent = extCurr;
+	
 }
-void PSOCComm::setExtraVoltage(float extraVolt)
+void    PSOCComm::setLoadCurrentGain(float)
 {
-	extraVoltage = extraVolt;
+	
+}
+void    PSOCComm::setLoadCurrentOffset(float)
+{
+	
+}
+
+  //External Variables
+void    PSOCComm::setExternalVoltageGain(float)
+{
+	
+}
+void    PSOCComm::setExternalVoltageOffset(float)
+{
+	
+}
+void    PSOCComm::setExternalCurrentGain(float)
+{
+	
+}
+void    PSOCComm::setExternalCurrentOffset(float)
+{
+	
+}
+
+  //Extra Variables
+void    PSOCComm::setExtraVoltageGain(float)
+{
+	
+}
+void    PSOCComm::setExtraVoltageOffset(float)
+{
+	
+}
+
+  //BMS Variables
+void    PSOCComm::setBmsLoadVoltageReconnect(float)
+{
+	
+}
+void    PSOCComm::setBmsLoadTimeActionDelay(uint8_t)
+{
+	
+}
+void    PSOCComm::setBmsLoadVoltageDiscmin(float)
+{
+	
+}
+void    PSOCComm::setBmsBattTimeActionDelay(uint8_t)
+{
+	
+}
+void    PSOCComm::setBmsBattVoltageEmergMinReconnect(float)
+{
+	
+}
+void    PSOCComm::setBmsBattVoltageEmergMinDisconnect(float)
+{
+	
+}
+void    PSOCComm::setBmsBattVoltageCriticalWarning(float)
+{
+	
+}
+
+  //Real Time Clock Variables
+void    PSOCComm::setRtcYear(int16_t)
+{
+	
+}
+void    PSOCComm::setRtcMonth(uint8_t)
+{
+	
+}
+void    PSOCComm::setRtcDay(uint8_t)
+{
+	
+}
+void    PSOCComm::setRtcHour(uint8_t)
+{
+	
+}
+void    PSOCComm::setRtcMinute(uint8_t)
+{
+	
+}
+void    PSOCComm::setRtcSecond(uint8_t)
+{
+	
+}
+void    PSOCComm::setRtcChangesFlag(uint8_t)
+{
+	
+}
+
+  //Solar Panel Offset and Gain Variables
+void    PSOCComm::setSolPanel1Offset(float)
+{
+	
+}
+void    PSOCComm::setSolPanel1Gain(float)
+{
+	
+}
+void    PSOCComm::setSolPanel2Offset(float)
+{
+	
+}
+void    PSOCComm::setSolPanel2Gain(float)
+{
+	
+}
+void    PSOCComm::setSolPanel3Offset(float)
+{
+	
+}
+void    PSOCComm::setSolPanel3Gain(float)
+{
+	
+}
+void    PSOCComm::setSolPanel4Offset(float)
+{
+	
+}
+void    PSOCComm::setSolPanel4Gain(float)
+{
+	
+}
+void    PSOCComm::setSolPanel5Offset(float)
+{
+	
+}
+void    PSOCComm::setSolPanel5Gain(float)
+{
+	
+}
+void    PSOCComm::setSolPanel6Offset(float)
+{
+	
+}
+void    PSOCComm::setSolPanel6Gain(float)
+{
+	
+}
+void    PSOCComm::setSolPanel7Offset(float)
+{
+	
+}
+void    PSOCComm::setSolPanel7Gain(float)
+{
+	
+}
+void    PSOCComm::setSolPanel8Offset(float)
+{
+	
+}
+void    PSOCComm::setSolPanel8Gain(float)
+{
+	
 }
 
 /*********GET FUNCTIONS**************/

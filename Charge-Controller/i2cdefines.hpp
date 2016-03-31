@@ -70,13 +70,13 @@
 //#define						57
 //#define						58
 #define			I2C_RTC_YEAR_LBYTE			59
-//#define			I2C_RTC_YEAR_HBYTE			    60   1900-2200 (actual value is 1-65536)
-//#define			I2C_RTC_MONTH			        61   1-12
-//#define			I2C_RTC_DAYOFMONTH			    62   1-31
-//#define			I2C_RTC_HOUR			        63   0-23
-//#define			I2C_RTC_MINUTE			        64   0-59
-//#define			I2C_RTC_SECOND			        65   0-59
-//#define			I2C_RTC_CHANGES_FLAG		    66   0 or 1
+#define			I2C_RTC_YEAR_HBYTE			    60   //1900-2200 (actual value is 1-65536)
+#define			I2C_RTC_MONTH			        61   //1-12
+#define			I2C_RTC_DAYOFMONTH			    62   //1-31
+#define			I2C_RTC_HOUR			        63   //0-23
+#define			I2C_RTC_MINUTE			        64   //0-59
+#define			I2C_RTC_SECOND			        65   //0-59
+#define			I2C_RTC_CHANGES_FLAG		    66   // 0 or 1
 //#define			ALARM FUNCTIONS			67
 //#define						68
 //#define						69
@@ -92,31 +92,31 @@
 #define			I2C_SOLPANEL_1_OFFSET_HBYTE			79
 #define			I2C_SOLPANEL_1_GAIN_LBYTE			80
 #define			I2C_SOLPANEL_1_GAIN_HBYTE			81
-//#define						82
+#define			I2C_SOLPANEL_2_OFFSET_LBYTE			82
 #define			I2C_SOLPANEL_2_OFFSET_HBYTE			83
-//#define						84
+#define			I2C_SOLPANEL_2_GAIN_LBYTE			84
 #define			I2C_SOLPANEL_2_GAIN_HBYTE			85
-//#define						86
+#define			I2C_SOLPANEL_3_OFFSET_LBYTE			86
 #define			I2C_SOLPANEL_3_OFFSET_HBYTE			87
-//#define						88
+#define			I2C_SOLPANEL_3_GAIN_LBYTE			88
 #define			I2C_SOLPANEL_3_GAIN_HBYTE			89
-//#define						90
+#define			I2C_SOLPANEL_4_OFFSET_LBYTE			90
 #define			I2C_SOLPANEL_4_OFFSET_HBYTE			91
-//#define						92
+#define			I2C_SOLPANEL_4_GAIN_LBYTE			92
 #define			I2C_SOLPANEL_4_GAIN_HBYTE			93
-//#define						94
+#define			I2C_SOLPANEL_5_OFFSET_LBYTE			94
 #define			I2C_SOLPANEL_5_OFFSET_HBYTE			95
-//#define						96
+#define			I2C_SOLPANEL_5_GAIN_LBYTE			96
 #define			I2C_SOLPANEL_5_GAIN_HBYTE			97
-//#define						98
+#define			I2C_SOLPANEL_6_OFFSET_LBYTE			98
 #define			I2C_SOLPANEL_6_OFFSET_HBYTE			99
-//#define						100
+#define			I2C_SOLPANEL_6_GAIN_LBYTE			100
 #define			I2C_SOLPANEL_6_GAIN_HBYTE			101
-//#define						102
+#define			I2C_SOLPANEL_7_OFFSET_LBYTE			102
 #define			I2C_SOLPANEL_7_OFFSET_HBYTE			103
-//#define						104
+#define			I2C_SOLPANEL_7_GAIN_LBYTE			104
 #define			I2C_SOLPANEL_7_GAIN_HBYTE			105
-//#define						106
+#define			I2C_SOLPANEL_8_OFFSET_LBYTE			106
 #define			I2C_SOLPANEL_8_OFFSET_HBYTE			107
 #define			I2C_SOLPANEL_8_GAIN_LBYTE			108
 #define			I2C_SOLPANEL_8_GAIN_HBYTE			109
