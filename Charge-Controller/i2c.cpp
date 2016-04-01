@@ -46,8 +46,18 @@ void I2C::init()
 }
 
 // Write an 8 bit value to the PSoC5 slave device - This write value stored in 'buffer' is the register that we want to read from
-void I2C::write8(unsigned char *buffer)
+void I2C::write8(int address, unsigned char *buffer)
 {
+	unsigned char addressBuff[MAX_RX_BUFF] = {0};
+	addressBuff[0] = (unsigned char) address;
+
+	//First write a byte to indicate which memory location we will be writing to.
+	if (write(filestream, addressBuff, NUM_BYTES1) != NUM_BYTES1)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
+	{
+		/* ERROR HANDLING: i2c transaction failed */
+		printf("Failed to write to the i2c bus.\n");
+	}
+	//Write the desired data to the memory location
 	if (write(filestream, buffer, NUM_BYTES1) != NUM_BYTES1)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		/* ERROR HANDLING: i2c transaction failed */
@@ -57,8 +67,18 @@ void I2C::write8(unsigned char *buffer)
 
 //Write a 16 bit value to the PSoC5 slave device - This write value stored in buffer contains the register that we want to 
 //write to and the value that we are going to write to the aforementioned register.
-void I2C::write16(unsigned char *buffer)
+void I2C::write16(int address, unsigned char *buffer)
 {
+	unsigned char addressBuff[MAX_RX_BUFF] = {0};
+	addressBuff[0] = (unsigned char) address;
+
+	//First write a byte to indicate which memory location we will be writing to.
+	if (write(filestream, addressBuff, NUM_BYTES1) != NUM_BYTES1)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
+	{
+		/* ERROR HANDLING: i2c transaction failed */
+		printf("Failed to write to the i2c bus.\n");
+	}
+	//Write the desired data to the memory location
 	if (write(filestream, buffer, NUM_BYTES2) != NUM_BYTES2)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
 	{
 		/* ERROR HANDLING: i2c transaction failed */

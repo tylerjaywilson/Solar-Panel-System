@@ -163,6 +163,9 @@ class PSOCComm
   //Create an object of the I2C class
 	I2C i2c0;
 
+  //Convert float to two unsigned characters within an array
+  void float2Chars(float, unsigned char*);
+
 public:
 	PSOCComm();   				//Default constructor
 

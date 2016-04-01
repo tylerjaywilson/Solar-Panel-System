@@ -9,8 +9,8 @@ class I2C
 public:
   	I2C();   				//Default constructor
   	void 	init();
-  	void 	write8(unsigned char *);
-  	void 	write16(unsigned char *);
+  	void 	write8(int, unsigned char *);
+  	void 	write16(int, unsigned char *);
   	int8_t 	read8(int);
   	int16_t read16(int);
 };
