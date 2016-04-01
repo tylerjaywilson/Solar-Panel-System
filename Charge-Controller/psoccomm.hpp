@@ -35,7 +35,7 @@ class PSOCComm
   float   bmsLoadVoltageReconnect;
   uint8_t bmsLoadTimeActionDelay;
   float   bmsLoadVoltageDiscmin;
-  uint8_t bmsBattTimeActionDelay;
+  uint8_t bmsBattTimeEmergDelay;
   float   bmsBattVoltageEmergMinReconnect;
   float   bmsBattVoltageEmergMinDisconnect;
   float   bmsBattVoltageCriticalWarning;
@@ -166,6 +166,9 @@ class PSOCComm
   //Convert float to two unsigned characters within an array
   void float2Chars(float, unsigned char*);
 
+  //Convert int16's to unsigned characters
+  void int162Chars(int16_t, unsigned char*);
+
 public:
 	PSOCComm();   				//Default constructor
 
@@ -201,7 +204,7 @@ public:
   void    setBmsLoadVoltageReconnect(float);
   void    setBmsLoadTimeActionDelay(uint8_t);
   void    setBmsLoadVoltageDiscmin(float);
-  void    setBmsBattTimeActionDelay(uint8_t);
+  void    setBmsBattTimeEmergDelay(uint8_t);
   void    setBmsBattVoltageEmergMinReconnect(float);
   void    setBmsBattVoltageEmergMinDisconnect(float);
   void    setBmsBattVoltageCriticalWarning(float);
@@ -265,7 +268,7 @@ public:
   float   getBmsLoadVoltageReconnect();
   uint8_t getBmsLoadTimeActionDelay();
   float   getBmsLoadVoltageDiscmin();
-  uint8_t getBmsBattTimeActionDelay();
+  uint8_t getBmsBattTimeEmergDelay();
   float   getBmsBattVoltageEmergMinReconnect();
   float   getBmsBattVoltageEmergMinDisconnect();
   float   getBmsBattVoltageCriticalWarning();
