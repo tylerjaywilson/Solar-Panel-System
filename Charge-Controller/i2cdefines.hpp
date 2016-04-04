@@ -69,7 +69,7 @@
 //#define						56
 //#define						57
 //#define						58
-#define			I2C_RTC_YEAR_LBYTE			59
+#define			I2C_RTC_YEAR_LBYTE				59
 #define			I2C_RTC_YEAR_HBYTE			    60   //1900-2200 (actual value is 1-65536)
 #define			I2C_RTC_MONTH			        61   //1-12
 #define			I2C_RTC_DAYOFMONTH			    62   //1-31
@@ -151,8 +151,8 @@
 //#define						131
 #define			I2C_RTC_SECONDSLEFT_AVERAGE		    132
 #define			I2C_BMS_STATE			            133
-#define			I2C_I2C_BATT_SOC			134
-#define			I2C_I2C_BATT_USABLE_PERCENTAGE			135
+#define			I2C_I2C_BATT_SOC					134
+#define			I2C_I2C_BATT_USABLE_PERCENTAGE		135
 
 #define			I2C_SOLARPANEL_8_AVE_LBYTE			136
 #define			I2C_SOLARPANEL_8_AVE_HBYTE			137
@@ -226,11 +226,11 @@
 #define			I2C_SOLARPANEL_1_LBYTE			    198
 #define			I2C_SOLARPANEL_1_HBYTE			    199
 
-#define			I2C_EXTRA_V_AVE_LBYTE			        200
+#define			I2C_EXTRA_V_AVE_LBYTE			    200
 #define			I2C_EXTRA_V_AVE_HBYTE			    201
-#define			I2C_EXTRA_V_MIN_LBYTE			        202
+#define			I2C_EXTRA_V_MIN_LBYTE			    202
 #define			I2C_EXTRA_V_MIN_HBYTE			    203
-#define			I2C_EXTRA_V_MAX_LBYTE			        204
+#define			I2C_EXTRA_V_MAX_LBYTE			    204
 #define			I2C_EXTRA_V_MAX_HBYTE			    205
 #define			I2C_EXTRA_VOLTAGE_LBYTE			    206
 #define			I2C_EXTRA_VOLTAGE_HBYTE			    207
@@ -253,20 +253,20 @@
 #define			I2C_EXT_VOLTAGE_LBYTE			    222
 #define			I2C_EXT_VOLTAGE_HBYTE			    223
 
-#define			I2C_LOAD_I_AVE_LBYTE			        224
+#define			I2C_LOAD_I_AVE_LBYTE			    224
 #define			I2C_LOAD_I_AVE_HBYTE			    225
-#define			I2C_LOAD_I_MIN_LBYTE			        226
+#define			I2C_LOAD_I_MIN_LBYTE			    226
 #define			I2C_LOAD_I_MIN_HBYTE			    227
-#define			I2C_LOAD_I_MAX_LBYTE			        228
+#define			I2C_LOAD_I_MAX_LBYTE			    228
 #define			I2C_LOAD_I_MAX_HBYTE			    229
 #define			I2C_LOAD_CURRENT_LBYTE		    	230
 #define			I2C_LOAD_CURRENT_HBYTE		    	231
 
-#define			I2C_LOAD_V_AVE_LBYTE			        232
+#define			I2C_LOAD_V_AVE_LBYTE			    232
 #define			I2C_LOAD_V_AVE_HBYTE			    233
-#define			I2C_LOAD_V_MIN_LBYTE			        234
+#define			I2C_LOAD_V_MIN_LBYTE			    234
 #define			I2C_LOAD_V_MIN_HBYTE			    235
-#define			I2C_LOAD_V_MAX_LBYTE			        236
+#define			I2C_LOAD_V_MAX_LBYTE			    236
 #define			I2C_LOAD_V_MAX_HBYTE			    237
 #define			I2C_LOAD_VOLTAGE_LBYTE		    	238
 #define			I2C_LOAD_VOLTAGE_HBYTE		    	239
