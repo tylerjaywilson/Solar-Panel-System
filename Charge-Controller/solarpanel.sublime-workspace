@@ -176,27 +176,10 @@
 	"buffers":
 	[
 		{
-			"file": "main.cpp",
-			"settings":
-			{
-				"buffer_size": 1641,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "i2cdefines.hpp",
-			"settings":
-			{
-				"buffer_size": 10476,
-				"line_ending": "Unix",
-				"name": "/* ========================================"
-			}
-		},
-		{
 			"file": "psoccomm.cpp",
 			"settings":
 			{
-				"buffer_size": 17823,
+				"buffer_size": 31682,
 				"line_ending": "Unix"
 			}
 		},
@@ -204,7 +187,7 @@
 			"file": "psoccomm.hpp",
 			"settings":
 			{
-				"buffer_size": 10072,
+				"buffer_size": 10158,
 				"line_ending": "Unix"
 			}
 		},
@@ -549,23 +532,23 @@
 	"groups":
 	[
 		{
-			"selected": 10,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "main.cpp",
+					"file": "psoccomm.cpp",
 					"settings":
 					{
-						"buffer_size": 1641,
+						"buffer_size": 31682,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								4550,
+								4550
 							]
 						],
 						"settings":
@@ -574,79 +557,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1090.0,
+						"translation.y": 2827.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "i2cdefines.hpp",
-					"settings":
-					{
-						"buffer_size": 10476,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								952,
-								952
-							]
-						],
-						"settings":
-						{
-							"auto_name": "/* ========================================",
-							"syntax": "Packages/C++/C++.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 4427.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "psoccomm.cpp",
-					"settings":
-					{
-						"buffer_size": 17823,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4098,
-								4098
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 15443.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "psoccomm.hpp",
 					"settings":
 					{
-						"buffer_size": 10072,
+						"buffer_size": 10158,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3553,
-								3553
+								3953,
+								3953
 							]
 						],
 						"settings":
@@ -656,13 +585,13 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 624.0,
+						"translation.y": 2243.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 2,
 					"file": "i2c.cpp",
 					"settings":
 					{
@@ -683,13 +612,13 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2394.0,
+						"translation.y": 507.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 3,
 					"file": "i2c.hpp",
 					"settings":
 					{
@@ -715,7 +644,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 4,
 					"file": "uart.cpp",
 					"settings":
 					{
@@ -742,7 +671,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 5,
 					"file": "uart.hpp",
 					"settings":
 					{
@@ -768,7 +697,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 6,
 					"file": "makefile",
 					"settings":
 					{
@@ -794,7 +723,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 7,
 					"file": "cccomm.cpp",
 					"settings":
 					{
@@ -821,7 +750,7 @@
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 8,
 					"file": "cccomm.hpp",
 					"settings":
 					{
@@ -843,7 +772,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2991.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

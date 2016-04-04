@@ -1268,6 +1268,14 @@ float   PSOCComm::getExtraVoltageMin()
 }
 float   PSOCComm::getExtraVoltageMax()
 {
+	//Read the 16 bit value in memory from the PSoC
+	int16_t retVal = i2c0.read16(I2C_EXTRA_V_MAX_LBYTE);
+
+	//Convert the value to a float
+	float extraVoltageMax_t = (float) retVal;
+
+	//Convert the float to the appropriate format
+	extraVoltageMax = extraVoltageMax_t/MV_2_V;
 	return extraVoltageMax;
 }
 
