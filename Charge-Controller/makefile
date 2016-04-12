@@ -2,7 +2,7 @@
 all: main
 
 main: main.o 
-	g++-4.9 -std=c++14 main.cpp cccomm.cpp psoccomm.cpp i2c.cpp uart.cpp -o solarPanel
+	g++ -std=c++11 main.cpp cccomm.cpp psoccomm.cpp uart.cpp i2c.cpp -o solarPanel
 	
 clean:
 	rm *o solarPanel

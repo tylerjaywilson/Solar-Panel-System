@@ -935,8 +935,22 @@ void CCComm::uartRead(int readType)
 			case SERIAL_NUM:				
 				//Determine the rx_length of incoming data (total number of bytes)
 				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
-				//Add the rx_length to the total accumulated length
-				tot_length += rx_length;
+				
+				//Error checking
+				if (rx_length < 0)
+				{
+					//An error occured (will occur if there are no bytes)
+				}
+				else if (rx_length == 0)
+				{
+					//No data waiting
+				}
+				else
+				{
+					//Bytes received
+					//Add the rx_length to the total accumulated length.
+					tot_length += rx_length;
+				}
 
 				//If the tot_length == the expected length then parse the data
 				if(tot_length == QID_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
@@ -949,6 +963,8 @@ void CCComm::uartRead(int readType)
 			case RATED_INFO:
 				//Determine the rx_length of incoming data (total number of bytes)
 				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
+				
+				//Error checking
 				if (rx_length < 0)
 				{
 					//An error occured (will occur if there are no bytes)
@@ -960,8 +976,6 @@ void CCComm::uartRead(int readType)
 				else
 				{
 					//Bytes received
-					//rx_buffer[rx_length] = '\0';
-					//printf("%i bytes read : %s\n", rx_length, rx_buffer);
 					//Add the rx_length to the total accumulated length.
 					tot_length += rx_length;
 				}
@@ -977,10 +991,23 @@ void CCComm::uartRead(int readType)
 			case GENERAL_STATUS:
 				//Determine the rx_length of incoming data (total number of bytes)
 				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
-				//printf("RX_Length: %d\n", rx_length);
-				//Add the rx_length to the total accumulated length.
-				tot_length += rx_length;
-				//printf("TOT_Length: %d\n", tot_length);
+				
+				//Error checking
+				if (rx_length < 0)
+				{
+					//An error occured (will occur if there are no bytes)
+				}
+				else if (rx_length == 0)
+				{
+					//No data waiting
+				}
+				else
+				{
+					//Bytes received
+					//Add the rx_length to the total accumulated length.
+					tot_length += rx_length;
+				}
+
 				//If the tot_length == the expected length then parse the data
 				if(tot_length == QPIGS_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
 				{
@@ -993,8 +1020,21 @@ void CCComm::uartRead(int readType)
 				//Determine the rx_length of incoming data (total number of bytes)
 				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
 				
-				//Add the rx_length to the total accumulated length.
-				tot_length += rx_length;
+				//Error checking
+				if (rx_length < 0)
+				{
+					//An error occured (will occur if there are no bytes)
+				}
+				else if (rx_length == 0)
+				{
+					//No data waiting
+				}
+				else
+				{
+					//Bytes received
+					//Add the rx_length to the total accumulated length.
+					tot_length += rx_length;
+				}
 				
 				//If the tot_length == the expected length then parse the data
 				if(tot_length == QPIWS_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
@@ -1008,8 +1048,21 @@ void CCComm::uartRead(int readType)
 				//Determine the rx_length of incoming data (total number of bytes)
 				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
 				
-				//Add the rx_length to the total accumulated length.
-				tot_length += rx_length;
+				//Error checking
+				if (rx_length < 0)
+				{
+					//An error occured (will occur if there are no bytes)
+				}
+				else if (rx_length == 0)
+				{
+					//No data waiting
+				}
+				else
+				{
+					//Bytes received
+					//Add the rx_length to the total accumulated length.
+					tot_length += rx_length;
+				}
 				
 				//If the tot_length == the expected length then parse the data
 				if(tot_length == QBEQI_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
@@ -1023,8 +1076,21 @@ void CCComm::uartRead(int readType)
 				//Determine the rx_length of incoming data (total number of bytes)
 				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
 				
-				//Add the rx_length to the total accumulated length.
-				tot_length += rx_length;
+				//Error checking
+				if (rx_length < 0)
+				{
+					//An error occured (will occur if there are no bytes)
+				}
+				else if (rx_length == 0)
+				{
+					//No data waiting
+				}
+				else
+				{
+					//Bytes received
+					//Add the rx_length to the total accumulated length.
+					tot_length += rx_length;
+				}
 				
 				//If the tot_length == the expected length then parse the data
 				if(tot_length == ACKNACK_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
@@ -1045,7 +1111,7 @@ void CCComm::uartRead(int readType)
 std::string CCComm::getSerialNum()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(SERIAL_NUM);
@@ -1067,7 +1133,7 @@ int CCComm::getMaxOutputPower()
 int CCComm::getNominalBattVoltage()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1078,7 +1144,7 @@ int CCComm::getNominalBattVoltage()
 float CCComm::getNominalChargingCurrent()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1089,7 +1155,7 @@ float CCComm::getNominalChargingCurrent()
 float CCComm::getAbsorptionVoltage()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1100,7 +1166,7 @@ float CCComm::getAbsorptionVoltage()
 float CCComm::getFloatVoltage()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1111,7 +1177,7 @@ float CCComm::getFloatVoltage()
 int CCComm::getBattType()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1122,7 +1188,7 @@ int CCComm::getBattType()
 int CCComm::getRemoteBattVoltageDetect()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1133,7 +1199,7 @@ int CCComm::getRemoteBattVoltageDetect()
 float CCComm::getBattTempCompensation()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1144,7 +1210,7 @@ float CCComm::getBattTempCompensation()
 int CCComm::getRemoteTempDetect()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1155,7 +1221,7 @@ int CCComm::getRemoteTempDetect()
 int CCComm::getBattRatedVoltageSet()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1166,7 +1232,7 @@ int CCComm::getBattRatedVoltageSet()
 int CCComm::getBattInSerial()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1177,7 +1243,7 @@ int CCComm::getBattInSerial()
 float CCComm::getBattLowWarningVoltage()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1188,7 +1254,7 @@ float CCComm::getBattLowWarningVoltage()
 int CCComm::getBattLowShutdownDetect()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1199,7 +1265,7 @@ int CCComm::getBattLowShutdownDetect()
 float CCComm::getPVInputVoltage()
 {
 	bool update = updateParameters();
-	//printf("UPDATE NEEDED: %d\n", update);
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1210,7 +1276,7 @@ float CCComm::getPVInputVoltage()
 float CCComm::getBattVoltage()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1221,7 +1287,7 @@ float CCComm::getBattVoltage()
 float CCComm::getChargingCurrent()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1232,7 +1298,7 @@ float CCComm::getChargingCurrent()
 float CCComm::getChargingCurrent1()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1243,7 +1309,7 @@ float CCComm::getChargingCurrent1()
 float CCComm::getChargingCurrent2()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1254,7 +1320,7 @@ float CCComm::getChargingCurrent2()
 int CCComm::getChargingPower()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1265,7 +1331,7 @@ int CCComm::getChargingPower()
 int CCComm::getUnitTemp()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1276,7 +1342,7 @@ int CCComm::getUnitTemp()
 float CCComm::getRemoteBattVoltage()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1287,7 +1353,7 @@ float CCComm::getRemoteBattVoltage()
 int CCComm::getRemoteBattTemp()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1298,7 +1364,7 @@ int CCComm::getRemoteBattTemp()
 int CCComm::getStatus()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(GENERAL_STATUS);
@@ -1309,7 +1375,7 @@ int CCComm::getStatus()
 int CCComm::getOverChargeCurrent()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1320,7 +1386,7 @@ int CCComm::getOverChargeCurrent()
 int CCComm::getOverTemp()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1331,7 +1397,7 @@ int CCComm::getOverTemp()
 int CCComm::getBattVoltageUnder()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1342,7 +1408,7 @@ int CCComm::getBattVoltageUnder()
 int CCComm::getBattVoltageHigh()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1353,7 +1419,7 @@ int CCComm::getBattVoltageHigh()
 int CCComm::getPVHighLoss()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1364,7 +1430,7 @@ int CCComm::getPVHighLoss()
 int CCComm::getBattTempLow()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1375,7 +1441,7 @@ int CCComm::getBattTempLow()
 int CCComm::getBattTempHigh()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1386,7 +1452,7 @@ int CCComm::getBattTempHigh()
 int CCComm::getPVLowLoss()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1397,7 +1463,7 @@ int CCComm::getPVLowLoss()
 int CCComm::getPVHighDerating()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1408,7 +1474,7 @@ int CCComm::getPVHighDerating()
 int CCComm::getTempHighDerating()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1419,7 +1485,7 @@ int CCComm::getTempHighDerating()
 int CCComm::getBattTempLowAlarm()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1430,7 +1496,7 @@ int CCComm::getBattTempLowAlarm()
 int CCComm::getBattLowWarning()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(WARNING_STATUS);
@@ -1441,7 +1507,7 @@ int CCComm::getBattLowWarning()
 int CCComm::getBattEqualizedEn()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(EQUALIZED_INFO);
@@ -1452,7 +1518,7 @@ int CCComm::getBattEqualizedEn()
 int CCComm::getBattEqualizedTime()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(EQUALIZED_INFO);
@@ -1463,7 +1529,7 @@ int CCComm::getBattEqualizedTime()
 int CCComm::getIntervalTime()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(EQUALIZED_INFO);
@@ -1474,7 +1540,7 @@ int CCComm::getIntervalTime()
 int CCComm::getMaxCurrent()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(EQUALIZED_INFO);
@@ -1485,7 +1551,7 @@ int CCComm::getMaxCurrent()
 int CCComm::getRemainingTime()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(EQUALIZED_INFO);
@@ -1496,7 +1562,7 @@ int CCComm::getRemainingTime()
 float CCComm::getBattEqualizedVoltage()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(EQUALIZED_INFO);
@@ -1507,7 +1573,7 @@ float CCComm::getBattEqualizedVoltage()
 int CCComm::getBattCVChargeTime()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(EQUALIZED_INFO);
@@ -1518,7 +1584,7 @@ int CCComm::getBattCVChargeTime()
 int CCComm::getBattEqualizedTimeout()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(EQUALIZED_INFO);
