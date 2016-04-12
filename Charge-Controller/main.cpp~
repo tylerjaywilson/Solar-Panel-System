@@ -17,10 +17,10 @@ int main (int argc, char* argv[])
 
 	//TEST SECTION
 	CCComm chargeController;
-	PSOCComm psoc;
+	//PSOCComm psoc;
 
-	float val = chargeController.getPVInputVoltage();
-	printf("\nPV: %f\n", val);
+	int val = chargeController.getMaxOutputPower();
+	printf("\nMax O Power:  %d\n", val);
 
 	while(1)
 	{	

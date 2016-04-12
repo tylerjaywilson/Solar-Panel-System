@@ -70,7 +70,7 @@ int UART::init(int uart_filestream_t, int baud_t)
 	tcflush(uart_filestream, TCIFLUSH);
 	tcsetattr(uart_filestream, TCSANOW, &options);
 
-	//printf("UART Filestream: %d\n", uart_filestream);
+	printf("UART Filestream: %d\n", uart_filestream);
 	return uart_filestream;
 }
 

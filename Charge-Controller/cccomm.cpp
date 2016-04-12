@@ -28,6 +28,7 @@
 #define 		NUM_BYTES3 					3
 #define 		NUM_BYTES5 					5
 #define 		NUM_BYTES6 					6
+#define		NUM_BYTES7					7
 #define 		NUM_BYTES8 					8
 #define 		NUM_BYTES9 					9
 #define 		NUM_BYTES10					10
@@ -97,7 +98,7 @@ CCComm::CCComm()
   	uart0.setFilestream(-1);       	//UART filestream for UART communication
   	uart0.setBaud(2400);       		//Default 2400 value;
 	uart0.setFilestream(uart0.init(uart0.getFilestream(), uart0.getBaud()));   //Initialize the UART
-
+	//printf("UART Filestream: %d\n", uart0.getFilestream());
 	/*****************SEND VARIABLES*****************/
 
 	/*******Inquiry parameters*****/
@@ -361,8 +362,8 @@ CCComm::CCComm()
 
 	/* QPIGS - Device general status parameters */
 	pvInputVoltage 			=	 -1.0;
-	battVoltage 			=	 -1.0;
-	chargingCurrent 		=	 -1.0;
+	battVoltage 				=	 -1.0;
+	chargingCurrent 			=	 -1.0;
 	chargingCurrent1 		=	 -1.0;
 	chargingCurrent2 		=	 -1.0;
 	chargingPower 			=	 -1;
@@ -376,12 +377,12 @@ CCComm::CCComm()
   	// The 'd' is to indicate 'default'
 	d_battRatedVoltageSet 		=	 -1;
    	d_maxChargingCurrent 		=	 -1.0;
-    d_battType 					=	 -1;
-   	d_absorbtionVoltage 		=	 -1.0;
+    	d_battType 					=	 -1;
+   	d_absorbtionVoltage 			=	 -1.0;
    	d_floatingVoltage 			=	 -1.0;
-    d_remoteBattVoltageDetect 	=	 -1;
+    	d_remoteBattVoltageDetect 	=	 -1;
    	d_tempCompensationRatio 	=	 -1.0;
-    d_reserved 					=	 -1;
+    	d_reserved 					=	 -1;
 
 	/* QPIWS - Device warning status paramters */
 	overChargeCurrent 		=	 -1;
@@ -398,12 +399,12 @@ CCComm::CCComm()
 	battLowWarning 			=	 -1;
 
 	/* QBEQI - Battery equalized information */
-	battEqualizedEn 		=	 -1;
+	battEqualizedEn 			=	 -1;
 	battEqualizedTime 		=	 -1;
-	intervalTime 			=	 -1;
+	intervalTime 				=	 -1;
 	maxCurrent 				=	 -1;
 	remainingTime 			=	 -1;
-	battEqualizedVoltage 	=	 -1.0;
+	battEqualizedVoltage 		=	 -1.0;
 	battCVChargeTime 		=	 -1;
 	battEqualizedTimeout 	=	 -1;
 
@@ -469,6 +470,10 @@ void CCComm::CRCcalc(char* tx_buff, uint8_t length)
 
     //print the calculated CRC value
     //printf("CRC: %x \n", crc);
+    crc_temp = crc;
+    tx_buff[0] = (char)((crc_temp >> 8) & 0xFF); //Shift by 8 bits to get the first byte of the CRC
+    tx_buff[1] = (char)(crc_temp & 0xFF); //Get the second byte of the CRC;
+    tx_buff[2] = 0xD; //Add the carriage return;
 }
 
 //Parse the Device serial number
@@ -482,7 +487,7 @@ void CCComm::parseQID(unsigned char *rx_buffer_t)
 	char *rx_buff_p = (strtok((char *) (rx_buffer_t+1), " ")); //rx_buffer_t+1 is used to remove the beginning '(' of the received data
 	std::string id(rx_buff_p, rx_buff_p + IDLENGTH);
 	serialNum = id;
-	//printf("\nID STRING: %s\n", rx_buff_p);	
+	printf("\nID STRING: %s\n", rx_buff_p);	
 }
 
 //Parse the device rating information
@@ -852,7 +857,6 @@ void CCComm::uartWrite(int writeType)
 			tx_count = write(uart0.getFilestream(), &s_deviceRatedInfo[0], NUM_BYTES8);
 			break;
 		case GENERAL_STATUS:
-			printf("Writing\n");
 			tx_count = write(uart0.getFilestream(), &s_deviceGeneralStatusInfo[0], NUM_BYTES8);
 			break;
 		case WARNING_STATUS:
@@ -931,10 +935,9 @@ void CCComm::uartRead(int readType)
 			case SERIAL_NUM:				
 				//Determine the rx_length of incoming data (total number of bytes)
 				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
-				
-				//Add the rx_length to the total accumulated length.
+				//Add the rx_length to the total accumulated length
 				tot_length += rx_length;
-				
+
 				//If the tot_length == the expected length then parse the data
 				if(tot_length == QID_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
 				{
@@ -946,10 +949,23 @@ void CCComm::uartRead(int readType)
 			case RATED_INFO:
 				//Determine the rx_length of incoming data (total number of bytes)
 				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
-				
-				//Add the rx_length to the total accumulated length.
-				tot_length += rx_length;
-				
+				if (rx_length < 0)
+				{
+					//An error occured (will occur if there are no bytes)
+				}
+				else if (rx_length == 0)
+				{
+					//No data waiting
+				}
+				else
+				{
+					//Bytes received
+					//rx_buffer[rx_length] = '\0';
+					//printf("%i bytes read : %s\n", rx_length, rx_buffer);
+					//Add the rx_length to the total accumulated length.
+					tot_length += rx_length;
+				}
+								
 				//If the tot_length == the expected length then parse the data
 				if(tot_length == QPIRI_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
 				{
@@ -961,10 +977,10 @@ void CCComm::uartRead(int readType)
 			case GENERAL_STATUS:
 				//Determine the rx_length of incoming data (total number of bytes)
 				rx_length = read(uart0.getFilestream(), (void*)(rx_buffer+tot_length), RX_BUFF_MAX);	//read(filestream, storage buffer, number of bytes to read (max))
-				printf("RX_Length: %d\n", rx_length);
+				//printf("RX_Length: %d\n", rx_length);
 				//Add the rx_length to the total accumulated length.
 				tot_length += rx_length;
-				printf("TOT_Length: %d\n", tot_length);
+				//printf("TOT_Length: %d\n", tot_length);
 				//If the tot_length == the expected length then parse the data
 				if(tot_length == QPIGS_LEN)			//The rx_length expectation (18) is hard-coded based on the expected length of the incoming data
 				{
@@ -1040,7 +1056,7 @@ std::string CCComm::getSerialNum()
 int CCComm::getMaxOutputPower()
 {
 	bool update = updateParameters();
-	
+	update = 1;
 	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
 	{
 		uartWrite(RATED_INFO);
@@ -1183,12 +1199,12 @@ int CCComm::getBattLowShutdownDetect()
 float CCComm::getPVInputVoltage()
 {
 	bool update = updateParameters();
-	printf("UPDATE NEEDED: %d\n", update);
-	//if(update)	//If an update is needed then send the appropriate write command and wait for the receive
-	//{
+	//printf("UPDATE NEEDED: %d\n", update);
+	if(update)	//If an update is needed then send the appropriate write command and wait for the receive
+	{
 		uartWrite(GENERAL_STATUS);
 		uartRead(GENERAL_STATUS);
-	//}	
+	}	
 	return pvInputVoltage;
 }
 float CCComm::getBattVoltage()
