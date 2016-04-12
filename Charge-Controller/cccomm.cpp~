@@ -852,7 +852,7 @@ void CCComm::uartWrite(int writeType)
 			tx_count = write(uart0.getFilestream(), &s_deviceRatedInfo[0], NUM_BYTES8);
 			break;
 		case GENERAL_STATUS:
-			printf("Writing\n");
+			printf("HERE\n");
 			tx_count = write(uart0.getFilestream(), &s_deviceGeneralStatusInfo[0], NUM_BYTES8);
 			break;
 		case WARNING_STATUS:
